@@ -10,8 +10,11 @@ Licensed under the MIT License. See License.txt in the project root for license 
 .DESCRIPTION
     Scale out a scale unit.
 
+.PARAMETER AwaitStorageConvergence
+    The list of nodes.
+
 .PARAMETER NodeList
-    A list of input data that allows for adding a set of scale unit nodes.
+    The list of nodes.
 
 .PARAMETER ResourceGroupName
     Name of the resource group.
@@ -27,8 +30,12 @@ function Add-AzsScaleUnitNode
 {
     [CmdletBinding(DefaultParameterSetName='ScaleUnits_ScaleOut')]
     param(    
-        [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnits_ScaleOut')]
-        [Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleOutScaleUnitParametersList]
+        [Parameter(Mandatory = $false, ParameterSetName = 'ScaleUnits_ScaleOut')]
+        [switch]
+        $AwaitStorageConvergence,
+    
+        [Parameter(Mandatory = $false, ParameterSetName = 'ScaleUnits_ScaleOut')]
+        [Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleOutScaleUnitParameters[]]
         $NodeList,
     
         [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnits_ScaleOut')]
@@ -77,6 +84,17 @@ function Add-AzsScaleUnitNode
     }
 
     $FabricAdminClient = New-ServiceClient @NewServiceClient_params
+
+        
+    $flattenedParameters = @('NodeList', 'AwaitStorageConvergence')
+    $utilityCmdParams = @{}
+    $flattenedParameters | ForEach-Object {
+        if($PSBoundParameters.ContainsKey($_)) {
+            $utilityCmdParams[$_] = $PSBoundParameters[$_]
+        }
+    }
+    $NodeList = New-ScaleOutScaleUnitParametersListObject @utilityCmdParams
+
 
 
     if ('ScaleUnits_ScaleOut' -eq $PsCmdlet.ParameterSetName) {

@@ -10,11 +10,26 @@ Licensed under the MIT License. See License.txt in the project root for license 
 .DESCRIPTION
     Creates or updates a fabric location.  This will fail if called outside deployment.
 
+.PARAMETER Id
+    URI of the resource.
+
+.PARAMETER Type
+    Type of resource.
+
+.PARAMETER Tags
+    List of key value pairs.
+
+.PARAMETER Name
+    Name of the resource.
+
 .PARAMETER ResourceGroupName
     Name of the resource group.
 
-.PARAMETER FabricObject
-    Fabric Location object.
+.PARAMETER Location
+    Region Location of resource.
+
+.PARAMETER Properties
+    Empty object.
 
 #>
 function New-AzsInfrastructureLocation
@@ -22,13 +37,33 @@ function New-AzsInfrastructureLocation
     [OutputType([Microsoft.AzureStack.Management.Fabric.Admin.Models.FabricLocation])]
     [CmdletBinding(DefaultParameterSetName='FabricLocations_Create')]
     param(    
+        [Parameter(Mandatory = $false, ParameterSetName = 'FabricLocations_Create')]
+        [string]
+        $Id,
+    
+        [Parameter(Mandatory = $false, ParameterSetName = 'FabricLocations_Create')]
+        [string]
+        $Type,
+    
+        [Parameter(Mandatory = $false, ParameterSetName = 'FabricLocations_Create')]
+        [System.Collections.Generic.Dictionary[[string],[string]]]
+        $Tags,
+    
+        [Parameter(Mandatory = $false, ParameterSetName = 'FabricLocations_Create')]
+        [string]
+        $Name,
+    
         [Parameter(Mandatory = $true, ParameterSetName = 'FabricLocations_Create')]
         [System.String]
         $ResourceGroupName,
     
-        [Parameter(Mandatory = $true, ParameterSetName = 'FabricLocations_Create')]
-        [Microsoft.AzureStack.Management.Fabric.Admin.Models.FabricLocation]
-        $FabricObject
+        [Parameter(Mandatory = $false, ParameterSetName = 'FabricLocations_Create')]
+        [string]
+        $Location,
+    
+        [Parameter(Mandatory = $false, ParameterSetName = 'FabricLocations_Create')]
+        [object]
+        $Properties
     )
 
     Begin 
@@ -60,6 +95,17 @@ function New-AzsInfrastructureLocation
     }
 
     $FabricAdminClient = New-ServiceClient @NewServiceClient_params
+
+        
+    $flattenedParameters = @('Id', 'Type', 'Tags', 'Name', 'Location', 'Properties')
+    $utilityCmdParams = @{}
+    $flattenedParameters | ForEach-Object {
+        if($PSBoundParameters.ContainsKey($_)) {
+            $utilityCmdParams[$_] = $PSBoundParameters[$_]
+        }
+    }
+    $FabricObject = New-FabricLocationObject @utilityCmdParams
+
 
 
     if ('FabricLocations_Create' -eq $PsCmdlet.ParameterSetName) {

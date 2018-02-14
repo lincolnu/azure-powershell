@@ -2902,7 +2902,7 @@
       "x-ps-parameter-info": {
         "name": "FabricObject",
         "description": "Fabric Location object.",
-        "flatten": false
+        "flatten": true
       }
     },
     "ScaleUnitParameter": {
@@ -2958,7 +2958,7 @@
       "x-ps-parameter-info": {
         "name": "NodeList",
         "description": "A list of input data that allows for adding a set of scale unit nodes.",
-        "flatten": false
+        "flatten": true
       }
     },
     "SLBMuxInstanceParameter": {

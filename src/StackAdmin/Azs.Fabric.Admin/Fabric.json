@@ -5356,7 +5356,7 @@
       "description": "Input data that allows for adding a scale unit node.",
       "type": "object",
       "properties": {
-        "bmcIv4Address": {
+        "bmcIPv4Address": {
           "x-ms-client-name": "BMCIPv4Address",
           "description": "Bmc address of the physical machine.",
           "type": "string"

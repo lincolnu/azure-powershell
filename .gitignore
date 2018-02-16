@@ -210,3 +210,5 @@ FakesAssemblies/
 *.GhostDoc.xml
 pingme.txt
 groupMapping*.json
+tools/LocalFeed/Microsoft.AzureStack.Management.InfrastructureInsights.Admin.0.1.0-preview.symbols.nupkg
+*.nupkg

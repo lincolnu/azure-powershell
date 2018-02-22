@@ -48,7 +48,7 @@ $global:TestName = ""
 InModuleScope Azs.Fabric.Admin {
 
 	Describe "EdgeGateways" -Tags @('EdgeGateway', 'Azs.Fabric.Admin') {
-	
+
 		BeforeEach  {
 
 			. $PSScriptRoot\Common.ps1
@@ -66,19 +66,19 @@ InModuleScope Azs.Fabric.Admin {
 				$EdgeGateway.Location | Should Not Be $null
 				$EdgeGateway.Name     | Should Not Be $null
 				$EdgeGateway.Type     | Should Not Be $null
-				
+
 				# Edge Gateway
 				$EdgeGateway.NumberOfConnections  | Should Not Be $null
 				$EdgeGateway.State                | Should Not Be $null
 				$EdgeGateway.TotalCapacity        | Should Not Be $null
-			
+
 			}
 
 			function AssertEdgeGatewaysAreSame {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -106,7 +106,7 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestListEdgeGateways" {
 			$global:TestName = 'TestListEdgeGateways'
 
-			$gateways = Get-AzsEdgeGateway -Location $Location
+			$gateways = Get-AzsEdgeGateway -ResourceGroup $ResourceGroup -Location $Location
 			$gateways | Should Not Be $null
 			foreach($gateway in $gateways) {
 				ValidateEdgeGateway -EdgeGateway $gateway
@@ -116,9 +116,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetEdgeGateway" {
 			$global:TestName = 'TestGetEdgeGateway'
 
-			$gateways = Get-AzsEdgeGateway -Location $Location
+			$gateways = Get-AzsEdgeGateway -ResourceGroup $ResourceGroup -Location $Location
 			foreach($gateway in $gateways) {
-				$retrieved = Get-AzsEdgeGateway -Location $Location -EdgeGateway $gateway.Name
+				$retrieved = Get-AzsEdgeGateway -ResourceGroup $ResourceGroup -Location $Location -EdgeGateway $gateway.Name
 				AssertEdgeGatewaysAreSame -Expected $gateway -Found $retrieved
 				break
 			}
@@ -127,9 +127,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllEdgeGateways" {
 			$global:TestName = 'TestGetAllEdgeGateways'
 
-			$gateways = Get-AzsEdgeGateway -Location $Location
+			$gateways = Get-AzsEdgeGateway -ResourceGroup $ResourceGroup -Location $Location
 			foreach($gateway in $gateways) {
-				$retrieved = Get-AzsEdgeGateway -Location $Location -EdgeGateway $gateway.Name
+				$retrieved = Get-AzsEdgeGateway -ResourceGroup $ResourceGroup -Location $Location -EdgeGateway $gateway.Name
 				AssertEdgeGatewaysAreSame -Expected $gateway -Found $retrieved
 			}
 		}

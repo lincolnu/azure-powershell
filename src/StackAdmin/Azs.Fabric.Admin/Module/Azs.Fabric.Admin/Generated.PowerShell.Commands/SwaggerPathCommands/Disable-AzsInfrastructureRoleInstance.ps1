@@ -8,52 +8,38 @@ Licensed under the MIT License. See License.txt in the project root for license 
 
 
 .DESCRIPTION
-    Add a new scale unit.
+    Shut down an infrastructure role instance.
 
-.PARAMETER AwaitStorageConvergence
-    Flag indicates if the operation should wait for storage to converge before returning.
-
-.PARAMETER NodeList
-    List of nodes in the scale unit.
+.PARAMETER InfraRoleInstance
+    Name of an infrastructure role instance.
 
 .PARAMETER ResourceGroupName
     Name of the resource group.
-
-.PARAMETER ScaleUnit
-    Name of the scale units.
 
 .PARAMETER Location
     Location of the resource.
 
 #>
-function Add-AzsScaleUnitNode {
-    [CmdletBinding(DefaultParameterSetName = 'ScaleUnits_ScaleOut')]
+function Disable-AzsInfrastructureRoleInstance {
+    [CmdletBinding(DefaultParameterSetName = 'InfraRoleInstances_Shutdown')]
     param(
-        [Parameter(Mandatory = $false, ParameterSetName = 'ScaleUnits_ScaleOut')]
-        [switch]
-        $AwaitStorageConvergence,
+        [Parameter(Mandatory = $true, ParameterSetName = 'InfraRoleInstances_Shutdown')]
+        [System.String]
+        $InfraRoleInstance,
 
-        [Parameter(Mandatory = $false, ParameterSetName = 'ScaleUnits_ScaleOut')]
-        [Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleOutScaleUnitParameters[]]
-        $NodeList,
-
-        [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnits_ScaleOut')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'InfraRoleInstances_Shutdown')]
         [System.String]
         $ResourceGroupName,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnits_ScaleOut')]
-        [System.String]
-        $ScaleUnit,
-
-        [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnits_ScaleOut')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'InfraRoleInstances_Shutdown')]
         [System.String]
         $Location,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'InputObject_ScaleUnits')]
-        [Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleUnit]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'InputObject_InfraRoleInstances_Update')]
+        [Microsoft.AzureStack.Management.Fabric.Admin.Models.InfraRoleInstance]
         $InputObject,
 
-        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'ResourceId_ScaleUnits')]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'ResourceId_InfraRoleInstances_Update')]
         [System.String]
         $ResourceId,
 
@@ -91,38 +77,31 @@ function Add-AzsScaleUnitNode {
 
         $FabricAdminClient = New-ServiceClient @NewServiceClient_params
 
-
-        $flattenedParameters = @('NodeList', 'AwaitStorageConvergence')
-        $utilityCmdParams = @{}
-        $flattenedParameters | ForEach-Object {
-            if ($PSBoundParameters.ContainsKey($_)) {
-                $utilityCmdParams[$_] = $PSBoundParameters[$_]
-            }
-        }
-
-        $NodeList = New-ScaleOutScaleUnitParametersListObject @utilityCmdParams
-
-        if ('InputObject_ScaleUnits' -eq $PsCmdlet.ParameterSetName -or 'ResourceId_ScaleUnits' -eq $PsCmdlet.ParameterSetName) {
+        if ('InputObject_InfraRoleInstances_Disable' -eq $PsCmdlet.ParameterSetName -or 'ResourceId_InfraRoleInstances_Disable' -eq $PsCmdlet.ParameterSetName)
+        {
             $GetArmResourceIdParameterValue_params = @{
-                IdTemplate = '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/scaleUnits/{scaleUnit}'
+                IdTemplate = '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoleInstances/{infraRoleInstance}'
             }
 
-            if ('ResourceId_ScaleUnits' -eq $PsCmdlet.ParameterSetName) {
+            if ('ResourceId_InfraRoleInstances_Get' -eq $PsCmdlet.ParameterSetName)
+            {
                 $GetArmResourceIdParameterValue_params['Id'] = $ResourceId
             }
-            else {
+            else
+            {
                 $GetArmResourceIdParameterValue_params['Id'] = $InputObject.Id
             }
             $ArmResourceIdParameterValues = Get-ArmResourceIdParameterValue @GetArmResourceIdParameterValue_params
 
-            $resourceGroupName = $ArmResourceIdParameterValues['resourceGroupName']
-            $location = $ArmResourceIdParameterValues['location']
-            $scaleUnit = $ArmResourceIdParameterValues['scaleUnit']
+            $ResourceGroupName = $ArmResourceIdParameterValues['resourceGroupName']
+            $Location = $ArmResourceIdParameterValues['location']
+            $InfraRoleInstance = $ArmResourceIdParameterValues['infraRoleInstance']
         }
 
-        if ('ScaleUnits_ScaleOut' -eq $PsCmdlet.ParameterSetName) {
-            Write-Verbose -Message 'Performing operation ScaleOutWithHttpMessagesAsync on $FabricAdminClient.'
-            $TaskResult = $FabricAdminClient.ScaleUnits.ScaleOutWithHttpMessagesAsync($ResourceGroupName, $Location, $ScaleUnit, $NodeList)
+
+        if ('InfraRoleInstances_Shutdown' -eq $PsCmdlet.ParameterSetName -or 'InputObject_InfraRoleInstances_Disable' -eq $PsCmdlet.ParameterSetName -or 'ResourceId_InfraRoleInstances_Disable' -eq $PsCmdlet.ParameterSetName) {
+            Write-Verbose -Message 'Performing operation ShutdownWithHttpMessagesAsync on $FabricAdminClient.'
+            $TaskResult = $FabricAdminClient.InfraRoleInstances.ShutdownWithHttpMessagesAsync($ResourceGroupName, $Location, $InfraRoleInstance)
         }
         else {
             Write-Verbose -Message 'Failed to map parameter set to operation method.'

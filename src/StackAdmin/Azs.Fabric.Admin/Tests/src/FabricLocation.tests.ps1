@@ -50,7 +50,7 @@ InModuleScope Azs.Fabric.Admin {
 	Describe "FabricLocations" -Tags @('FabricLocation', 'Azs.Fabric.Admin') {
 
 		BeforeEach  {
-			
+
 			. $PSScriptRoot\Common.ps1
 
 			function ValidateFabricLocation {
@@ -58,7 +58,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$FabricLocation
 				)
-			
+
 				$FabricLocation          | Should Not Be $null
 
 				# Resource
@@ -73,7 +73,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -91,22 +91,22 @@ InModuleScope Azs.Fabric.Admin {
 				}
 			}
 		}
-		
+
 		It "TestListFabricLocations" {
 			$global:TestName = 'TestListFabricLocations'
-			$fabricLocations = Get-AzsInfrastructureLocation -Location $Location
+			$fabricLocations = Get-AzsInfrastructureLocation -ResourceGroup $ResourceGroup
 			$fabricLocations | Should Not Be $null
 			foreach($fabricLocation in $fabricLocations) {
 				ValidateFabricLocation -FabricLocation $fabricLocation
 			}
 	    }
-	
+
 		It "TestGetFabricLocation" {
             $global:TestName = 'TestGetFabricLocation'
 
-			$fabricLocations = Get-AzsInfrastructureLocation -Location $Location
+			$fabricLocations = Get-AzsInfrastructureLocation -ResourceGroup $ResourceGroup
 			foreach($fabricLocation in $fabricLocations) {
-				$retrieved = Get-AzsInfrastructureLocation -Location $Location -FabricLocation $fabricLocation.Name
+				$retrieved = Get-AzsInfrastructureLocation -ResourceGroup $ResourceGroup -Location $fabricLocation.Name
 				AssertFabricLocationsAreSame -Expected $fabricLocation -Found $retrieved
 				break
 			}
@@ -115,9 +115,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllFabricLocations" {
 			$global:TestName = 'TestGetAllFabricLocations'
 
-			$fabricLocations = Get-AzsInfrastructureLocation -Location $Location
+			$fabricLocations = Get-AzsInfrastructureLocation -ResourceGroup $ResourceGroup
 			foreach($fabricLocation in $fabricLocations) {
-				$retrieved = Get-AzsInfrastructureLocation -Location $Location -FabricLocation $fabricLocation.Name
+				$retrieved = Get-AzsInfrastructureLocation -ResourceGroup $ResourceGroup -Location $fabricLocation.Name
 				AssertFabricLocationsAreSame -Expected $fabricLocation -Found $retrieved
 			}
 		}

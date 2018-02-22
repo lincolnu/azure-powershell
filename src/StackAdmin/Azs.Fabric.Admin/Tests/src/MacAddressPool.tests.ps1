@@ -50,7 +50,7 @@ InModuleScope Azs.Fabric.Admin {
 	Describe "MacAddressPools" -Tags @('MacAddressPool', 'Azs.Fabric.Admin') {
 
 		BeforeEach  {
-			
+
 			. $PSScriptRoot\Common.ps1
 
 			function ValidateMacAddressPool {
@@ -58,7 +58,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$MacAddressPool
 				)
-			
+
 				$MacAddressPool          | Should Not Be $null
 
 				# Resource
@@ -78,7 +78,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -92,7 +92,7 @@ InModuleScope Azs.Fabric.Admin {
 					$Found.Location         | Should Be $Expected.Location
 					$Found.Name             | Should Be $Expected.Name
 					$Found.Type             | Should Be $Expected.Type
-					
+
 					# Mac Address Pool
 					$Found.NumberOfAllocatedMacAddresses  | Should Be $Expected.NumberOfAllocatedMacAddresses
 					$Found.NumberOfAvailableMacAddresses  | Should Be $Expected.NumberOfAvailableMacAddresses
@@ -108,24 +108,24 @@ InModuleScope Azs.Fabric.Admin {
 				}
 			}
 		}
-	
-		
+
+
 		It "TestListMacAddressPools" {
 			$global:TestName = 'TestListMacAddressPools'
-			$macAddressPools = Get-AzsMacAddressPool -Location $Location
+			$macAddressPools = Get-AzsMacAddressPool -ResourceGroup $ResourceGroup -Location $Location
 			$macAddressPools | Should Not Be $null
 			foreach($macAddressPool in $macAddressPools) {
 				ValidateMacAddressPool -MacAddressPool $macAddressPool
 			}
 	    }
-	
-	
+
+
 		It "TestGetMacAddressPool" {
             $global:TestName = 'TestGetMacAddressPool'
 
-			$macAddressPools = Get-AzsMacAddressPool -Location $Location
+			$macAddressPools = Get-AzsMacAddressPool -ResourceGroup $ResourceGroup -Location $Location
 			foreach($macAddressPool in $macAddressPools) {
-				$retrieved = Get-AzsMacAddressPool -Location $Location -MacAddressPool $macAddressPool.Name
+				$retrieved = Get-AzsMacAddressPool -ResourceGroup $ResourceGroup -Location $Location -MacAddressPool $macAddressPool.Name
 				AssertMacAddressPoolsAreSame -Expected $macAddressPool -Found $retrieved
 				break
 			}
@@ -134,9 +134,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllMacAddressPools" {
 			$global:TestName = 'TestGetAllMacAddressPools'
 
-			$macAddressPools = Get-AzsMacAddressPool -Location $Location
+			$macAddressPools = Get-AzsMacAddressPool -ResourceGroup $ResourceGroup -Location $Location
 			foreach($macAddressPool in $macAddressPools) {
-				$retrieved = Get-AzsMacAddressPool -Location $Location -MacAddressPool $macAddressPool.Name
+				$retrieved = Get-AzsMacAddressPool -ResourceGroup $ResourceGroup -Location $Location -MacAddressPool $macAddressPool.Name
 				AssertMacAddressPoolsAreSame -Expected $macAddressPool -Found $retrieved
 			}
 		}

@@ -13,7 +13,7 @@
     "/providers/Microsoft.Fabric.Admin/operations": {
       "get": {
         "x-ms-examples": {
-          "Returns the list of support rest operations.": {
+          "Returns the list of support REST operations.": {
             "parameters": {
               "api-version": "2016-05-01"
             },
@@ -132,7 +132,7 @@
             }
           }
         },
-        "description": "Returns the list of support rest operations.",
+        "description": "Returns the list of support REST operations.",
         "tags": [
           "Fabric"
         ],
@@ -176,7 +176,7 @@
               "200": {
                 "body": {
                   "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/edgeGateways/AzS-Gwy01",
-                  "name": "AzS-Gwy01",
+                  "name": "local/AzS-Gwy01",
                   "type": "Microsoft.Fabric.Admin/fabricLocations/edgeGateways",
                   "location": "local",
                   "tags": {},
@@ -249,7 +249,7 @@
                   "value": [
                     {
                       "id": "/subscriptions/20ff7fc3-e762-44dd-bd96-b71116dcdc23/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/edgeGateways/AzS-Gwy01",
-                      "name": "AzS-Gwy01",
+                      "name": "local/AzS-Gwy01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/edgeGateways",
                       "location": "local",
                       "tags": {},
@@ -315,7 +315,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/edgeGatewayPools/{edgeGatewayPool}": {
       "get": {
         "x-ms-examples": {
-          "Returns the requested edge gateway pool.": {
+          "Returns the requested edge gateway pool object.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -338,7 +338,7 @@
                     "gatewayCapacityKiloBitsPerSecond": 100000000,
                     "publicIpAddress": "00000000-5555-0000-0001-000000000000",
                     "edgeGateways": [
-                      "AzS-Gwy01"
+                      "local/AzS-Gwy01"
                     ]
                   }
                 }
@@ -350,7 +350,7 @@
         "tags": [
           "EdgeGatewayPools"
         ],
-        "description": "Returns the requested edge gateway pool.",
+        "description": "Returns the requested edge gateway pool object.",
         "operationId": "EdgeGatewayPools_Get",
         "parameters": [
           {
@@ -391,7 +391,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/edgeGatewayPools": {
       "get": {
         "x-ms-examples": {
-          "Returns a list of all edge gateway pools at a location.": {
+          "Returns a list of all edge gateway pool objects at a location.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -415,7 +415,7 @@
                         "gatewayCapacityKiloBitsPerSecond": 100000000,
                         "publicIpAddress": "00000000-5555-0000-0001-000000000000",
                         "edgeGateways": [
-                          "AzS-Gwy01"
+                          "local/AzS-Gwy01"
                         ]
                       }
                     }
@@ -429,7 +429,7 @@
         "tags": [
           "EdgeGatewayPools"
         ],
-        "description": "Returns a list of all edge gateway pools at a location.",
+        "description": "Returns a list of all edge gateway pool objects at a location.",
         "operationId": "EdgeGatewayPools_List",
         "parameters": [
           {
@@ -602,9 +602,24 @@
       "put": {
         "x-ms-examples": {
           "Creates or updates a fabric location.  This will fail if called outside deployment.": {
-            "parameters": {},
+            "parameters": {
+              "api-version": "2016-05-01",
+              "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
+              "resourceGroupName": "System.local",
+              "fabricLocation": "local",
+              "fabricObject": {}
+            },
             "responses": {
-              "200": {}
+              "200": {
+                "body": {
+                  "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local",
+                  "name": "local",
+                  "type": "Microsoft.Fabric.Admin/fabricLocations",
+                  "location": "local",
+                  "tags": {},
+                  "properties": {}
+                }
+              }
             }
           }
         },
@@ -848,7 +863,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoles/{infraRole}": {
       "get": {
         "x-ms-examples": {
-          "Returns the requested infra role description.": {
+          "Returns the requested infrastructure role description.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -880,7 +895,7 @@
         "tags": [
           "InfraRoles"
         ],
-        "description": "Returns the requested infra role description.",
+        "description": "Returns the requested infrastructure role description.",
         "operationId": "InfraRoles_Get",
         "parameters": [
           {
@@ -921,7 +936,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoles": {
       "get": {
         "x-ms-examples": {
-          "Returns a list of all infra roles at a location.": {
+          "Returns a list of all infrastructure roles at a location.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -1600,7 +1615,7 @@
         "tags": [
           "InfraRoles"
         ],
-        "description": "Returns a list of all infra roles at a location.",
+        "description": "Returns a list of all infrastructure roles at a location.",
         "operationId": "InfraRoles_List",
         "parameters": [
           {
@@ -1645,7 +1660,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoleInstances/{infraRoleInstance}/PowerOff": {
       "post": {
         "x-ms-examples": {
-          "Power off an infra role instance": {
+          "Power off an infrastructure role instance": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -1662,7 +1677,7 @@
         "tags": [
           "InfraRoleInstances"
         ],
-        "description": "Power off an infra role instance.",
+        "description": "Power off an infrastructure role instance.",
         "operationId": "InfraRoleInstances_PowerOff",
         "parameters": [
           {
@@ -1701,7 +1716,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoleInstances/{infraRoleInstance}/PowerOn": {
       "post": {
         "x-ms-examples": {
-          "Power on an infra role instance": {
+          "Power on an infrastructure role instance": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -1718,7 +1733,7 @@
         "tags": [
           "InfraRoleInstances"
         ],
-        "description": "Power on an infra role instance.",
+        "description": "Power on an infrastructure role instance.",
         "operationId": "InfraRoleInstances_PowerOn",
         "parameters": [
           {
@@ -1757,7 +1772,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoleInstances/{infraRoleInstance}/Shutdown": {
       "post": {
         "x-ms-examples": {
-          "Shutdown an infra role instance": {
+          "Shutdown an infrastructure role instance": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -1774,7 +1789,7 @@
         "tags": [
           "InfraRoleInstances"
         ],
-        "description": "Shut down an infra role instance.",
+        "description": "Shut down an infrastructure role instance.",
         "operationId": "InfraRoleInstances_Shutdown",
         "parameters": [
           {
@@ -1813,7 +1828,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoleInstances/{infraRoleInstance}/Reboot": {
       "post": {
         "x-ms-examples": {
-          "Reboot an infra role instance": {
+          "Reboot an infrastructure role instance": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -1830,7 +1845,7 @@
         "tags": [
           "InfraRoleInstances"
         ],
-        "description": "Reboot an infra role instance.",
+        "description": "Reboot an infrastructure role instance.",
         "operationId": "InfraRoleInstances_Reboot",
         "parameters": [
           {
@@ -1869,7 +1884,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoleInstances/{infraRoleInstance}": {
       "get": {
         "x-ms-examples": {
-          "Return the requested infra role instance.": {
+          "Return the requested infrastructure role instance.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -1881,7 +1896,7 @@
               "200": {
                 "body": {
                   "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/infraRoleInstances/AzS-BGPNAT01",
-                  "name": "AzS-BGPNAT01",
+                  "name": "local/AzS-BGPNAT01",
                   "type": "Microsoft.Fabric.Admin/fabricLocations/infraRoleInstances",
                   "location": "local",
                   "tags": {},
@@ -1903,7 +1918,7 @@
         "tags": [
           "InfraRoleInstances"
         ],
-        "description": "Return the requested infra role instance.",
+        "description": "Return the requested infrastructure role instance.",
         "operationId": "InfraRoleInstances_Get",
         "parameters": [
           {
@@ -1944,7 +1959,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoleInstances": {
       "get": {
         "x-ms-examples": {
-          "Returns a list of all infra role instances at a location.": {
+          "Returns a list of all infrastructure role instances at a location.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -1957,7 +1972,7 @@
                   "value": [
                     {
                       "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/infraRoleInstances/AzS-ACS01",
-                      "name": "AzS-ACS01",
+                      "name": "local/AzS-ACS01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/infraRoleInstances",
                       "location": "local",
                       "tags": {},
@@ -1973,7 +1988,7 @@
                     },
                     {
                       "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/infraRoleInstances/AzS-ADFS01",
-                      "name": "AzS-ADFS01",
+                      "name": "local/AzS-ADFS01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/infraRoleInstances",
                       "location": "local",
                       "tags": {},
@@ -1989,7 +2004,7 @@
                     },
                     {
                       "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/infraRoleInstances/AzS-BGPNAT01",
-                      "name": "AzS-BGPNAT01",
+                      "name": "local/AzS-BGPNAT01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/infraRoleInstances",
                       "location": "local",
                       "tags": {},
@@ -2005,7 +2020,7 @@
                     },
                     {
                       "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/infraRoleInstances/AzS-CA01",
-                      "name": "AzS-CA01",
+                      "name": "local/AzS-CA01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/infraRoleInstances",
                       "location": "local",
                       "tags": {},
@@ -2021,7 +2036,7 @@
                     },
                     {
                       "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/infraRoleInstances/AzS-Gwy01",
-                      "name": "AzS-Gwy01",
+                      "name": "local/AzS-Gwy01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/infraRoleInstances",
                       "location": "local",
                       "tags": {},
@@ -2037,7 +2052,7 @@
                     },
                     {
                       "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/infraRoleInstances/AzS-NC01",
-                      "name": "AzS-NC01",
+                      "name": "local/AzS-NC01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/infraRoleInstances",
                       "location": "local",
                       "tags": {},
@@ -2053,7 +2068,7 @@
                     },
                     {
                       "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/infraRoleInstances/AzS-SLB01",
-                      "name": "AzS-SLB01",
+                      "name": "local/AzS-SLB01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/infraRoleInstances",
                       "location": "local",
                       "tags": {},
@@ -2069,7 +2084,7 @@
                     },
                     {
                       "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/infraRoleInstances/AzS-Sql01",
-                      "name": "AzS-Sql01",
+                      "name": "local/AzS-Sql01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/infraRoleInstances",
                       "location": "local",
                       "tags": {},
@@ -2085,7 +2100,7 @@
                     },
                     {
                       "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/infraRoleInstances/AzS-WAS01",
-                      "name": "AzS-WAS01",
+                      "name": "local/AzS-WAS01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/infraRoleInstances",
                       "location": "local",
                       "tags": {},
@@ -2101,7 +2116,7 @@
                     },
                     {
                       "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/infraRoleInstances/AzS-WASP01",
-                      "name": "AzS-WASP01",
+                      "name": "local/AzS-WASP01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/infraRoleInstances",
                       "location": "local",
                       "tags": {},
@@ -2117,7 +2132,7 @@
                     },
                     {
                       "id": "/subscriptions/23a94a7f-64b3-42d8-807c-733284339015/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/infraRoleInstances/AzS-Xrp01",
-                      "name": "AzS-Xrp01",
+                      "name": "local/AzS-Xrp01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/infraRoleInstances",
                       "location": "local",
                       "tags": {},
@@ -2141,7 +2156,7 @@
         "tags": [
           "InfraRoleInstances"
         ],
-        "description": "Returns a list of all infra role instances at a location.",
+        "description": "Returns a list of all infrastructure role instances at a location.",
         "operationId": "InfraRoleInstances_List",
         "parameters": [
           {
@@ -2186,7 +2201,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/ipPools/{ipPool}": {
       "get": {
         "x-ms-examples": {
-          "Return the requested Ip pool.": {
+          "Return the requested IP pool.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -2218,7 +2233,7 @@
         "tags": [
           "IpPools"
         ],
-        "description": "Return the requested Ip pool.",
+        "description": "Return the requested IP pool.",
         "operationId": "IpPools_Get",
         "parameters": [
           {
@@ -2257,7 +2272,7 @@
       },
       "put": {
         "x-ms-examples": {
-          "Create an Ip pool.  Once created an Ip pool cannot be deleted.": {
+          "Create an IP pool.  Once created an IP pool cannot be deleted.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -2272,7 +2287,13 @@
               }
             },
             "responses": {
-              "200": {},
+              "200": {
+                "body": {
+                  "properties": {
+                    "provisioningState": "Succeeded"
+                  }
+                }
+              },
               "202": {}
             }
           }
@@ -2280,7 +2301,7 @@
         "tags": [
           "IpPools"
         ],
-        "description": "Create an Ip pool.  Once created an Ip pool cannot be deleted.",
+        "description": "Create an IP pool.  Once created an IP pool cannot be deleted.",
         "operationId": "IpPools_CreateOrUpdate",
         "parameters": [
           {
@@ -2325,7 +2346,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/ipPools": {
       "get": {
         "x-ms-examples": {
-          "Returns a list of all ip pools at a certain location.": {
+          "Returns a list of all IP pools at a certain location.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -2472,7 +2493,7 @@
         "tags": [
           "IpPools"
         ],
-        "description": "Returns a list of all ip pools at a certain location.",
+        "description": "Returns a list of all IP pools at a certain location.",
         "operationId": "IpPools_List",
         "parameters": [
           {
@@ -3439,7 +3460,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/macAddressPools": {
       "get": {
         "x-ms-examples": {
-          "Returns all mac address pools": {
+          "Returns all MAC address pools": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -3518,7 +3539,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/scaleUnits/{scaleUnit}/ScaleOut": {
       "post": {
         "x-ms-examples": {
-          "Scale out a scale unit": {
+          "Add a new scale unit.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -3539,7 +3560,7 @@
         "tags": [
           "ScaleUnits"
         ],
-        "description": "Scale out a scale unit.",
+        "description": "Add a new scale unit.",
         "operationId": "ScaleUnits_ScaleOut",
         "parameters": [
           {
@@ -3746,7 +3767,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/scaleUnitNodes/{scaleUnitNode}/Shutdown": {
       "post": {
         "x-ms-examples": {
-          "Shutdown a scale unit node": {
+          "Shutdown a scale unit node.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -3802,7 +3823,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/scaleUnitNodes/{scaleUnitNode}/PowerOff": {
       "post": {
         "x-ms-examples": {
-          "Power off a scale unit node": {
+          "Power off a scale unit node.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -3858,7 +3879,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/scaleUnitNodes/{scaleUnitNode}/PowerOn": {
       "post": {
         "x-ms-examples": {
-          "Power on a scale unit node": {
+          "Power on a scale unit node.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -3914,7 +3935,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/scaleUnitNodes/{scaleUnitNode}/StartMaintenanceMode": {
       "post": {
         "x-ms-examples": {
-          "Start maintenance mode on a scale unit node": {
+          "Start maintenance mode on a scale unit node.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -3970,7 +3991,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/scaleUnitNodes/{scaleUnitNode}/StopMaintenanceMode": {
       "post": {
         "x-ms-examples": {
-          "Stop maintenance mode on a scale unit node": {
+          "Stop maintenance mode on a scale unit node.": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -4117,7 +4138,6 @@
                     "scaleUnitName": "S-Cluster",
                     "scaleUnitUri": "/fabricLocations/local/scaleUnits/S-Cluster",
                     "canPowerOff": false,
-                    "macAddress": "24-8A-07-89-15-62",
                     "capacity": {
                       "memoryGB": 255.875,
                       "cores": 56
@@ -4196,7 +4216,6 @@
                         "scaleUnitName": "S-Cluster",
                         "scaleUnitUri": "/fabricLocations/local/scaleUnits/S-Cluster",
                         "canPowerOff": false,
-                        "macAddress": "24-8A-07-89-15-62",
                         "capacity": {
                           "memoryGB": 255.875,
                           "cores": 56
@@ -4258,7 +4277,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/slbMuxInstances/{slbMuxInstance}": {
       "get": {
         "x-ms-examples": {
-          "Returns the requested Software Load Balancer Mux Instance": {
+          "Returns the requested sftware load balancer MUX Instance": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -4270,7 +4289,7 @@
               "200": {
                 "body": {
                   "id": "/subscriptions/36e98cad-c8a5-4580-bef7-af878a237908/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/slbMuxInstances/AzS-SLB01",
-                  "name": "AzS-SLB01",
+                  "name": "local/AzS-SLB01",
                   "type": "Microsoft.Fabric.Admin/fabricLocations/slbMuxInstances",
                   "location": "local",
                   "tags": {},
@@ -4331,7 +4350,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/slbMuxInstances": {
       "get": {
         "x-ms-examples": {
-          "Returns all Software Load Balancer Mux Instances": {
+          "Returns all software load balancer MUX Instances": {
             "parameters": {
               "api-version": "2016-05-01",
               "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
@@ -4344,7 +4363,7 @@
                   "value": [
                     {
                       "id": "/subscriptions/36e98cad-c8a5-4580-bef7-af878a237908/resourceGroups/System.local/providers/Microsoft.Fabric.Admin/fabricLocations/local/slbMuxInstances/AzS-SLB01",
-                      "name": "AzS-SLB01",
+                      "name": "local/AzS-SLB01",
                       "type": "Microsoft.Fabric.Admin/fabricLocations/slbMuxInstances",
                       "location": "local",
                       "tags": {},
@@ -4411,7 +4430,7 @@
   },
   "definitions": {
     "Resource": {
-      "description": "Base Resource Object",
+      "description": "Base resource object.",
       "type": "object",
       "properties": {
         "id": {
@@ -4430,11 +4449,11 @@
           "readOnly": true
         },
         "location": {
-          "description": "Region Location of resource.",
+          "description": "The region where the resource is located.",
           "type": "string"
         },
         "tags": {
-          "description": "List of key value pairs.",
+          "description": "List of key-value pairs.",
           "type": "object",
           "additionalProperties": {
             "type": "string"
@@ -4444,14 +4463,14 @@
       "x-ms-azure-resource": true
     },
     "Operation": {
-      "description": "Describes the supported rest operation.",
+      "description": "Describes the supported REST operation.",
       "properties": {
         "name": {
-          "description": "The name of the operation being performed on this particular object. It should match the action name that appears in RBAC / the event service.",
+          "description": "The name of the operation being performed on this particular object. This name should match the name that appears in RBAC or the event service.",
           "type": "string"
         },
         "display": {
-          "description": "Contains the localized display information for this particular operation / action..",
+          "description": "Contains the localized display information for this particular operation or action.",
           "$ref": "#/definitions/Display"
         }
       }
@@ -4460,35 +4479,35 @@
       "description": "Contains the localized display information for this particular operation / action..",
       "properties": {
         "provider": {
-          "description": "The localized friendly form of the resource provider name – it is expected to also include the publisher/company responsible. It should use Title Casing and begin with \"Microsoft\" for 1st party services. e.g. \"Microsoft Monitoring Insights\" or \"Microsoft Compute.\"",
+          "description": "The localized friendly form of the resource provider name – it is expected to also include the publisher/company responsible. It should use Title Casing and begin with \"Microsoft\" for 1st party services. e.g. \"Microsoft Monitoring Insights\" or \"Microsoft Compute.\".",
           "type": "string"
         },
         "resource": {
-          "description": "The localized friendly form of the resource type related to this action/operation – it should match the public documentation for the resource provider.",
+          "description": "The localized, friendly version of the resource type related to this action or operation; the resource type should match the public documentation for the resource provider.",
           "type": "string"
         },
         "operation": {
-          "description": "The localized friendly name for the operation, as it should be shown to the user.",
+          "description": "The localized, friendly name for the operation. Use the name as it will be displayed to the user.",
           "type": "string"
         },
         "description": {
-          "description": "The localized friendly description for the operation, as it should be shown to the user. It should be thorough, yet concise – it will be used in tool tips and detailed views.",
+          "description": "The localized, friendly description for the operation. The description will be displayed to the user. It should be thorough and concise for used in both tooltips and detailed views.",
           "type": "string"
         }
       }
     },
     "OperationList": {
-      "description": "List of Operations.",
+      "description": "A pageable list of supported operations objects.",
       "properties": {
         "value": {
-          "description": "Array of operations.",
+          "description": "List of supported operations.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/Operation"
           }
         },
         "nextLink": {
-          "description": "URI to next page of operations.",
+          "description": "URI to next page.",
           "type": "string"
         }
       }
@@ -4519,7 +4538,7 @@
       "type": "object",
       "properties": {
         "properties": {
-          "description": "Model which holds information related to edge gateways.",
+          "description": "Object which holds information related to edge gateways.",
           "$ref": "#/definitions/EdgeGatewayModel",
           "x-ms-client-flatten": true
         }
@@ -4531,7 +4550,7 @@
       ]
     },
     "EdgeGatewayModel": {
-      "description": "Model which holds information related to edge gateways.",
+      "description": "Object which holds information related to edge gateways.",
       "type": "object",
       "properties": {
         "state": {
@@ -4573,11 +4592,11 @@
       }
     },
     "EdgeGatewayPool": {
-      "description": "This resource represents an edge gateway pool, which contains an array of gateways.",
+      "description": "This object represents an edge gateway pool, which contains a list of gateways.",
       "type": "object",
       "properties": {
         "properties": {
-          "description": "All the properties of an edge gateway pool.",
+          "description": "The properties of an edge gateway pool.",
           "x-ms-client-flatten": true,
           "$ref": "#/definitions/EdgeGatewayPoolModel"
         }
@@ -4589,11 +4608,11 @@
       ]
     },
     "EdgeGatewayPoolModel": {
-      "description": "A model holding all properties of an edge gateway pool.",
+      "description": "An object that contains the properties of an edge gateway pool.",
       "type": "object",
       "properties": {
         "gatewayType": {
-          "description": "The gateway type (S2sIPsec, S2sGre, etc).",
+          "description": "The gateway type, for example, S2sIPsec, S2sGre, and so on.",
           "type": "string"
         },
         "numberOfGateways": {
@@ -4620,7 +4639,7 @@
           "type": "string"
         },
         "edgeGateways": {
-          "description": "List of the edge gateways in this pool.",
+          "description": "List of the edge gateways in the pool.",
           "type": "array",
           "items": {
             "type": "string"
@@ -4629,11 +4648,11 @@
       }
     },
     "EdgeGatewayPoolList": {
-      "description": "A pageable list of edge gateway pools.",
+      "description": "A pageable list of edge gateway pools objects.",
       "type": "object",
       "properties": {
         "value": {
-          "description": "The array of edge gateway pools in this page.",
+          "description": "List of edge gateway pool objects.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/EdgeGatewayPool"
@@ -4665,7 +4684,7 @@
       "type": "object",
       "properties": {
         "value": {
-          "description": "List of fabric locations for this page.",
+          "description": "List of fabric locations.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/FabricLocation"
@@ -4678,7 +4697,7 @@
       }
     },
     "FileShare": {
-      "description": "Representation of a file share resource.",
+      "description": "Object that contains properties of the file share resource.",
       "type": "object",
       "properties": {
         "properties": {
@@ -4698,7 +4717,7 @@
       "type": "object",
       "properties": {
         "associatedVolume": {
-          "description": "Associated volume Id.",
+          "description": "Associated volume ID.",
           "type": "string"
         },
         "uncPath": {
@@ -4712,7 +4731,7 @@
       "type": "object",
       "properties": {
         "value": {
-          "description": "List of fabric file shares for this page.",
+          "description": "List of fabric file shares.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/FileShare"
@@ -4721,11 +4740,11 @@
       }
     },
     "InfraRole": {
-      "description": "Infra role description.",
+      "description": "Infrastructure role description.",
       "type": "object",
       "properties": {
         "properties": {
-          "description": "Infra role properties.",
+          "description": "Infrastructure role properties.",
           "x-ms-client-flatten": true,
           "$ref": "#/definitions/InfraRoleModel"
         }
@@ -4737,32 +4756,32 @@
       ]
     },
     "InfraRoleModel": {
-      "description": "Infra role properties.",
+      "description": "Infrastructure role properties.",
       "type": "object",
       "properties": {
         "instances": {
-          "description": "List of infra role instances.",
+          "description": "List of infrastructure role instances.",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "displayName": {
-          "description": "Display name for the infra role",
+          "description": "Display name for the infrastructure role.",
           "type": "string"
         },
         "restartable": {
-          "description": "Value indicating whether the infra role can be restarted.",
+          "description": "Value indicating whether the infrastructure role can be restarted.",
           "type": "boolean"
         }
       }
     },
     "InfraRoleList": {
-      "description": "Pageable list of infra roles.",
+      "description": "Pageable list of infrastructure roles.",
       "type": "object",
       "properties": {
         "value": {
-          "description": "List of infra roles for this page.",
+          "description": "List of infrastructure roles.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/InfraRole"
@@ -4779,7 +4798,7 @@
       "type": "object",
       "properties": {
         "properties": {
-          "description": "All properties of an infra role instance.",
+          "description": "All properties of an infrastructure role instance.",
           "x-ms-client-flatten": true,
           "$ref": "#/definitions/InfraRoleInstanceModel"
         }
@@ -4791,7 +4810,7 @@
       ]
     },
     "InfraRoleInstanceModel": {
-      "description": "All properties of an infra role instance.",
+      "description": "All properties of an infrastructure role instance.",
       "type": "object",
       "properties": {
         "scaleUnit": {
@@ -4827,7 +4846,7 @@
       "type": "object",
       "properties": {
         "memoryGb": {
-          "description": "The amount of memory, in GB, currently assigned to the virtual machine.  In Azure Stack V1, only static memory is used for infrastructure VMs.",
+          "description": "The amount of memory, in GB, currently assigned to the virtual machine.",
           "format": "float",
           "type": "number"
         },
@@ -4839,11 +4858,11 @@
       }
     },
     "InfraRoleInstanceList": {
-      "description": "Pageable list of infra role instances.",
+      "description": "Pageable list of infrastructure role instances.",
       "type": "object",
       "properties": {
         "value": {
-          "description": "List of infra role instances for this page.",
+          "description": "List of infrastructure role instances.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/InfraRoleInstance"
@@ -4876,11 +4895,11 @@
       "type": "object",
       "properties": {
         "startIpAddress": {
-          "description": "The starting Ip address.",
+          "description": "The starting IP address.",
           "type": "string"
         },
         "endIpAddress": {
-          "description": "The ending Ip address.",
+          "description": "The ending IP address.",
           "type": "string"
         },
         "addressPrefix": {
@@ -4888,28 +4907,28 @@
           "type": "string"
         },
         "numberOfIpAddresses": {
-          "description": "The total number of ip addresses.",
+          "description": "The total number of IP addresses.",
           "type": "integer",
           "format": "int64"
         },
         "numberOfAllocatedIpAddresses": {
-          "description": "The number of currently allocated ip addresses.",
+          "description": "The number of currently allocated IP addresses.",
           "type": "integer",
           "format": "int64"
         },
         "numberOfIpAddressesInTransition": {
-          "description": "The current number of ip addresses in transition.",
+          "description": "The current number of IP addresses in transition.",
           "type": "integer",
           "format": "int64"
         }
       }
     },
     "IpPoolList": {
-      "description": "Pageable list of ip pools.",
+      "description": "Pageable list of IP pools.",
       "type": "object",
       "properties": {
         "value": {
-          "description": "List of ip pools for this page.",
+          "description": "List of IP pools.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/IpPool"
@@ -4922,7 +4941,7 @@
       }
     },
     "LogicalNetwork": {
-      "description": "This resource represents a logical partition of physical network that is dedicated for a particular purpose.  A logical network comprises of a collection of logical subnets.",
+      "description": "This resource represents a logical partition of physical network that is dedicated for a particular purpose.  A logical network comprises a collection of logical subnets.",
       "type": "object",
       "properties": {
         "properties": {
@@ -4942,18 +4961,18 @@
       "type": "object",
       "properties": {
         "metadata": {
-          "description": "Metadata related to this Logical Network.",
+          "description": "Metadata related to the logical network.",
           "type": "object",
           "additionalProperties": {
             "type": "string"
           }
         },
         "networkVirtualizationEnabled": {
-          "description": "Is Network Virtualization is enabled on this Logical Network.",
+          "description": "Flag to indicate that the network virtualization is enabled on the logical network.",
           "type": "boolean"
         },
         "subnets": {
-          "description": "List of subnets belonging to this Logical Network.",
+          "description": "List of subnets belonging to the logical network.",
           "type": "array",
           "items": {
             "type": "string"
@@ -4966,7 +4985,7 @@
       "type": "object",
       "properties": {
         "value": {
-          "description": "List of logical networks for this page.",
+          "description": "List of logical networks.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/LogicalNetwork"
@@ -5010,7 +5029,7 @@
       "type": "object",
       "properties": {
         "value": {
-          "description": "List of storage pools on this page.",
+          "description": "List of storage pools.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/StoragePool"
@@ -5054,7 +5073,7 @@
       "type": "object",
       "properties": {
         "value": {
-          "description": "List of storage systems on this page.",
+          "description": "List of storage systems.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/StorageSystem"
@@ -5111,7 +5130,7 @@
       "type": "object",
       "properties": {
         "value": {
-          "description": "List of storage volumes on this page.",
+          "description": "List of storage volumes.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/Volume"
@@ -5124,7 +5143,7 @@
       }
     },
     "LogicalSubnet": {
-      "description": "This resource represents a Logical Subnet.  A Logical Subnet comprises of subnet/vlan pair.",
+      "description": "This resource represents a logical subnet.  A logical subnet is made of a subnet-vlan pair.",
       "type": "object",
       "properties": {
         "properties": {
@@ -5144,18 +5163,18 @@
       "type": "object",
       "properties": {
         "ipPools": {
-          "description": "All ip pools which belong to this subnet.",
+          "description": "All IP pools which belong to this subnet.",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "isPublic": {
-          "description": "The visiblity status of the ip pool.  If is true the associated pools are public ip address pools.",
+          "description": "The visiblity status of the IP pool.  If is true the associated pools are public IP address pools.",
           "type": "boolean"
         },
         "metadata": {
-          "description": "Metadata related to this Logical Network.",
+          "description": "Metadata related to the logical network.",
           "type": "object",
           "additionalProperties": {
             "type": "string"
@@ -5168,7 +5187,7 @@
       "type": "object",
       "properties": {
         "value": {
-          "description": "List of logical subnets on this page.",
+          "description": "List of logical subnets.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/LogicalSubnet"
@@ -5181,7 +5200,7 @@
       }
     },
     "MacAddressPool": {
-      "description": "This resource represents a MAC address pool.  The default MAC address pools are used if you set the MAC address type for a virtual machine to 'Static'.  If the virtual machine setting is “Dynamic”, the hypervisor assigns the MAC address.",
+      "description": "This resource represents a MAC address pool.  The default MAC address pools are used if you set the MAC address type for a virtual machine to 'Static'.  If the virtual machine setting is 'Dynamic', the hypervisor assigns the MAC address.",
       "type": "object",
       "properties": {
         "properties": {
@@ -5201,7 +5220,7 @@
       "type": "object",
       "properties": {
         "metadata": {
-          "description": "Metadata related to this MAC pool.",
+          "description": "Metadata related to the MAC pool.",
           "type": "object",
           "additionalProperties": {
             "type": "string"
@@ -5232,7 +5251,7 @@
       "type": "object",
       "properties": {
         "value": {
-          "description": "The list of MAC address pools on this page.",
+          "description": "List of MAC address pools.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/MacAddressPool"
@@ -5261,7 +5280,7 @@
       }
     },
     "ScaleUnit": {
-      "description": "Represents a cluster - generally this will be a collection of Hosts backed by Failover Cluster Manager.",
+      "description": "Represents a cluster. Generally, the cluster will be a collection of hosts backed by failover cluster manager.",
       "type": "object",
       "properties": {
         "properties": {
@@ -5281,7 +5300,7 @@
       "type": "object",
       "properties": {
         "scaleUnitType": {
-          "description": "Type of the cluster.",
+          "description": "Type of cluster.",
           "enum": [
             "Unknown",
             "ComputeOnly",
@@ -5340,7 +5359,7 @@
       "type": "object",
       "properties": {
         "value": {
-          "description": "The list of scale units on this page.",
+          "description": "List of scale units.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/ScaleUnit"
@@ -5356,9 +5375,9 @@
       "description": "Input data that allows for adding a scale unit node.",
       "type": "object",
       "properties": {
-        "bmcIPv4Address": {
+        "bmcIpv4Address": {
           "x-ms-client-name": "BMCIPv4Address",
-          "description": "Bmc address of the physical machine.",
+          "description": "BMC address of the physical machine.",
           "type": "string"
         },
         "computerName": {
@@ -5372,14 +5391,14 @@
       "type": "object",
       "properties": {
         "nodeList": {
-          "description": "The list of nodes.",
+          "description": "List of nodes in the scale unit.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/ScaleOutScaleUnitParameters"
           }
         },
         "awaitStorageConvergence": {
-          "description": "The list of nodes.",
+          "description": "Flag indicates if the operation should wait for storage to converge before returning.",
           "type": "boolean"
         }
       }
@@ -5390,7 +5409,7 @@
       "properties": {
         "bmcIpv4Address": {
           "x-ms-client-name": "BMCIPv4Address",
-          "description": "Bmc address of the physical machine.",
+          "description": "BMC address of the physical machine.",
           "type": "string"
         },
         "vendor": {
@@ -5418,7 +5437,7 @@
           "type": "string"
         },
         "macAddress": {
-          "description": "Name of the mac address of the bare metal node.",
+          "description": "Name of the MAC address of the bare metal node.",
           "type": "string"
         }
       }
@@ -5471,7 +5490,7 @@
           }
         },
         "bmcAddress": {
-          "description": "Bmc address of the physical machine.",
+          "description": "BMC address of the physical machine.",
           "type": "string"
         },
         "scaleUnitName": {
@@ -5499,11 +5518,7 @@
           "type": "string"
         },
         "biosVersion": {
-          "description": "Bios version of the physical machine.",
-          "type": "string"
-        },
-        "macAddress": {
-          "description": "MacAddress of the physical machine.",
+          "description": "BIOS version of the physical machine.",
           "type": "string"
         },
         "capacity": {
@@ -5517,7 +5532,7 @@
       "type": "object",
       "properties": {
         "value": {
-          "description": "The list of nodes in this page.",
+          "description": "List of scale unit nodes.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/ScaleUnitNode"
@@ -5534,7 +5549,7 @@
       "type": "object",
       "properties": {
         "properties": {
-          "description": "Properties of a SLB MUX",
+          "description": "Properties of a SLB MUX.",
           "x-ms-client-flatten": true,
           "$ref": "#/definitions/SlbMuxInstanceModel"
         }
@@ -5546,7 +5561,7 @@
       ]
     },
     "SlbMuxInstanceModel": {
-      "description": "Properties of a SLB MUX",
+      "description": "Properties of a SLB MUX.",
       "type": "object",
       "properties": {
         "configurationState": {
@@ -5567,11 +5582,11 @@
       }
     },
     "SlbMuxInstanceList": {
-      "description": "A pageable list of SLB Mux instances.",
+      "description": "A pageable list of SLB MUX instances.",
       "type": "object",
       "properties": {
         "value": {
-          "description": "List of SLB Mux instances on this page.",
+          "description": "List of SLB MUX instances.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/SlbMuxInstance"
@@ -5588,14 +5603,14 @@
     "SubscriptionIdParameter": {
       "name": "subscriptionId",
       "in": "path",
-      "description": "Subscription credentials which uniquely identify Microsoft Azure subscription.The subscription ID forms part of the URI for every service call.",
+      "description": "Subscription credentials that uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.",
       "required": true,
       "type": "string"
     },
     "ApiVersionParameter": {
       "name": "api-version",
       "in": "query",
-      "description": "Client Api Version.",
+      "description": "Client API Version.",
       "required": true,
       "type": "string",
       "default": "2016-05-01"
@@ -5640,7 +5655,7 @@
       "x-ms-parameter-location": "method"
     },
     "FabricLocationParameter": {
-      "description": "Fabric Location.",
+      "description": "Fabric location.",
       "name": "fabricLocation",
       "type": "string",
       "in": "path",
@@ -5648,7 +5663,7 @@
       "x-ms-parameter-location": "method"
     },
     "FabricLocationObjectParameter": {
-      "description": "Fabric Location object.",
+      "description": "Fabric location object.",
       "name": "fabricObject",
       "schema": {
         "$ref": "#/definitions/FabricLocation"
@@ -5667,7 +5682,7 @@
     },
     "InfraRoleParameter": {
       "name": "infraRole",
-      "description": "Infra role name.",
+      "description": "Infrastructure role name.",
       "in": "path",
       "required": true,
       "type": "string",
@@ -5675,7 +5690,7 @@
     },
     "InfraRoleInstanceParameter": {
       "name": "infraRoleInstance",
-      "description": "Name of an infra role instance.",
+      "description": "Name of an infrastructure role instance.",
       "in": "path",
       "required": true,
       "type": "string",
@@ -5683,7 +5698,7 @@
     },
     "IpPoolParameter": {
       "name": "pool",
-      "description": "Ip pool object to send.",
+      "description": "IP pool object to send.",
       "in": "body",
       "required": true,
       "schema": {
@@ -5693,7 +5708,7 @@
     },
     "IpPoolNameParameter": {
       "name": "ipPool",
-      "description": "Ip pool name.",
+      "description": "IP pool name.",
       "type": "string",
       "in": "path",
       "required": true,
@@ -5785,7 +5800,7 @@
     },
     "SLBMuxInstanceParameter": {
       "name": "slbMuxInstance",
-      "description": "Name of a SLB Mux instance.",
+      "description": "Name of a SLB MUX instance.",
       "in": "path",
       "required": true,
       "type": "string",
@@ -5797,7 +5812,7 @@
       "type": "oauth2",
       "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
       "flow": "implicit",
-      "description": "Azure Active Directory OAuth2 Flow",
+      "description": "Authorization uses an Azure Active Directory OAuth2 flow.",
       "scopes": {
         "user_impersonation": "impersonate your user account"
       }

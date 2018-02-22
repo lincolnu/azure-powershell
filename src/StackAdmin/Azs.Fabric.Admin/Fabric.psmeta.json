@@ -30,7 +30,7 @@
       "releaseNotes": "",
       "defaultCommandPrefix": "",
       "tags": [
-        
+
       ]
     }
   },
@@ -46,7 +46,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -61,7 +61,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -76,7 +76,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -97,7 +97,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       },
       "get": {
@@ -110,7 +110,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -125,7 +125,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       },
       "get": {
@@ -138,7 +138,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -153,7 +153,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -168,7 +168,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -183,7 +183,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -198,7 +198,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -206,14 +206,14 @@
       "post": {
         "x-ps-cmdlet-infos": [
           {
-            "name": "Stop-AzsInfrastructureRoleInstance",
+            "name": "Disable-AzsInfrastructureRoleInstance",
             "description": "Shut down an infra role instance.",
             "defaultParameterSet": "InfraRoleInstances_PowerOff",
             "generateCommand": true
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -228,7 +228,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -243,7 +243,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -258,7 +258,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -273,7 +273,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -288,7 +288,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -303,7 +303,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -318,7 +318,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -333,7 +333,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -348,7 +348,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -363,7 +363,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -378,7 +378,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -393,7 +393,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -408,7 +408,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -423,7 +423,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -438,7 +438,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -453,7 +453,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -468,7 +468,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -483,7 +483,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -498,7 +498,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -513,7 +513,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -528,7 +528,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -543,7 +543,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -558,7 +558,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -573,7 +573,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -588,7 +588,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -603,7 +603,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -618,7 +618,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -633,7 +633,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -648,7 +648,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -663,7 +663,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -678,7 +678,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -693,7 +693,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -708,7 +708,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     },
@@ -723,7 +723,7 @@
           }
         ],
         "parameters": {
-          
+
         }
       }
     }
@@ -775,7 +775,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "SlbMuxInstanceModel": {
@@ -1122,7 +1122,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "ScaleUnitNodeModel": {
@@ -1281,7 +1281,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "EdgeGatewayList": {
@@ -1365,7 +1365,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "VolumeModel": {
@@ -1526,7 +1526,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "InfraRoleList": {
@@ -1634,7 +1634,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "LogicalNetworkModel": {
@@ -1753,7 +1753,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "InfraRoleInstanceSize": {
@@ -1802,7 +1802,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "FileShare": {
@@ -1816,7 +1816,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "ScaleUnitList": {
@@ -1865,7 +1865,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "FileShareModel": {
@@ -2028,7 +2028,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "IpPoolList": {
@@ -2353,7 +2353,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "StoragePoolList": {
@@ -2402,7 +2402,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "Operation": {
@@ -2705,7 +2705,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "ProvisioningState": {
@@ -2719,7 +2719,7 @@
         }
       ],
       "properties": {
-        
+
       }
     },
     "StorageSystemList": {
@@ -2893,7 +2893,7 @@
         }
       ],
       "properties": {
-        
+
       }
     }
   },
@@ -2916,7 +2916,7 @@
       "x-ps-parameter-info": {
         "name": "BareMetalNode",
         "description": "Description of a node.",
-        "flatten": false
+        "flatten": true
       }
     },
     "FileShareParameter": {
@@ -3007,7 +3007,7 @@
       "x-ps-parameter-info": {
         "name": "Pool",
         "description": "Ip pool object to send.",
-        "flatten": false
+        "flatten": true
       }
     },
     "FabricLocationParameter": {

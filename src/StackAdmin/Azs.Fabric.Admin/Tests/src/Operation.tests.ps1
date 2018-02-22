@@ -43,27 +43,27 @@ $Global:RunRaw = $RunRaw
 . $PSScriptRoot\CommonModules.ps1
 
 $global:TestName = ""
-	
+
 InModuleScope Azs.Fabric.Admin {
 
 	Describe "Operations" -Tags @('Operation', 'Azs.Fabric.Admin') {
 
 		BeforeEach  {
-			
+
 			. $PSScriptRoot\Common.ps1
 
 		}
-		
+
 		It "TestGetComputeFabricOperations" -Skip {
 			$global:TestName = 'TestGetComputeFabricOperations'
 
-			Get-AzsComputeFabricOperation -ComputeOperationResult "storageFabricOperation" -Location $Location -Provider "Microsoft.Storage"
+			Get-AzsComputeFabricOperation -ComputeOperationResult "storageFabricOperation" -ResourceGroup $ResourceGroup -Location $Location -Provider "Microsoft.Storage"
 	    }
-	
+
 		It "TestGetNetworkFabricOperations" -Skip {
             $global:TestName = 'TestGetNetworkFabricOperations'
 
-			Get-AzsComputeFabricOperation -NetworkOperationResult "storageFabricOperation" -Location $Location -Provider "Microsoft.Compute"
+			Get-AzsComputeFabricOperation -NetworkOperationResult "storageFabricOperation" -ResourceGroup $ResourceGroup -Location $Location -Provider "Microsoft.Compute"
 		}
 
     }

@@ -51,7 +51,7 @@ InModuleScope Azs.Fabric.Admin {
 	Describe "IpPools" -Tags @('IpPool', 'Azs.Fabric.Admin') {
 
 		BeforeEach  {
-			
+
 			. $PSScriptRoot\Common.ps1
 
 			function ValidateIpPool {
@@ -59,7 +59,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$IpPool
 				)
-			
+
 				$IpPool          | Should Not Be $null
 
 				# Resource
@@ -81,7 +81,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -106,23 +106,23 @@ InModuleScope Azs.Fabric.Admin {
 				}
 			}
 		}
-		
+
 		It "TestListIpPools" {
 			$global:TestName = 'TestListIpPools'
-			$IpPools = Get-AzsIpPool -Location $Location
+			$IpPools = Get-AzsIpPool -ResourceGroup $ResourceGroup -Location $Location
 			$IpPools | Should not be $null
 			foreach($IpPool in $IpPools) {
 				ValidateIpPool -IpPool $IpPool
 			}
 	    }
-	
+
 		It "TestGetIpPool" {
             $global:TestName = 'TestGetIpPool'
 
-			$IpPools = Get-AzsIpPool -Location $Location
+			$IpPools = Get-AzsIpPool -ResourceGroup $ResourceGroup -Location $Location
 			if($IpPools -and $IpPools.Count -gt 0) {
 				$IpPool = $IpPools[0]
-				$retrieved = Get-AzsIpPool -Location $Location -IpPool $IpPool.Name
+				$retrieved = Get-AzsIpPool -ResourceGroup $ResourceGroup -Location $Location -IpPool $IpPool.Name
 				AssertIpPoolsAreSame -Expected $IpPool -Found $retrieved
 			}
 		}
@@ -130,9 +130,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllIpPools" {
 			$global:TestName = 'TestGetAllIpPools'
 
-			$IpPools = Get-AzsIpPool -Location $Location
+			$IpPools = Get-AzsIpPool -ResourceGroup $ResourceGroup -Location $Location
 			foreach($IpPool in $IpPools) {
-				$retrieved = Get-AzsIpPool -Location $Location -IpPool $IpPool.Name
+				$retrieved = Get-AzsIpPool -ResourceGroup $ResourceGroup -Location $Location -IpPool $IpPool.Name
 				AssertIpPoolsAreSame -Expected $IpPool -Found $retrieved
 			}
 		}
@@ -140,7 +140,7 @@ InModuleScope Azs.Fabric.Admin {
 
 		It "TestCreateIpPool" -Skip {
 			$global:TestName = 'TestCreateIpPool'
-			
+
 			$Name = "okaytodelete"
 			$IpPool = $Name
 			$Type = "Microsoft.Fabric.Admin/fabricLocations/ipPools"
@@ -151,7 +151,7 @@ InModuleScope Azs.Fabric.Admin {
 			$AddressPrefix = "192.168.99.0/24"
 
 			# Just try to delete
-			Delete-AzsIpPool -Location $Location -IpPool $ipPoolName
+			Delete-AzsIpPool -ResourceGroup $ResourceGroup -Location $Location -IpPool $ipPoolName
 
 			$params = @($Location, $Name, $IpPool, $Type, $Id, $Tags, $StartIpAddress, $EndIpAddress, $AddressPrefix)
 			$ipPool = New-AzsIpPool @params

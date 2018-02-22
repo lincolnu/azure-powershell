@@ -50,7 +50,7 @@ InModuleScope Azs.Fabric.Admin {
 	Describe "LogicalNetworks" -Tags @('LogicalNetwork', 'Azs.Fabric.Admin') {
 
 		BeforeEach  {
-			
+
 			. $PSScriptRoot\Common.ps1
 
 			function ValidateLogicalNetwork {
@@ -58,7 +58,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$LogicalNetwork
 				)
-			
+
 				$LogicalNetwork          | Should Not Be $null
 
 				# Resource
@@ -76,7 +76,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -90,7 +90,7 @@ InModuleScope Azs.Fabric.Admin {
 					$Found.Location         | Should Be $Expected.Location
 					$Found.Name             | Should Be $Expected.Name
 					$Found.Type             | Should Be $Expected.Type
-					
+
 					# Logical Network
 					$Found.NetworkVirtualizationEnabled  | Should Be $Expected.NetworkVirtualizationEnabled
 
@@ -110,24 +110,24 @@ InModuleScope Azs.Fabric.Admin {
 				}
 			}
 		}
-	
-		
+
+
 		It "TestListLogicalNetworks" {
 			$global:TestName = 'TestListLogicalNetworks'
-			$logicalNetworks = Get-AzsLogicalNetwork -Location $Location
+			$logicalNetworks = Get-AzsLogicalNetwork -ResourceGroup $ResourceGroup -Location $Location
 			$logicalNetworks | Should Not Be $null
 			foreach($logicalNetwork in $logicalNetworks) {
 				ValidateLogicalNetwork -LogicalNetwork $logicalNetwork
 			}
 	    }
-	
-	
+
+
 		It "TestGetLogicalNetwork" {
             $global:TestName = 'TestGetLogicalNetwork'
 
-			$logicalNetworks = Get-AzsLogicalNetwork -Location $Location
+			$logicalNetworks = Get-AzsLogicalNetwork -ResourceGroup $ResourceGroup -Location $Location
 			foreach($logicalNetwork in $logicalNetworks) {
-				$retrieved = Get-AzsLogicalNetwork -Location $Location -LogicalNetwork $logicalNetwork.Name
+				$retrieved = Get-AzsLogicalNetwork -ResourceGroup $ResourceGroup -Location $Location -LogicalNetwork $logicalNetwork.Name
 				AssertLogicalNetworksAreSame -Expected $logicalNetwork -Found $retrieved
 				break
 			}
@@ -136,9 +136,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllLogicalNetworks" {
 			$global:TestName = 'TestGetAllLogicalNetworks'
 
-			$logicalNetworks = Get-AzsLogicalNetwork -Location $Location
+			$logicalNetworks = Get-AzsLogicalNetwork -ResourceGroup $ResourceGroup -Location $Location
 			foreach($logicalNetwork in $logicalNetworks) {
-				$retrieved = Get-AzsLogicalNetwork -Location $Location -LogicalNetwork $logicalNetwork.Name
+				$retrieved = Get-AzsLogicalNetwork -ResourceGroup $ResourceGroup -Location $Location -LogicalNetwork $logicalNetwork.Name
 				AssertLogicalNetworksAreSame -Expected $logicalNetwork -Found $retrieved
 			}
 		}

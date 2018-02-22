@@ -55,9 +55,6 @@ Licensed under the MIT License. See License.txt in the project root for license 
                     <TableColumnHeader>
                         <Width>8</Width>
                     </TableColumnHeader>
-                    <TableColumnHeader>
-                        <Width>8</Width>
-                    </TableColumnHeader>
                     <TableColumnHeader/>
                 </TableHeaders>
                 <TableRowEntries>
@@ -80,9 +77,6 @@ Licensed under the MIT License. See License.txt in the project root for license 
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>CanPowerOff</PropertyName>
-                            </TableColumnItem>
-                            <TableColumnItem>
-                                <PropertyName>MacAddress</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Model</PropertyName>

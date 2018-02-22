@@ -5,13 +5,13 @@ Licensed under the MIT License. See License.txt in the project root for license 
 
 <#
 .SYNOPSIS
-    
+
 
 .DESCRIPTION
-    Power on an infra role instance.
+    Power on an infrastructure role instance.
 
 .PARAMETER InfraRoleInstance
-    Name of an infra role instance.
+    Name of an infrastructure role instance.
 
 .PARAMETER ResourceGroupName
     Name of the resource group.
@@ -22,113 +22,153 @@ Licensed under the MIT License. See License.txt in the project root for license 
 #>
 function Start-AzsInfrastructureRoleInstance
 {
-    [CmdletBinding(DefaultParameterSetName='InfraRoleInstances_PowerOn')]
-    param(    
+    [CmdletBinding(DefaultParameterSetName = 'InfraRoleInstances_PowerOn')]
+    param(
         [Parameter(Mandatory = $true, ParameterSetName = 'InfraRoleInstances_PowerOn')]
+        [Alias('InfraRoleInstance')]
         [System.String]
-        $InfraRoleInstance,
-    
+        $Name,
+
         [Parameter(Mandatory = $true, ParameterSetName = 'InfraRoleInstances_PowerOn')]
         [System.String]
         $ResourceGroupName,
-    
+
         [Parameter(Mandatory = $true, ParameterSetName = 'InfraRoleInstances_PowerOn')]
         [System.String]
         $Location,
+
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'InputObject_InfraRoleInstances_Start')]
+        [Microsoft.AzureStack.Management.Fabric.Admin.Models.InfraRoleInstance]
+        $InputObject,
+
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'ResourceId_InfraRoleInstances_Start')]
+        [System.String]
+        $ResourceId,
 
         [Parameter(Mandatory = $false)]
         [switch]
         $AsJob
     )
 
-    Begin 
+    Begin
     {
-	    Initialize-PSSwaggerDependencies -Azure
+        Initialize-PSSwaggerDependencies -Azure
         $tracerObject = $null
-        if (('continue' -eq $DebugPreference) -or ('inquire' -eq $DebugPreference)) {
+        if (('continue' -eq $DebugPreference) -or ('inquire' -eq $DebugPreference))
+        {
             $oldDebugPreference = $global:DebugPreference
-			$global:DebugPreference = "continue"
+            $global:DebugPreference = "continue"
             $tracerObject = New-PSSwaggerClientTracing
             Register-PSSwaggerClientTracing -TracerObject $tracerObject
         }
-	}
-
-    Process {
-    
-    $ErrorActionPreference = 'Stop'
-
-    $NewServiceClient_params = @{
-        FullClientTypeName = 'Microsoft.AzureStack.Management.Fabric.Admin.FabricAdminClient'
     }
 
-    $GlobalParameterHashtable = @{}
-    $NewServiceClient_params['GlobalParameterHashtable'] = $GlobalParameterHashtable
-     
-    $GlobalParameterHashtable['SubscriptionId'] = $null
-    if($PSBoundParameters.ContainsKey('SubscriptionId')) {
-        $GlobalParameterHashtable['SubscriptionId'] = $PSBoundParameters['SubscriptionId']
-    }
+    Process
+    {
 
-    $FabricAdminClient = New-ServiceClient @NewServiceClient_params
+        $ErrorActionPreference = 'Stop'
 
+        $NewServiceClient_params = @{
+            FullClientTypeName = 'Microsoft.AzureStack.Management.Fabric.Admin.FabricAdminClient'
+        }
 
-    if ('InfraRoleInstances_PowerOn' -eq $PsCmdlet.ParameterSetName) {
-        Write-Verbose -Message 'Performing operation PowerOnWithHttpMessagesAsync on $FabricAdminClient.'
-        $TaskResult = $FabricAdminClient.InfraRoleInstances.PowerOnWithHttpMessagesAsync($ResourceGroupName, $Location, $InfraRoleInstance)
-    } else {
-        Write-Verbose -Message 'Failed to map parameter set to operation method.'
-        throw 'Module failed to find operation to execute.'
-    }
+        $GlobalParameterHashtable = @{}
+        $NewServiceClient_params['GlobalParameterHashtable'] = $GlobalParameterHashtable
 
-    Write-Verbose -Message "Waiting for the operation to complete."
+        $GlobalParameterHashtable['SubscriptionId'] = $null
+        if ($PSBoundParameters.ContainsKey('SubscriptionId'))
+        {
+            $GlobalParameterHashtable['SubscriptionId'] = $PSBoundParameters['SubscriptionId']
+        }
 
-    $PSSwaggerJobScriptBlock = {
-        [CmdletBinding()]
-        param(    
-            [Parameter(Mandatory = $true)]
-            [System.Threading.Tasks.Task]
-            $TaskResult,
+        $FabricAdminClient = New-ServiceClient @NewServiceClient_params
 
-            [Parameter(Mandatory = $true)]
-			[string]
-			$TaskHelperFilePath
-        )
-        if ($TaskResult) {
-            . $TaskHelperFilePath
-            $GetTaskResult_params = @{
-                TaskResult = $TaskResult
+        $InfraRoleInstance = $Name
+
+        if ('InputObject_InfraRoleInstances_Start' -eq $PsCmdlet.ParameterSetName -or 'ResourceId_InfraRoleInstances_Start' -eq $PsCmdlet.ParameterSetName)
+        {
+            $GetArmResourceIdParameterValue_params = @{
+                IdTemplate = '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoleInstances/{infraRoleInstance}'
             }
-            
-            Get-TaskResult @GetTaskResult_params
-            
+
+            if ('ResourceId_InfraRoleInstances_Get' -eq $PsCmdlet.ParameterSetName)
+            {
+                $GetArmResourceIdParameterValue_params['Id'] = $ResourceId
+            }
+            else
+            {
+                $GetArmResourceIdParameterValue_params['Id'] = $InputObject.Id
+            }
+            $ArmResourceIdParameterValues = Get-ArmResourceIdParameterValue @GetArmResourceIdParameterValue_params
+
+            $ResourceGroupName = $ArmResourceIdParameterValues['resourceGroupName']
+            $Location = $ArmResourceIdParameterValues['location']
+            $InfraRoleInstance = $ArmResourceIdParameterValues['infraRoleInstance']
+        }
+
+        if ('InfraRoleInstances_PowerOn' -eq $PsCmdlet.ParameterSetName -or 'InputObject_InfraRoleInstances_Start' -eq $PsCmdlet.ParameterSetName -or 'ResourceId_InfraRoleInstances_Start' -eq $PsCmdlet.ParameterSetName)
+        {
+            Write-Verbose -Message 'Performing operation PowerOnWithHttpMessagesAsync on $FabricAdminClient.'
+            $TaskResult = $FabricAdminClient.InfraRoleInstances.PowerOnWithHttpMessagesAsync($ResourceGroupName, $Location, $InfraRoleInstance)
+        }
+        else
+        {
+            Write-Verbose -Message 'Failed to map parameter set to operation method.'
+            throw 'Module failed to find operation to execute.'
+        }
+
+        Write-Verbose -Message "Waiting for the operation to complete."
+
+        $PSSwaggerJobScriptBlock = {
+            [CmdletBinding()]
+            param(
+                [Parameter(Mandatory = $true)]
+                [System.Threading.Tasks.Task]
+                $TaskResult,
+
+                [Parameter(Mandatory = $true)]
+                [string]
+                $TaskHelperFilePath
+            )
+            if ($TaskResult)
+            {
+                . $TaskHelperFilePath
+                $GetTaskResult_params = @{
+                    TaskResult = $TaskResult
+                }
+
+                Get-TaskResult @GetTaskResult_params
+
+            }
+        }
+
+        $PSCommonParameters = Get-PSCommonParameter -CallerPSBoundParameters $PSBoundParameters
+        $TaskHelperFilePath = Join-Path -Path $ExecutionContext.SessionState.Module.ModuleBase -ChildPath 'Get-TaskResult.ps1'
+        if ($AsJob)
+        {
+            $ScriptBlockParameters = New-Object -TypeName 'System.Collections.Generic.Dictionary[string,object]'
+            $ScriptBlockParameters['TaskResult'] = $TaskResult
+            $ScriptBlockParameters['AsJob'] = $AsJob
+            $ScriptBlockParameters['TaskHelperFilePath'] = $TaskHelperFilePath
+            $PSCommonParameters.GetEnumerator() | ForEach-Object { $ScriptBlockParameters[$_.Name] = $_.Value }
+
+            Start-PSSwaggerJobHelper -ScriptBlock $PSSwaggerJobScriptBlock `
+                -CallerPSBoundParameters $ScriptBlockParameters `
+                -CallerPSCmdlet $PSCmdlet `
+                @PSCommonParameters
+        }
+        else
+        {
+            Invoke-Command -ScriptBlock $PSSwaggerJobScriptBlock `
+                -ArgumentList $TaskResult, $TaskHelperFilePath `
+                @PSCommonParameters
         }
     }
 
-    $PSCommonParameters = Get-PSCommonParameter -CallerPSBoundParameters $PSBoundParameters
-    $TaskHelperFilePath = Join-Path -Path $ExecutionContext.SessionState.Module.ModuleBase -ChildPath 'Get-TaskResult.ps1'
-    if($AsJob)
+    End
     {
-        $ScriptBlockParameters = New-Object -TypeName 'System.Collections.Generic.Dictionary[string,object]'
-        $ScriptBlockParameters['TaskResult'] = $TaskResult
-        $ScriptBlockParameters['AsJob'] = $AsJob
-        $ScriptBlockParameters['TaskHelperFilePath'] = $TaskHelperFilePath
-        $PSCommonParameters.GetEnumerator() | ForEach-Object { $ScriptBlockParameters[$_.Name] = $_.Value }
-
-        Start-PSSwaggerJobHelper -ScriptBlock $PSSwaggerJobScriptBlock `
-                                     -CallerPSBoundParameters $ScriptBlockParameters `
-                                     -CallerPSCmdlet $PSCmdlet `
-                                     @PSCommonParameters
-    }
-    else
-    {
-        Invoke-Command -ScriptBlock $PSSwaggerJobScriptBlock `
-                       -ArgumentList $TaskResult,$TaskHelperFilePath `
-                       @PSCommonParameters
-    }
-    }
-
-    End {
-        if ($tracerObject) {
+        if ($tracerObject)
+        {
             $global:DebugPreference = $oldDebugPreference
             Unregister-PSSwaggerClientTracing -TracerObject $tracerObject
         }

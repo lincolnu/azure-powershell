@@ -66,7 +66,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$ScaleUnitNode
 				)
-			
+
 				$ScaleUnitNode          | Should Not Be $null
 
 				# Resource
@@ -88,7 +88,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -113,7 +113,7 @@ InModuleScope Azs.Fabric.Admin {
 						$Found.Capacity.Cores     | Should Be $Expected.Capacity.Cores
 						$Found.Capacity.MemoryGB  | Should Be $Expected.Capacity.MemoryGB
 					}
-					
+
 					$Found.PowerState           | Should Be $Expected.PowerState
 					$Found.ScaleUnitName        | Should Be $Expected.ScaleUnitName
 					$Found.ScaleUnitNodeStatus  | Should Be $Expected.ScaleUnitNodeStatus
@@ -121,24 +121,24 @@ InModuleScope Azs.Fabric.Admin {
 				}
 			}
 		}
-	
-		
+
+
 		It "TestListScaleUnitNodes" {
 			$global:TestName = 'TestListScaleUnitNodes'
-			$ScaleUnitNodes = Get-AzsScaleUnitNode -Location $Location
+			$ScaleUnitNodes = Get-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location
 			$ScaleUnitNodes | Should Not Be $null
 			foreach($ScaleUnitNode in $ScaleUnitNodes) {
 				ValidateScaleUnitNode -ScaleUnitNode $ScaleUnitNode
 			}
 	    }
-	
-	
+
+
 		It "TestGetScaleUnitNode" {
             $global:TestName = 'TestGetScaleUnitNode'
 
-			$ScaleUnitNodes = Get-AzsScaleUnitNode -Location $Location
+			$ScaleUnitNodes = Get-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location
 			foreach($ScaleUnitNode in $ScaleUnitNodes) {
-				$retrieved = Get-AzsScaleUnitNode -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
+				$retrieved = Get-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
 				AssertScaleUnitNodesAreSame -Expected $ScaleUnitNode -Found $retrieved
 				break
 			}
@@ -147,51 +147,49 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllScaleUnitNodes" {
 			$global:TestName = 'TestGetAllScaleUnitNodes'
 
-			$ScaleUnitNodes = Get-AzsScaleUnitNode -Location $Location
+			$ScaleUnitNodes = Get-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location
 			foreach($ScaleUnitNode in $ScaleUnitNodes) {
-				$retrieved = Get-AzsScaleUnitNode -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
+				$retrieved = Get-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
 				AssertScaleUnitNodesAreSame -Expected $ScaleUnitNode -Found $retrieved
 			}
 		}
-		
+
 		It "TestPowerOnScaleUnitNode" {
 			$global:TestName = 'TestPowerOnScaleUnitNode'
 
-			$ScaleUnitNodes = Get-AzsScaleUnitNode -Location $Location
+			$ScaleUnitNodes = Get-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location
 			foreach($ScaleUnitNode in $ScaleUnitNodes) {
 
-				$operationStatus = Start-AzsScaleUnitNode -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
-				$operationStatus.ProvisioningState | Should not be ""
-				$operationStatus.ProvisioningState | Should be "Succeeded"
+				Start-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
 				break
 			}
 		}
-		
+
 		It "TestStartStopMaintenanceModeUnitNode" {
 			$global:TestName = 'TestStartStopMaintenanceModeUnitNode'
 
-			$ScaleUnitNodes = Get-AzsScaleUnitNode -Location $Location
+			$ScaleUnitNodes = Get-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location
             foreach($ScaleUnitNode in $ScaleUnitNodes) {
 				{
-					Disable-AzsScaleUnitNode -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
-					Enable-AzsScaleUnitNode -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
+					Disable-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
+					Enable-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
 				} | Should Throw
 				break
             }
 		}
 
 		# Tenant VM
-		
+
 		It "TestGetScaleUnitNodeOnTenantVM" {
 			$global:TestName = 'TestGetAllScaleUnitNodes'
 
-			{ Get-AzsScaleUnitNode -Location $Location -ScaleUnitNode $TenantVMName } | Should Throw
+			{ Get-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location -ScaleUnitNode $TenantVMName } | Should Throw
 		}
 
 		It "TestPowerOnOnTenantVM" {
 			$global:TestName = 'TestPowerOnOnTenantVM'
 			{
-				$operationStatus = Start-AzsScaleUnitNode -Location $Location -ScaleUnitNode $TenantVMName
+				$operationStatus = Start-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location -ScaleUnitNode $TenantVMName
 				$operationStatus.ProvisioningState | Should not be ""
 				$operationStatus.ProvisioningState | Should be "Failure"
 			} | Should Throw
@@ -201,7 +199,7 @@ InModuleScope Azs.Fabric.Admin {
 			$global:TestName = 'TestPowerOffOnTenantVM'
 
 			{
-				$operationStatus = Stop-AzsScaleUnitNode -Location $Location -ScaleUnitNode $TenantVMName
+				$operationStatus = Stop-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location -ScaleUnitNode $TenantVMName
 				$operationStatus.ProvisioningState | Should not be ""
 				$operationStatus.ProvisioningState | Should be "Failure"
 			} | Should Throw
@@ -210,7 +208,7 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestStartMaintenanceModeOnTenantVM" {
 			$global:TestName = 'TestStartMaintenanceModeOnTenantVM'
 			{
-				$operationStatus = Disable-AzsScaleUnitNode -Location $Location -ScaleUnitNode $TenantVMName
+				$operationStatus = Disable-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location -ScaleUnitNode $TenantVMName
 				$operationStatus.ProvisioningState | Should not be ""
 				$operationStatus.ProvisioningState | Should be "Failure"
 			} | Should Throw
@@ -222,9 +220,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestPowerOnScaleUnitNode" -Skip {
 			$global:TestName = 'TestPowerOffScaleUnitNode'
 
-			$ScaleUnitNodes = Get-AzsScaleUnitNode -Location $Location
+			$ScaleUnitNodes = Get-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location
             foreach($ScaleUnitNode in $ScaleUnitNodes) {
-                Start-AzsScaleUnitNode -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
+                Start-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
 				$retrieved | Should Be $null
 				break
             }
@@ -233,9 +231,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestPowerOffScaleUnitNode" -Skip {
 			$global:TestName = 'TestPowerOffScaleUnitNode'
 
-			$ScaleUnitNodes = Get-AzsScaleUnitNode -Location $Location
+			$ScaleUnitNodes = Get-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location
             foreach($ScaleUnitNode in $ScaleUnitNodes) {
-                $retrieved = Stop-AzsScaleUnitNode -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
+                $retrieved = Stop-AzsScaleUnitNode -ResourceGroup $ResourceGroup -Location $Location -ScaleUnitNode $ScaleUnitNode.Name
 				$retrieved | Should Be $null
 				break
             }

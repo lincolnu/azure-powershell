@@ -50,7 +50,7 @@ InModuleScope Azs.Fabric.Admin {
 	Describe "EdgeGatewayPools" -Tags @('EdgeGatewayPool', 'Azs.Fabric.Admin') {
 
 		BeforeEach  {
-			
+
 			. $PSScriptRoot\Common.ps1
 
 			function ValidateEdgeGatewayPool {
@@ -58,7 +58,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$EdgeGatewayPool
 				)
-			
+
 				$EdgeGatewayPool          | Should Not Be $null
 
 				# Resource
@@ -77,7 +77,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -99,24 +99,24 @@ InModuleScope Azs.Fabric.Admin {
 				}
 			}
 		}
-	
-		
+
+
 		It "TestListEdgeGatewayPools" {
 			$global:TestName = 'TestListEdgeGatewayPools'
-			$edgeGatewayPools = Get-AzsEdgeGatewayPool -Location $Location
+			$edgeGatewayPools = Get-AzsEdgeGatewayPool -ResourceGroup $ResourceGroup -Location $Location
 			$edgeGatewayPools | Should Not Be $null
 			foreach($edgeGatewayPool in $edgeGatewayPools) {
 				ValidateEdgeGatewayPool -EdgeGatewayPool $edgeGatewayPool
 			}
 	    }
-	
-	
+
+
 		It "TestGetEdgeGatewayPool" {
             $global:TestName = 'TestGetEdgeGatewayPool'
 
-			$edgeGatewayPools = Get-AzsEdgeGatewayPool -Location $Location
+			$edgeGatewayPools = Get-AzsEdgeGatewayPool -ResourceGroup $ResourceGroup -Location $Location
 			foreach($edgeGatewayPool in $edgeGatewayPools) {
-				$retrieved = Get-AzsEdgeGatewayPool -Location $Location -EdgeGatewayPool $edgeGatewayPool.Name
+				$retrieved = Get-AzsEdgeGatewayPool -ResourceGroup $ResourceGroup -Location $Location -EdgeGatewayPool $edgeGatewayPool.Name
 				AssertEdgeGatewayPoolsAreSame -Expected $edgeGatewayPool -Found $retrieved
 				break
 			}
@@ -125,9 +125,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllEdgeGatewayPools" {
 			$global:TestName = 'TestGetAllEdgeGatewayPools'
 
-			$edgeGatewayPools = Get-AzsEdgeGatewayPool -Location $Location
+			$edgeGatewayPools = Get-AzsEdgeGatewayPool -ResourceGroup $ResourceGroup -Location $Location
 			foreach($edgeGatewayPool in $edgeGatewayPools) {
-				$retrieved = Get-AzsEdgeGatewayPool -Location $Location -EdgeGatewayPool $edgeGatewayPool.Name
+				$retrieved = Get-AzsEdgeGatewayPool -ResourceGroup $ResourceGroup -Location $Location -EdgeGatewayPool $edgeGatewayPool.Name
 				AssertEdgeGatewayPoolsAreSame -Expected $edgeGatewayPool -Found $retrieved
 			}
 		}

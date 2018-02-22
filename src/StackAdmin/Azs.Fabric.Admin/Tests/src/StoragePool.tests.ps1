@@ -58,7 +58,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$StoragePool
 				)
-			
+
 				$StoragePool          | Should Not Be $null
 
 				# Resource
@@ -75,7 +75,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -96,31 +96,31 @@ InModuleScope Azs.Fabric.Admin {
 				}
 			}
 		}
-	
-		
+
+
 		It "TestListStoragePools" {
 			$global:TestName = 'TestListStoragePools'
 
-			$storageSystems = Get-AzsStorageSystem -Location $Location
+			$storageSystems = Get-AzsStorageSystem -ResourceGroup $ResourceGroup -Location $Location
 			$storageSystems | Should not be $null
-			foreach($storageSystem in $storageSystems) { 
-				$StoragePools = Get-AzsStoragePool -Location $Location -StorageSubSystem $storageSystem.Name
+			foreach($storageSystem in $storageSystems) {
+				$StoragePools = Get-AzsStoragePool -ResourceGroup $ResourceGroup -Location $Location -StorageSubSystem $storageSystem.Name
 				$StoragePools | Should Not Be $null
 				foreach($StoragePool in $StoragePools) {
 					ValidateStoragePool -StoragePool $StoragePool
 				}
 			}
 	    }
-	
-	
+
+
 		It "TestGetStoragePool" {
             $global:TestName = 'TestGetStoragePool'
 
-			$storageSystems = Get-AzsStorageSystem -Location $Location
-			foreach($storageSystem in $storageSystems) { 
-				$StoragePools = Get-AzsStoragePool -Location $Location -StorageSubSystem $storageSystem.Name
+			$storageSystems = Get-AzsStorageSystem -ResourceGroup $ResourceGroup -Location $Location
+			foreach($storageSystem in $storageSystems) {
+				$StoragePools = Get-AzsStoragePool -ResourceGroup $ResourceGroup -Location $Location -StorageSubSystem $storageSystem.Name
 				foreach($StoragePool in $StoragePools) {
-					$retrieved = Get-AzsStoragePool -Location $Location -StoragePool $StoragePool.Name -StorageSubSystem $storageSystem.Name
+					$retrieved = Get-AzsStoragePool -ResourceGroup $ResourceGroup -Location $Location -StoragePool $StoragePool.Name -StorageSubSystem $storageSystem.Name
 					AssertStoragePoolsAreSame -Expected $StoragePool -Found $retrieved
 					break
 				}
@@ -131,11 +131,11 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllStoragePools" {
 			$global:TestName = 'TestGetAllStoragePools'
 
-			$storageSystems = Get-AzsStorageSystem -Location $Location
-			foreach($storageSystem in $storageSystems) { 
-				$StoragePools = Get-AzsStoragePool -Location $Location -StorageSubSystem $storageSystem.Name
+			$storageSystems = Get-AzsStorageSystem -ResourceGroup $ResourceGroup -Location $Location
+			foreach($storageSystem in $storageSystems) {
+				$StoragePools = Get-AzsStoragePool -ResourceGroup $ResourceGroup -Location $Location -StorageSubSystem $storageSystem.Name
 				foreach($StoragePool in $StoragePools) {
-					$retrieved = Get-AzsStoragePool -Location $Location -StoragePool $StoragePool.Name -StorageSubSystem $storageSystem.Name
+					$retrieved = Get-AzsStoragePool -ResourceGroup $ResourceGroup -Location $Location -StoragePool $StoragePool.Name -StorageSubSystem $storageSystem.Name
 					AssertStoragePoolsAreSame -Expected $StoragePool -Found $retrieved
 				}
 			}

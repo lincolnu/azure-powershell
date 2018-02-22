@@ -58,7 +58,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$SlbMuxInstance
 				)
-			
+
 				$SlbMuxInstance          | Should Not Be $null
 
 				# Resource
@@ -77,7 +77,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -99,30 +99,30 @@ InModuleScope Azs.Fabric.Admin {
 						$Found.BgpPeers        | Should not Be $null
 						$Found.BgpPeers.Count  | Should Be $Expected.BgpPeers.Count
 					}
-					
+
 					$Found.ConfigurationState  | Should Be $Expected.ConfigurationState
 					$Found.VirtualServer       | Should Be $Expected.VirtualServer
 				}
 			}
 		}
-	
-		
+
+
 		It "TestListSlbMuxInstances" {
 			$global:TestName = 'TestListSlbMuxInstances'
-			$SlbMuxInstances = Get-AzsSlbMuxInstance -Location $Location
+			$SlbMuxInstances = Get-AzsSlbMuxInstance -ResourceGroup $ResourceGroup -Location $Location
 			$SlbMuxInstances | Should Not Be $null
 			foreach($SlbMuxInstance in $SlbMuxInstances) {
 				ValidateSlbMuxInstance -SlbMuxInstance $SlbMuxInstance
 			}
 	    }
-	
-	
+
+
 		It "TestGetSlbMuxInstance" {
             $global:TestName = 'TestGetSlbMuxInstance'
 
-			$SlbMuxInstances = Get-AzsSlbMuxInstance -Location $Location
+			$SlbMuxInstances = Get-AzsSlbMuxInstance -ResourceGroup $ResourceGroup -Location $Location
 			foreach($SlbMuxInstance in $SlbMuxInstances) {
-				$retrieved = Get-AzsSlbMuxInstance -Location $Location -SlbMuxInstance $SlbMuxInstance.Name
+				$retrieved = Get-AzsSlbMuxInstance -ResourceGroup $ResourceGroup -Location $Location -SlbMuxInstance $SlbMuxInstance.Name
 				AssertSlbMuxInstancesAreSame -Expected $SlbMuxInstance -Found $retrieved
 				break
 			}
@@ -131,9 +131,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllSlbMuxInstances" {
 			$global:TestName = 'TestGetAllSlbMuxInstances'
 
-			$SlbMuxInstances = Get-AzsSlbMuxInstance -Location $Location
+			$SlbMuxInstances = Get-AzsSlbMuxInstance -ResourceGroup $ResourceGroup -Location $Location
 			foreach($SlbMuxInstance in $SlbMuxInstances) {
-				$retrieved = Get-AzsSlbMuxInstance -Location $Location -SlbMuxInstance $SlbMuxInstance.Name
+				$retrieved = Get-AzsSlbMuxInstance -ResourceGroup $ResourceGroup -Location $Location -SlbMuxInstance $SlbMuxInstance.Name
 				AssertSlbMuxInstancesAreSame -Expected $SlbMuxInstance -Found $retrieved
 			}
 		}

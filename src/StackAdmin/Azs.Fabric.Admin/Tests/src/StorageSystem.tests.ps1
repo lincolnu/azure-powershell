@@ -65,7 +65,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$StorageSystem
 				)
-			
+
 				$StorageSystem          | Should Not Be $null
 
 				# Resource
@@ -82,7 +82,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -102,24 +102,24 @@ InModuleScope Azs.Fabric.Admin {
 				}
 			}
 		}
-	
-		
+
+
 		It "TestListStorageSystems" {
 			$global:TestName = 'TestListStorageSystems'
-			$StorageSystems = Get-AzsStorageSystem -Location $Location
+			$StorageSystems = Get-AzsStorageSystem -ResourceGroup $ResourceGroup -Location $Location
 			$StorageSystems | Should Not Be $null
 			foreach($StorageSystem in $StorageSystems) {
 				ValidateStorageSystem -StorageSystem $StorageSystem
 			}
 	    }
-	
-	
+
+
 		It "TestGetStorageSystem" {
             $global:TestName = 'TestGetStorageSystem'
 
-			$StorageSystems = Get-AzsStorageSystem -Location $Location
+			$StorageSystems = Get-AzsStorageSystem -ResourceGroup $ResourceGroup -Location $Location
 			foreach($StorageSystem in $StorageSystems) {
-				$retrieved = Get-AzsStorageSystem -Location $Location -StorageSubSystem $StorageSystem.Name
+				$retrieved = Get-AzsStorageSystem -ResourceGroup $ResourceGroup -Location $Location -StorageSubSystem $StorageSystem.Name
 				AssertStorageSystemsAreSame -Expected $StorageSystem -Found $retrieved
 				break
 			}
@@ -128,9 +128,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllStorageSystems" {
 			$global:TestName = 'TestGetAllStorageSystems'
 
-			$StorageSystems = Get-AzsStorageSystem -Location $Location
+			$StorageSystems = Get-AzsStorageSystem -ResourceGroup $ResourceGroup -Location $Location
 			foreach($StorageSystem in $StorageSystems) {
-				$retrieved = Get-AzsStorageSystem -Location $Location -StorageSubSystem $StorageSystem.Name
+				$retrieved = Get-AzsStorageSystem -ResourceGroup $ResourceGroup -Location $Location -StorageSubSystem $StorageSystem.Name
 				AssertStorageSystemsAreSame -Expected $StorageSystem -Found $retrieved
 			}
 		}

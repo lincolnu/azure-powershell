@@ -35,10 +35,9 @@ Licensed under the MIT License. See License.txt in the project root for license 
     Return the top N items as specified by the parameter value. Applies after the -Skip parameter.
 
 #>
-function Get-AzsMacAddressPool
-{
+function Get-AzsMacAddressPool {
     [OutputType([Microsoft.AzureStack.Management.Fabric.Admin.Models.MacAddressPool])]
-    [CmdletBinding(DefaultParameterSetName='MacAddressPools_List')]
+    [CmdletBinding(DefaultParameterSetName = 'MacAddressPools_List')]
     param(    
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'ResourceId_MacAddressPools_Get')]
         [System.String]
@@ -76,136 +75,137 @@ function Get-AzsMacAddressPool
         $Top = -1
     )
 
-    Begin 
-    {
-	    Initialize-PSSwaggerDependencies -Azure
+    Begin {
+        Initialize-PSSwaggerDependencies -Azure
         $tracerObject = $null
         if (('continue' -eq $DebugPreference) -or ('inquire' -eq $DebugPreference)) {
             $oldDebugPreference = $global:DebugPreference
-			$global:DebugPreference = "continue"
+            $global:DebugPreference = "continue"
             $tracerObject = New-PSSwaggerClientTracing
             Register-PSSwaggerClientTracing -TracerObject $tracerObject
         }
-	}
+    }
 
     Process {
     
-    $ErrorActionPreference = 'Stop'
+        $ErrorActionPreference = 'Stop'
 
-    $NewServiceClient_params = @{
-        FullClientTypeName = 'Microsoft.AzureStack.Management.Fabric.Admin.FabricAdminClient'
-    }
+        $NewServiceClient_params = @{
+            FullClientTypeName = 'Microsoft.AzureStack.Management.Fabric.Admin.FabricAdminClient'
+        }
 
-    $GlobalParameterHashtable = @{}
-    $NewServiceClient_params['GlobalParameterHashtable'] = $GlobalParameterHashtable
+        $GlobalParameterHashtable = @{}
+        $NewServiceClient_params['GlobalParameterHashtable'] = $GlobalParameterHashtable
      
-    $GlobalParameterHashtable['SubscriptionId'] = $null
-    if($PSBoundParameters.ContainsKey('SubscriptionId')) {
-        $GlobalParameterHashtable['SubscriptionId'] = $PSBoundParameters['SubscriptionId']
-    }
+        $GlobalParameterHashtable['SubscriptionId'] = $null
+        if ($PSBoundParameters.ContainsKey('SubscriptionId')) {
+            $GlobalParameterHashtable['SubscriptionId'] = $PSBoundParameters['SubscriptionId']
+        }
 
-    $FabricAdminClient = New-ServiceClient @NewServiceClient_params
+        $FabricAdminClient = New-ServiceClient @NewServiceClient_params
 
     
 
-    $oDataQuery = ""
-    if ($Filter) { $oDataQuery += "&`$Filter=$Filter" }
-    $oDataQuery = $oDataQuery.Trim("&")
+        $oDataQuery = ""
+        if ($Filter) { $oDataQuery += "&`$Filter=$Filter" }
+        $oDataQuery = $oDataQuery.Trim("&")
  
-    $MacAddressPool = $Name
+        $MacAddressPool = $Name
 
  
-    if('InputObject_MacAddressPools_Get' -eq $PsCmdlet.ParameterSetName -or 'ResourceId_MacAddressPools_Get' -eq $PsCmdlet.ParameterSetName) {
-        $GetArmResourceIdParameterValue_params = @{
-            IdTemplate = '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/macAddressPools/{macAddressPool}'
+        if ('InputObject_MacAddressPools_Get' -eq $PsCmdlet.ParameterSetName -or 'ResourceId_MacAddressPools_Get' -eq $PsCmdlet.ParameterSetName) {
+            $GetArmResourceIdParameterValue_params = @{
+                IdTemplate = '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/macAddressPools/{macAddressPool}'
+            }
+
+            if ('ResourceId_MacAddressPools_Get' -eq $PsCmdlet.ParameterSetName) {
+                $GetArmResourceIdParameterValue_params['Id'] = $ResourceId
+            }
+            else {
+                $GetArmResourceIdParameterValue_params['Id'] = $InputObject.Id
+            }
+            $ArmResourceIdParameterValues = Get-ArmResourceIdParameterValue @GetArmResourceIdParameterValue_params
+            $resourceGroupName = $ArmResourceIdParameterValues['resourceGroupName']
+
+            $location = $ArmResourceIdParameterValues['location']
+
+            $macAddressPool = $ArmResourceIdParameterValues['macAddressPool']
         }
 
-        if('ResourceId_MacAddressPools_Get' -eq $PsCmdlet.ParameterSetName) {
-            $GetArmResourceIdParameterValue_params['Id'] = $ResourceId
+        $filterInfos = @(
+            @{
+                'Type'     = 'powershellWildcard'
+                'Value'    = $MacAddressPool
+                'Property' = 'Name' 
+            })
+        $applicableFilters = Get-ApplicableFilters -Filters $filterInfos
+        if ($applicableFilters | Where-Object { $_.Strict }) {
+            Write-Verbose -Message 'Performing server-side call ''Get-AzsMacAddressPool -'''
+            $serverSideCall_params = @{
+
+            }
+
+            $serverSideResults = Get-AzsMacAddressPool @serverSideCall_params
+            foreach ($serverSideResult in $serverSideResults) {
+                $valid = $true
+                foreach ($applicableFilter in $applicableFilters) {
+                    if (-not (Test-FilteredResult -Result $serverSideResult -Filter $applicableFilter.Filter)) {
+                        $valid = $false
+                        break
+                    }
+                }
+
+                if ($valid) {
+                    $serverSideResult
+                }
+            }
+            return
+        }
+        if ('MacAddressPools_Get' -eq $PsCmdlet.ParameterSetName -or 'InputObject_MacAddressPools_Get' -eq $PsCmdlet.ParameterSetName -or 'ResourceId_MacAddressPools_Get' -eq $PsCmdlet.ParameterSetName) {
+            Write-Verbose -Message 'Performing operation GetWithHttpMessagesAsync on $FabricAdminClient.'
+            $TaskResult = $FabricAdminClient.MacAddressPools.GetWithHttpMessagesAsync($ResourceGroupName, $Location, $MacAddressPool)
+        }
+        elseif ('MacAddressPools_List' -eq $PsCmdlet.ParameterSetName) {
+            Write-Verbose -Message 'Performing operation ListWithHttpMessagesAsync on $FabricAdminClient.'
+            $TaskResult = $FabricAdminClient.MacAddressPools.ListWithHttpMessagesAsync($ResourceGroupName, $Location, $(if ($oDataQuery) { New-Object -TypeName "Microsoft.Rest.Azure.OData.ODataQuery``1[Microsoft.AzureStack.Management.Fabric.Admin.Models.MacAddressPool]" -ArgumentList $oDataQuery } else { $null }))
         }
         else {
-            $GetArmResourceIdParameterValue_params['Id'] = $InputObject.Id
-        }
-        $ArmResourceIdParameterValues = Get-ArmResourceIdParameterValue @GetArmResourceIdParameterValue_params
-        $resourceGroupName = $ArmResourceIdParameterValues['resourceGroupName']
-
-        $location = $ArmResourceIdParameterValues['location']
-
-        $macAddressPool = $ArmResourceIdParameterValues['macAddressPool']
-    }
-
-$filterInfos = @(
-@{
-    'Type' = 'powershellWildcard'
-    'Value' = $MacAddressPool
-    'Property' = 'Name' 
-})
-$applicableFilters = Get-ApplicableFilters -Filters $filterInfos
-if ($applicableFilters | Where-Object { $_.Strict }) {
-    Write-Verbose -Message 'Performing server-side call ''Get-AzsMacAddressPool -'''
-    $serverSideCall_params = @{
-
-}
-
-$serverSideResults = Get-AzsMacAddressPool @serverSideCall_params
-foreach ($serverSideResult in $serverSideResults) {
-    $valid = $true
-    foreach ($applicableFilter in $applicableFilters) {
-        if (-not (Test-FilteredResult -Result $serverSideResult -Filter $applicableFilter.Filter)) {
-            $valid = $false
-            break
-        }
-    }
-
-    if ($valid) {
-        $serverSideResult
-    }
-}
-return
-}
-    if ('MacAddressPools_Get' -eq $PsCmdlet.ParameterSetName -or 'InputObject_MacAddressPools_Get' -eq $PsCmdlet.ParameterSetName -or 'ResourceId_MacAddressPools_Get' -eq $PsCmdlet.ParameterSetName) {
-        Write-Verbose -Message 'Performing operation GetWithHttpMessagesAsync on $FabricAdminClient.'
-        $TaskResult = $FabricAdminClient.MacAddressPools.GetWithHttpMessagesAsync($ResourceGroupName, $Location, $MacAddressPool)
-    } elseif ('MacAddressPools_List' -eq $PsCmdlet.ParameterSetName) {
-        Write-Verbose -Message 'Performing operation ListWithHttpMessagesAsync on $FabricAdminClient.'
-        $TaskResult = $FabricAdminClient.MacAddressPools.ListWithHttpMessagesAsync($ResourceGroupName, $Location, $(if ($oDataQuery) { New-Object -TypeName "Microsoft.Rest.Azure.OData.ODataQuery``1[Microsoft.AzureStack.Management.Fabric.Admin.Models.MacAddressPool]" -ArgumentList $oDataQuery } else { $null }))
-    } else {
-        Write-Verbose -Message 'Failed to map parameter set to operation method.'
-        throw 'Module failed to find operation to execute.'
-    }
-
-    if ($TaskResult) {
-        $GetTaskResult_params = @{
-            TaskResult = $TaskResult
+            Write-Verbose -Message 'Failed to map parameter set to operation method.'
+            throw 'Module failed to find operation to execute.'
         }
 
-        $TopInfo = @{
-            'Count' = 0
-            'Max' = $Top
-        }
-        $GetTaskResult_params['TopInfo'] = $TopInfo 
-        $SkipInfo = @{
-            'Count' = 0
-            'Max' = $Skip
-        }
-        $GetTaskResult_params['SkipInfo'] = $SkipInfo 
-        $PageResult = @{
-            'Result' = $null
-        }
-        $GetTaskResult_params['PageResult'] = $PageResult 
-        $GetTaskResult_params['PageType'] = 'Microsoft.Rest.Azure.IPage[Microsoft.AzureStack.Management.Fabric.Admin.Models.MacAddressPool]' -as [Type]            
-        Get-TaskResult @GetTaskResult_params
-            
-        Write-Verbose -Message 'Flattening paged results.'
-        while ($PageResult -and $PageResult.Result -and (Get-Member -InputObject $PageResult.Result -Name 'nextLink') -and $PageResult.Result.'nextLink' -and (($TopInfo -eq $null) -or ($TopInfo.Max -eq -1) -or ($TopInfo.Count -lt $TopInfo.Max))) {
-            $PageResult.Result = $null
-            Write-Debug -Message "Retrieving next page: $($PageResult.Result.'nextLink')"
-            $TaskResult = $FabricAdminClient.MacAddressPools.ListNextWithHttpMessagesAsync($PageResult.Result.'nextLink')
-            $GetTaskResult_params['TaskResult'] = $TaskResult
-            $GetTaskResult_params['PageResult'] = $PageResult
+        if ($TaskResult) {
+            $GetTaskResult_params = @{
+                TaskResult = $TaskResult
+            }
+
+            $TopInfo = @{
+                'Count' = 0
+                'Max'   = $Top
+            }
+            $GetTaskResult_params['TopInfo'] = $TopInfo 
+            $SkipInfo = @{
+                'Count' = 0
+                'Max'   = $Skip
+            }
+            $GetTaskResult_params['SkipInfo'] = $SkipInfo 
+            $PageResult = @{
+                'Result' = $null
+            }
+            $GetTaskResult_params['PageResult'] = $PageResult 
+            $GetTaskResult_params['PageType'] = 'Microsoft.Rest.Azure.IPage[Microsoft.AzureStack.Management.Fabric.Admin.Models.MacAddressPool]' -as [Type]            
             Get-TaskResult @GetTaskResult_params
+            
+            Write-Verbose -Message 'Flattening paged results.'
+            while ($PageResult -and $PageResult.Result -and (Get-Member -InputObject $PageResult.Result -Name 'nextLink') -and $PageResult.Result.'nextLink' -and (($TopInfo -eq $null) -or ($TopInfo.Max -eq -1) -or ($TopInfo.Count -lt $TopInfo.Max))) {
+                $PageResult.Result = $null
+                Write-Debug -Message "Retrieving next page: $($PageResult.Result.'nextLink')"
+                $TaskResult = $FabricAdminClient.MacAddressPools.ListNextWithHttpMessagesAsync($PageResult.Result.'nextLink')
+                $GetTaskResult_params['TaskResult'] = $TaskResult
+                $GetTaskResult_params['PageResult'] = $PageResult
+                Get-TaskResult @GetTaskResult_params
+            }
         }
-    }
     }
 
     End {

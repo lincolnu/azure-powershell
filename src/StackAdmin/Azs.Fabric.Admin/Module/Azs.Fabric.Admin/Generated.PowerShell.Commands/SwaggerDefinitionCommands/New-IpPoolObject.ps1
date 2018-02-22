@@ -11,10 +11,10 @@ Licensed under the MIT License. See License.txt in the project root for license 
     This resource defines the range of IP addresses from which addresses are  allocated for nodes within a subnet.
 
 .PARAMETER NumberOfIpAddressesInTransition
-    The current number of ip addresses in transition.
+    The current number of IP addresses in transition.
 
 .PARAMETER StartIpAddress
-    The starting Ip address.
+    The starting IP address.
 
 .PARAMETER Id
     URI of the resource.
@@ -23,29 +23,28 @@ Licensed under the MIT License. See License.txt in the project root for license 
     Type of resource.
 
 .PARAMETER Tags
-    List of key value pairs.
+    List of key-value pairs.
 
 .PARAMETER AddressPrefix
     The address prefix.
 
 .PARAMETER NumberOfIpAddresses
-    The total number of ip addresses.
+    The total number of IP addresses.
 
 .PARAMETER Name
     Name of the resource.
 
 .PARAMETER Location
-    Region Location of resource.
+    The region where the resource is located.
 
 .PARAMETER EndIpAddress
-    The ending Ip address.
+    The ending IP address.
 
 .PARAMETER NumberOfAllocatedIpAddresses
-    The number of currently allocated ip addresses.
+    The number of currently allocated IP addresses.
 
 #>
-function New-IpPoolObject
-{
+function New-IpPoolObject {
     param(    
         [Parameter(Mandatory = $false)]
         [int64]
@@ -64,7 +63,7 @@ function New-IpPoolObject
         $Type,
     
         [Parameter(Mandatory = $false)]
-        [System.Collections.Generic.Dictionary[[string],[string]]]
+        [System.Collections.Generic.Dictionary[[string], [string]]]
         $Tags,
     
         [Parameter(Mandatory = $false)]
@@ -95,14 +94,12 @@ function New-IpPoolObject
     $Object = New-Object -TypeName Microsoft.AzureStack.Management.Fabric.Admin.Models.IpPool
 
     $PSBoundParameters.GetEnumerator() | ForEach-Object { 
-        if(Get-Member -InputObject $Object -Name $_.Key -MemberType Property)
-        {
+        if (Get-Member -InputObject $Object -Name $_.Key -MemberType Property) {
             $Object.$($_.Key) = $_.Value
         }
     }
 
-    if(Get-Member -InputObject $Object -Name Validate -MemberType Method)
-    {
+    if (Get-Member -InputObject $Object -Name Validate -MemberType Method) {
         $Object.Validate()
     }
 

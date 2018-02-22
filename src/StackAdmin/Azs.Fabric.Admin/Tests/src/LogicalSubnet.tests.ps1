@@ -50,7 +50,7 @@ InModuleScope Azs.Fabric.Admin {
 	Describe "LogicalSubnets" -Tags @('LogicalSubnet', 'Azs.Fabric.Admin') {
 
 		BeforeEach  {
-			
+
 			. $PSScriptRoot\Common.ps1
 
 			function ValidateLogicalSubnet {
@@ -58,7 +58,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$LogicalSubnet
 				)
-			
+
 				$LogicalSubnet          | Should Not Be $null
 
 				# Resource
@@ -79,7 +79,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -93,7 +93,7 @@ InModuleScope Azs.Fabric.Admin {
 					$Found.Location         | Should Be $Expected.Location
 					$Found.Name             | Should Be $Expected.Name
 					$Found.Type             | Should Be $Expected.Type
-					
+
 					# Logical Network
 					if($Expected -eq $null) {
 						$Found.IpPools | Should be $null
@@ -111,30 +111,30 @@ InModuleScope Azs.Fabric.Admin {
 				}
 			}
 		}
-	
-		
+
+
 		It "TestListLogicalSubnets" {
 			$global:TestName = 'TestListLogicalSubnets'
-			
-			$logicalNetworks = Get-AzsLogicalNetwork -Location $Location
+
+			$logicalNetworks = Get-AzsLogicalNetwork -ResourceGroup $ResourceGroup -Location $Location
 			foreach($logicalNetwork in $logicalNetworks) {
-				$logicalSubnets = Get-AzsLogicalSubnet -Location $Location -LogicalNetwork $logicalNetwork.Name
+				$logicalSubnets = Get-AzsLogicalSubnet -ResourceGroup $ResourceGroup -Location $Location -LogicalNetwork $logicalNetwork.Name
 				foreach($logicalSubnet in $logicalSubnets) {
 					ValidateLogicalSubnet $logicalSubnet
 				}
 				break
 			}
 	    }
-	
-	
+
+
 		It "TestGetLogicalSubnet" {
             $global:TestName = 'TestGetLogicalSubnet'
 
-			$logicalNetworks = Get-AzsLogicalNetwork -Location $Location
+			$logicalNetworks = Get-AzsLogicalNetwork -ResourceGroup $ResourceGroup -Location $Location
 			foreach($logicalNetwork in $logicalNetworks) {
-				$logicalSubnets = Get-AzsLogicalSubnet -Location $Location -LogicalNetwork $logicalNetwork.Name
+				$logicalSubnets = Get-AzsLogicalSubnet -ResourceGroup $ResourceGroup -Location $Location -LogicalNetwork $logicalNetwork.Name
 				foreach($logicalSubnet in $logicalSubnets) {
-					$retrieved = Get-AzsLogicalSubnet -Location $Location -LogicalNetwork $logicalNetwork.Name -LogicalSubnet $logicalSubnet.Name
+					$retrieved = Get-AzsLogicalSubnet -ResourceGroup $ResourceGroup -Location $Location -LogicalNetwork $logicalNetwork.Name -LogicalSubnet $logicalSubnet.Name
 					AssertLogicalSubnetsAreSame -Expected $logicalSubnet -Found $retrieved
 					break
 				}
@@ -144,12 +144,12 @@ InModuleScope Azs.Fabric.Admin {
 
 		It "TestGetAllLogicalSubnets" {
 			$global:TestName = 'TestGetAllLogicalSubnets'
-			
-			$logicalNetworks = Get-AzsLogicalNetwork -Location $Location
+
+			$logicalNetworks = Get-AzsLogicalNetwork -ResourceGroup $ResourceGroup -Location $Location
 			foreach($logicalNetwork in $logicalNetworks) {
-				$logicalSubnets = Get-AzsLogicalSubnet -Location $Location -LogicalNetwork $logicalNetwork.Name
+				$logicalSubnets = Get-AzsLogicalSubnet -ResourceGroup $ResourceGroup -Location $Location -LogicalNetwork $logicalNetwork.Name
 				foreach($logicalSubnet in $logicalSubnets) {
-					$retrieved = Get-AzsLogicalSubnet -Location $Location -LogicalNetwork $logicalNetwork.Name -LogicalSubnet $logicalSubnet.Name
+					$retrieved = Get-AzsLogicalSubnet -ResourceGroup $ResourceGroup -Location $Location -LogicalNetwork $logicalNetwork.Name -LogicalSubnet $logicalSubnet.Name
 					AssertLogicalSubnetsAreSame -Expected $logicalSubnet -Found $retrieved
 				}
 			}

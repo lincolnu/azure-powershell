@@ -50,7 +50,7 @@ InModuleScope Azs.Fabric.Admin {
 	Describe "ScaleUnits" -Tags @('ScaleUnit', 'Azs.Fabric.Admin') {
 
 		BeforeEach  {
-			
+
 			. $PSScriptRoot\Common.ps1
 
 			function ValidateScaleUnit {
@@ -58,7 +58,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$ScaleUnit
 				)
-			
+
 				$ScaleUnit          | Should Not Be $null
 
 				# Resource
@@ -78,7 +78,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -118,24 +118,24 @@ InModuleScope Azs.Fabric.Admin {
 				}
 			}
 		}
-	
-		
+
+
 		It "TestListScaleUnits" {
 			$global:TestName = 'TestListScaleUnits'
-			$ScaleUnits = Get-AzsScaleUnit -Location $Location
+			$ScaleUnits = Get-AzsScaleUnit -ResourceGroup $ResourceGroup -Location $Location
 			$ScaleUnits | Should Not Be $null
 			foreach($ScaleUnit in $ScaleUnits) {
 				ValidateScaleUnit -ScaleUnit $ScaleUnit
 			}
 	    }
-	
-	
+
+
 		It "TestGetScaleUnit" {
             $global:TestName = 'TestGetScaleUnit'
 
-			$ScaleUnits = Get-AzsScaleUnit -Location $Location
+			$ScaleUnits = Get-AzsScaleUnit -ResourceGroup $ResourceGroup -Location $Location
 			foreach($ScaleUnit in $ScaleUnits) {
-				$retrieved = Get-AzsScaleUnit -Location $Location -ScaleUnit $ScaleUnit.Name
+				$retrieved = Get-AzsScaleUnit -ResourceGroup $ResourceGroup -Location $Location -ScaleUnit $ScaleUnit.Name
 				AssertScaleUnitsAreSame -Expected $ScaleUnit -Found $retrieved
 				break
 			}
@@ -144,9 +144,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllScaleUnits" {
 			$global:TestName = 'TestGetAllScaleUnits'
 
-			$ScaleUnits = Get-AzsScaleUnit -Location $Location
+			$ScaleUnits = Get-AzsScaleUnit -ResourceGroup $ResourceGroup -Location $Location
 			foreach($ScaleUnit in $ScaleUnits) {
-				$retrieved = Get-AzsScaleUnit -Location $Location -ScaleUnit $ScaleUnit.Name
+				$retrieved = Get-AzsScaleUnit -ResourceGroup $ResourceGroup -Location $Location -ScaleUnit $ScaleUnit.Name
 				AssertScaleUnitsAreSame -Expected $ScaleUnit -Found $retrieved
 			}
 		}

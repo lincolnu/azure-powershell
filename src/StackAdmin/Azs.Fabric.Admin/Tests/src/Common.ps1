@@ -2,12 +2,13 @@
 $global:Location = "local"
 $global:TenantVMName = "502828aa-de3a-4ba9-a66c-5ae6d49589d7"
 $global:Provider = "Microsoft.Fabric.Admin"
+$global:ResourceGroup = "System.local"
 
 if(-not $RunRaw) {
 	$scriptBlock = {
 		Get-MockClient -ClassName 'FabricAdminClient' -TestName $global:TestName -Verbose
 	}
-	Mock Get-ServiceClient $scriptBlock -ModuleName "Azs.Fabric.Admin"
+	Mock New-ServiceClient $scriptBlock -ModuleName "Azs.Fabric.Admin"
 }
 
 function Repeat{
@@ -30,14 +31,4 @@ function ExtractOperationId{
 	[int]$end = $Uri.LastIndexOf('?')
 	[int]$length = $end - $start
 	return $Uri.Substring($start, $length)
-}
-
-function PollComputeOperationId{
-	param(
-		[string]$ComputeOperationUri
-	)
-
-	$ComputeOperationId = ExtractOperationId $ComputeOperationUri
-
-	Repeat 10 {Get-ComputeFabricOperation -Location $Location -Provider $Provider -ComputeOperationResult $ComputeOperationId}
 }

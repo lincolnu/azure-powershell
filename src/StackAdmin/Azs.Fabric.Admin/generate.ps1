@@ -19,4 +19,5 @@ $client = "$namespace.FabricAdminClient"
     -GithubBranch azs.fabric.admin `
     -PredefinedAssemblies $assembly `
     -Name $name `
-    -ClientTypeName $client
+    -ClientTypeName $client `
+    -GenerateSwagger:$false

@@ -59,7 +59,7 @@ InModuleScope Azs.Fabric.Admin {
 	Describe "InfrastructureRoleInstances" -Tags @('InfrastructureRoleInstance', 'Azs.Fabric.Admin') {
 
 		BeforeEach  {
-			
+
 			. $PSScriptRoot\Common.ps1
 
 			function ValidateInfrastructureRoleInstance {
@@ -67,7 +67,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$InfrastructureRoleInstance
 				)
-			
+
 				$InfrastructureRoleInstance          | Should Not Be $null
 
 				# Resource
@@ -88,7 +88,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -113,22 +113,22 @@ InModuleScope Azs.Fabric.Admin {
 				}
 			}
 		}
-		
+
 		It "TestListInfraRoleInstances" {
 			$global:TestName = 'TestListInfraRoleInstances'
-			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -Location $Location
+			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location
 			$InfrastructureRoleInstances | Should Not Be $null
 			foreach($InfrastructureRoleInstance in $InfrastructureRoleInstances) {
 				ValidateInfrastructureRoleInstance -InfrastructureRoleInstance $InfrastructureRoleInstance
 			}
 	    }
-	
+
 		It "TestGetInfraRoleInstance" {
             $global:TestName = 'TestGetInfraRoleInstance'
 
-			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -Location $Location
+			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location
 			foreach($InfrastructureRoleInstance in $InfrastructureRoleInstances) {
-				$retrieved = Get-AzsInfrastructureRoleInstance -Location $Location -InfrastructureRoleInstance $InfrastructureRoleInstance.Name
+				$retrieved = Get-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location -Name $InfrastructureRoleInstance.Name
 				AssertInfrastructureRoleInstancesAreSame -Expected $InfrastructureRoleInstance -Found $retrieved
 				break
 			}
@@ -137,9 +137,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllInfraRoleInstances" {
 			$global:TestName = 'TestGetAllInfraRoleInstances'
 
-			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -Location $Location
+			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location
 			foreach($InfrastructureRoleInstance in $InfrastructureRoleInstances) {
-				$retrieved = Get-AzsInfrastructureRoleInstance -Location $Location -InfrastructureRoleInstance $InfrastructureRoleInstance.Name
+				$retrieved = Get-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location -Name $InfrastructureRoleInstance.Name
 				AssertInfrastructureRoleInstancesAreSame -Expected $InfrastructureRoleInstance -Found $retrieved
 			}
 		}
@@ -147,9 +147,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestInfraRoleInstancePowerOn" {
 			$global:TestName = 'TestInfraRoleInstancePowerOn'
 
-			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -Location $Location
+			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location
 			foreach($InfrastructureRoleInstance in $InfrastructureRoleInstances) {
-				Start-AzsInfrastructureRoleInstance -Location $Location -InfrastructureRoleInstance $InfrastructureRoleInstance.Name
+				Start-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location -Name $InfrastructureRoleInstance.Name
 				break
 			}
 		}
@@ -157,40 +157,40 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestInfraRoleInstancePowerOnAll" {
 			$global:TestName = 'TestInfraRoleInstancePowerOnAll'
 
-			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -Location $Location
+			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location
 			foreach($InfrastructureRoleInstance in $InfrastructureRoleInstances) {
-				Start-AzsInfrastructureRoleInstance -Location $Location -InfrastructureRoleInstance $InfrastructureRoleInstance.Name
+				Start-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location -Name $InfrastructureRoleInstance.Name
 			}
 		}
 
 		# Tenant VMs
-		
-		
+
+
 
 		It "TestGetInfrastructureRoleInstanceOnTenantVM" {
 			$global:TestName = 'TestGetInfrastructureRoleInstanceOnTenantVM'
 
-			{ Get-AzsInfrastructureRoleInstance -Location $Location -InfrastructureRoleInstance $TenantVMName } | Should Throw
+			{ Get-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location -InfrastructureRoleInstance $TenantVMName } | Should Throw
 		}
-		
+
 		It "TestInfrastructureRoleInstanceShutdownOnTenantVM" {
 			$global:TestName = 'TestInfrastructureRoleInstanceShutdownOnTenantVM'
 			{
-				Disable-AzsInfrastructureRoleInstance -Location $Location -InfrastructureRoleInstance $TenantVMName
+				Disable-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location -InfrastructureRoleInstance $TenantVMName
 			} | Should Throw
 		}
-		
+
 		It "TestInfrastructureRoleInstanceRebootOnTenantVM" {
 			$global:TestName = 'TestInfrastructureRoleInstanceRebootOnTenantVM'
 			{
-				ReStart-AzsInfrastructureRoleInstance -Location $Location -InfrastructureRoleInstance $TenantVMName
+				ReStart-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location -InfrastructureRoleInstance $TenantVMName
 		} | Should Throw
 		}
-		
+
 		It "TestInfrastructureRoleInstancePowerOffOnTenantVM" {
 			$global:TestName = 'TestInfrastructureRoleInstancePowerOffOnTenantVM'
 			{
-				Stop-AzsInfrastructureRoleInstance -Location $Location -InfrastructureRoleInstance $TenantVMName
+				Stop-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location -InfrastructureRoleInstance $TenantVMName
 			} | Should Throw
 		}
 
@@ -200,9 +200,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestInfrastructureRoleInstanceShutdown" -Skip {
 			$global:TestName = 'TestInfrastructureRoleInstanceShutdown'
 
-			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -Location $Location
+			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location
 			foreach($InfrastructureRoleInstance in $InfrastructureRoleInstances) {
-				Disable-AzsInfrastructureRoleInstance -Location $Location -InfrastructureRoleInstance $InfrastructureRoleInstance.Name
+				Disable-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location -InfrastructureRoleInstance $InfrastructureRoleInstance.Name
 				break
 			}
 		}
@@ -210,9 +210,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestInfrastructureRoleInstancePowerOff" -Skip {
 			$global:TestName = 'TestInfrastructureRoleInstancePowerOff'
 
-			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -Location $Location
+			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location
 			foreach($InfrastructureRoleInstance in $InfrastructureRoleInstances) {
-				Stop-AzsInfrastructureRoleInstance -Location $Location -InfrastructureRoleInstance $InfrastructureRoleInstance.Instance
+				Stop-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location -InfrastructureRoleInstance $InfrastructureRoleInstance.Instance
 				break
 			}
 		}
@@ -220,9 +220,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestInfrastructureRoleInstanceReboot" -Skip {
 			$global:TestName = 'TestInfrastructureRoleInstanceReboot'
 
-			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -Location $Location
+			$InfrastructureRoleInstances = Get-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location
 			foreach($InfrastructureRoleInstance in $InfrastructureRoleInstances) {
-				ReStart-AzsInfrastructureRoleInstance -Location $Location -InfrastructureRoleInstance $InfrastructureRoleInstance.Instance
+				ReStart-AzsInfrastructureRoleInstance -ResourceGroup $ResourceGroup -Location $Location -InfrastructureRoleInstance $InfrastructureRoleInstance.Instance
 				break
 			}
 		}

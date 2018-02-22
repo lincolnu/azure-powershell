@@ -50,7 +50,7 @@ InModuleScope Azs.Fabric.Admin {
 	Describe "InfrastructureShares" -Tags @('FileShare', 'Azs.Fabric.Admin') {
 
 		BeforeEach  {
-			
+
 			. $PSScriptRoot\Common.ps1
 
 			function ValidateFileShare {
@@ -58,7 +58,7 @@ InModuleScope Azs.Fabric.Admin {
 					[Parameter(Mandatory=$true)]
 					$Share
 				)
-			
+
 				$FileShare          | Should Not Be $null
 
 				# Resource
@@ -77,7 +77,7 @@ InModuleScope Azs.Fabric.Admin {
 				param(
 					[Parameter(Mandatory=$true)]
 					$Expected,
-        
+
 					[Parameter(Mandatory=$true)]
 					$Found
 				)
@@ -99,26 +99,25 @@ InModuleScope Azs.Fabric.Admin {
 				}
 			}
 		}
-		
+
 		It "TestListFileShares" {
 			$global:TestName = 'TestListFileShares'
-			$fileShares = Get-AzsInfrastructureShare -Location $Location
+			$fileShares = Get-AzsInfrastructureShare -ResourceGroup $ResourceGroup -Location $Location
 			$fileShares | Should not be $null
 			foreach($fileShare in $fileShares) {
 				ValidateFileShare -Share $fileShare
 			}
 	    }
-	
+
 		It "TestGetFileShare" {
             $global:TestName = 'TestGetFileShare'
 
-			$fileShares = Get-AzsInfrastructureShare -Location $Location
+			$fileShares = Get-AzsInfrastructureShare -ResourceGroup $ResourceGroup -Location $Location
 			if($fileShares -and $fileShares.Count -gt 0) {
 				$fileShare = $fileShares[0]
-				$retrieved = Get-AzsInfrastructureShare -Location $Location -Share $fileShare.Name
-				Write-Host "Get-AzsInfrastructureShare -Location $Location -Share $fileShare.Name"
+				$retrieved = Get-AzsInfrastructureShare -ResourceGroup $ResourceGroup -Location $Location -FileShare $fileShare.Name
 				Write-Host ($retrieved | Out-String)
-				
+
 				AssertFileSharesAreSame -Expected $fileShare -Found $retrieved
 			}
 		}
@@ -126,9 +125,9 @@ InModuleScope Azs.Fabric.Admin {
 		It "TestGetAllFileShares" {
 			$global:TestName = 'TestGetAllFileShares'
 
-			$fileShares = Get-AzsInfrastructureShare -Location $Location
+			$fileShares = Get-AzsInfrastructureShare -ResourceGroup $ResourceGroup -Location $Location
 			foreach($fileShare in $fileShares) {
-				$retrieved = Get-AzsInfrastructureShare -Location $Location -Share $fileShare.Name
+				$retrieved = Get-AzsInfrastructureShare -ResourceGroup $ResourceGroup -Location $Location -FileShare $fileShare.Name
 				AssertFileSharesAreSame -Expected $fileShare -Found $retrieved
 			}
 		}

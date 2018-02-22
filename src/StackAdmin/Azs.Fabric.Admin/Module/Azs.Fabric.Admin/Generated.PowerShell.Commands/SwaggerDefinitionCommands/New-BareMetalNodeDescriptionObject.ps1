@@ -23,20 +23,19 @@ Licensed under the MIT License. See License.txt in the project root for license 
     Name of the computer.
 
 .PARAMETER MacAddress
-    Name of the mac address of the bare metal node.
+    Name of the MAC address of the bare metal node.
 
 .PARAMETER Model
     Model of the physical machine.
 
 .PARAMETER BMCIPv4Address
-    Bmc address of the physical machine.
+    BMC address of the physical machine.
 
 .PARAMETER Vendor
     Vendor of the physical machine.
 
 #>
-function New-BareMetalNodeDescriptionObject
-{
+function New-BareMetalNodeDescriptionObject {
     param(    
         [Parameter(Mandatory = $false)]
         [string]
@@ -74,14 +73,12 @@ function New-BareMetalNodeDescriptionObject
     $Object = New-Object -TypeName Microsoft.AzureStack.Management.Fabric.Admin.Models.BareMetalNodeDescription
 
     $PSBoundParameters.GetEnumerator() | ForEach-Object { 
-        if(Get-Member -InputObject $Object -Name $_.Key -MemberType Property)
-        {
+        if (Get-Member -InputObject $Object -Name $_.Key -MemberType Property) {
             $Object.$($_.Key) = $_.Value
         }
     }
 
-    if(Get-Member -InputObject $Object -Name Validate -MemberType Method)
-    {
+    if (Get-Member -InputObject $Object -Name Validate -MemberType Method) {
         $Object.Validate()
     }
 

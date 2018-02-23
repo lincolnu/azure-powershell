@@ -114,6 +114,21 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoles/{infraRole}/Restart": {
+      "post": {
+        "x-ps-cmdlet-infos": [
+          {
+            "name": "Restart-AzsInfrastructureRole",
+            "description": "Restarts the requestd infrastructure role.",
+            "defaultParameterSet": "InfraRoles_Restart",
+            "generateCommand": true
+          }
+        ],
+        "parameters": {
+          
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations": {
       "put": {
         "x-ps-cmdlet-infos": [

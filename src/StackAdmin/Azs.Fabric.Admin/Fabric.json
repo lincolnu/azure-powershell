@@ -1657,6 +1657,62 @@
         ]
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoles/{infraRole}/Restart": {
+      "post": {
+        "x-ms-examples": {
+          "Restarts the requestd infrastructure role.": {
+            "parameters": {
+              "api-version": "2016-05-01",
+              "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
+              "resourceGroupName": "System.local",
+              "location": "local",
+              "infraRole": "BackupRestoreResourceProvider"
+            },
+            "responses": {
+              "200": {},
+              "202": {}
+            }
+          }
+        },
+        "tags": [
+          "InfraRole"
+        ],
+        "description": "Restarts the requestd infrastructure role.",
+        "operationId": "InfraRoles_Restart",
+        "parameters": [
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/ResourceGroupParameter"
+          },
+          {
+            "$ref": "#/parameters/LocationParameter"
+          },
+          {
+            "$ref": "#/parameters/InfraRoleParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "202": {
+            "description": "ACCEPTED"
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/infraRoleInstances/{infraRoleInstance}/PowerOff": {
       "post": {
         "x-ms-examples": {

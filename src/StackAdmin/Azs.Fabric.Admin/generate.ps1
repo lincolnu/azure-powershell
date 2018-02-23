@@ -2,11 +2,12 @@
 $rpName = "fabric"
 $name = "Fabric"
 $location = Get-Location
-$psswagger = "E:\github\PSswagger"
-$module = "Module"
+$psswagger = "C:\work\PSSwagger"
+$module = "TestModule"
 $namespace = "Microsoft.AzureStack.Management.$Name.Admin"
 $assembly = "$namespace.dll"
-$client = "$namespace.FabricAdminClient"
+$client = "$namespace.$($name)AdminClient"
+
 
 . ..\..\..\tools\GeneratePSSwagger.ps1 `
     -RPName $rpName `
@@ -16,8 +17,8 @@ $client = "$namespace.FabricAdminClient"
     -AzureStack `
     -PSSwaggerLocation $psswagger `
     -GithubAccount deathly809 `
-    -GithubBranch azs.fabric.admin `
+    -GithubBranch azs.$rpname.admin `
     -PredefinedAssemblies $assembly `
     -Name $name `
     -ClientTypeName $client `
-    -GenerateSwagger:$false
+    -GenerateSwagger:$true

@@ -55,6 +55,12 @@ Licensed under the MIT License. See License.txt in the project root for license 
 .PARAMETER NumberOfAllocatedIpAddresses
     The number of currently allocated IP addresses.
 
+.PARAMETER InputObject
+    IP pool object.
+
+.PARAMETER ResourceId
+    IP pool resource ID.
+
 #>
 function Set-AzsIpPool
 {

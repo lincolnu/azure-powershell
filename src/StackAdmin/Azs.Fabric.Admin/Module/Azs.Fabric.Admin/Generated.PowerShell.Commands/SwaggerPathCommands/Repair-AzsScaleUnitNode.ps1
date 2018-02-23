@@ -43,6 +43,12 @@ Licensed under the MIT License. See License.txt in the project root for license 
 .PARAMETER ClusterName
     Name of the cluster.
 
+.PARAMETER InputObject
+    Scale unit node object.
+
+.PARAMETER ResourceId
+    Scale unit node resource ID.
+
 #>
 function Repair-AzsScaleUnitNode {
     [CmdletBinding(DefaultParameterSetName = 'ScaleUnitNodes_Repair')]

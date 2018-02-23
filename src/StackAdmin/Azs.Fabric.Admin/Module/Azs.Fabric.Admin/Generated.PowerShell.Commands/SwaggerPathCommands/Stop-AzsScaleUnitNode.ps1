@@ -5,7 +5,7 @@ Licensed under the MIT License. See License.txt in the project root for license 
 
 <#
 .SYNOPSIS
-    
+
 
 .DESCRIPTION
     Power off a scale unit node.
@@ -19,18 +19,24 @@ Licensed under the MIT License. See License.txt in the project root for license 
 .PARAMETER Location
     Location of the resource.
 
+.PARAMETER InputObject
+    Scale unit node object.
+
+.PARAMETER ResourceId
+    Scale unit node resource ID.
+
 #>
 function Stop-AzsScaleUnitNode {
     [CmdletBinding(DefaultParameterSetName = 'ScaleUnitNodes_PowerOff')]
-    param(    
+    param(
         [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnitNodes_PowerOff')]
         [System.String]
         $ScaleUnitNode,
-    
+
         [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnitNodes_PowerOff')]
         [System.String]
         $ResourceGroupName,
-    
+
         [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnitNodes_PowerOff')]
         [System.String]
         $Location,
@@ -52,7 +58,7 @@ function Stop-AzsScaleUnitNode {
     }
 
     Process {
-    
+
         $ErrorActionPreference = 'Stop'
 
         $NewServiceClient_params = @{
@@ -61,7 +67,7 @@ function Stop-AzsScaleUnitNode {
 
         $GlobalParameterHashtable = @{}
         $NewServiceClient_params['GlobalParameterHashtable'] = $GlobalParameterHashtable
-     
+
         $GlobalParameterHashtable['SubscriptionId'] = $null
         if ($PSBoundParameters.ContainsKey('SubscriptionId')) {
             $GlobalParameterHashtable['SubscriptionId'] = $PSBoundParameters['SubscriptionId']
@@ -83,7 +89,7 @@ function Stop-AzsScaleUnitNode {
 
         $PSSwaggerJobScriptBlock = {
             [CmdletBinding()]
-            param(    
+            param(
                 [Parameter(Mandatory = $true)]
                 [System.Threading.Tasks.Task]
                 $TaskResult,
@@ -97,9 +103,9 @@ function Stop-AzsScaleUnitNode {
                 $GetTaskResult_params = @{
                     TaskResult = $TaskResult
                 }
-            
+
                 Get-TaskResult @GetTaskResult_params
-            
+
             }
         }
 

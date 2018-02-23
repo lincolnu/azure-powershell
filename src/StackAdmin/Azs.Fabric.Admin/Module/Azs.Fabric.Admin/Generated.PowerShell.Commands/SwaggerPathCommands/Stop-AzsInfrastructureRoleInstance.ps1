@@ -19,6 +19,12 @@ Licensed under the MIT License. See License.txt in the project root for license 
 .PARAMETER Location
     Location of the resource.
 
+.PARAMETER InputObject
+    Infrastructure role instance object.
+
+.PARAMETER ResourceId
+    Infrastructure role instance resource ID.
+
 #>
 function Stop-AzsInfrastructureRoleInstance {
     [CmdletBinding(DefaultParameterSetName = 'InfraRoleInstances_PowerOff')]

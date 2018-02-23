@@ -25,6 +25,12 @@ Licensed under the MIT License. See License.txt in the project root for license 
 .PARAMETER Location
     Location of the resource.
 
+.PARAMETER InputObject
+    Scale unit node object.
+
+.PARAMETER ResourceId
+    Scale unit node resource ID.
+
 #>
 function Add-AzsScaleUnitNode {
     [CmdletBinding(DefaultParameterSetName = 'ScaleUnits_ScaleOut')]

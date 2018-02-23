@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -14,12 +14,23 @@ Get edge gateways.
 
 ### EdgeGateways_List (Default)
 ```
-Get-AzsEdgeGateway [-Filter <String>] [-Skip <Int32>] -Location <String> [-Top <Int32>] [<CommonParameters>]
+Get-AzsEdgeGateway [-Filter <String>] [-Skip <Int32>] -ResourceGroupName <String> -Location <String>
+ [-Top <Int32>] [<CommonParameters>]
 ```
 
 ### EdgeGateways_Get
 ```
-Get-AzsEdgeGateway -EdgeGateway <String> -Location <String> [<CommonParameters>]
+Get-AzsEdgeGateway -Name <String> -ResourceGroupName <String> -Location <String> [<CommonParameters>]
+```
+
+### ResourceId_EdgeGateways_Get
+```
+Get-AzsEdgeGateway -ResourceId <String> [<CommonParameters>]
+```
+
+### InputObject_EdgeGateways_Get
+```
+Get-AzsEdgeGateway -InputObject <EdgeGateway> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +40,7 @@ Get edge gateways.
 
 ### Example 1
 ```
-PS C:\> Get-AzsEdgeGateway -Location "local"
+PS C:\> Get-AzsEdgeGateway -ResourceGroup "System.local" -Location "local"
 
 Type                                                State  TotalCapacity Name      AvailableCapacity
 ----                                                -----  ------------- ----      -----------------
@@ -41,7 +52,7 @@ Get a list of all edge gateways.
 
 ### Example 2
 ```
-PS C:\> Get-AzsEdgeGateway -Location "local" -EdgeGateway "AzS-Gwy01"
+PS C:\> Get-AzsEdgeGateway -ResourceGroup "System.local" -Location "local" -EdgeGateway "AzS-Gwy01"
 
 Type                                                State  TotalCapacity Name      AvailableCapacity
 ----                                                -----  ------------- ----      -----------------
@@ -52,28 +63,13 @@ Get a specific edge gateway.
 
 ## PARAMETERS
 
-### -EdgeGateway
-name of the edge gateway.
-
-```yaml
-Type: String
-Parameter Sets: EdgeGateways_Get
-Aliases: 
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Filter
 OData filter parameter.
 
 ```yaml
 Type: String
 Parameter Sets: EdgeGateways_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -82,18 +78,70 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.EdgeGateway.```yaml
+Type: EdgeGateway
+Parameter Sets: InputObject_EdgeGateways_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -Location
 Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: EdgeGateways_List, EdgeGateways_Get
+Aliases:
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Name
+Name of the edge gateway.```yaml
+Type: String
+Parameter Sets: EdgeGateways_Get
+Aliases: EdgeGateway
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: EdgeGateways_List, EdgeGateways_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_EdgeGateways_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -103,7 +151,7 @@ Skip the first N items as specified by the parameter value.
 ```yaml
 Type: Int32
 Parameter Sets: EdgeGateways_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -119,7 +167,7 @@ Applies after the -Skip parameter.
 ```yaml
 Type: Int32
 Parameter Sets: EdgeGateways_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

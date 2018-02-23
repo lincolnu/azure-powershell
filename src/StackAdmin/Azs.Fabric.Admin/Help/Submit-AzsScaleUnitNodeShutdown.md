@@ -5,45 +5,45 @@ online version:
 schema: 2.0.0
 ---
 
-# Enable-AzsScaleUnitNode
+# Submit-AzsScaleUnitNodeShutdown
 
 ## SYNOPSIS
-Stop maintenance mode for a scale unit node.
+Shutdown a scale unit node.
 
 ## SYNTAX
 
-### ScaleUnitNodes_StopMaintenanceMode (Default)
+### ScaleUnitNodes_Shutdown (Default)
 ```
-Enable-AzsScaleUnitNode -ScaleUnitNode <String> -ResourceGroupName <String> -Location <String> [-AsJob]
+Submit-AzsScaleUnitNodeShutdown -ScaleUnitNode <String> -ResourceGroupName <String> -Location <String> [-AsJob]
  [<CommonParameters>]
 ```
 
 ### InputObject_ScaleUnitNodes
 ```
-Enable-AzsScaleUnitNode -InputObject <ScaleUnitNode> [-AsJob] [<CommonParameters>]
+Submit-AzsScaleUnitNodeShutdown -InputObject <ScaleUnitNode> [-AsJob] [<CommonParameters>]
 ```
 
 ### ResourceId_ScaleUnitNodes
 ```
-Enable-AzsScaleUnitNode -ResourceId <String> [-AsJob] [<CommonParameters>]
+Submit-AzsScaleUnitNodeShutdown -ResourceId <String> [-AsJob] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Stop maintenance mode for a scale unit node.
+Shutdown a scale unit node.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Enable-AzsScaleUnitNode -ResourceGroup "System.local" -Location "local" -ScaleUnitNode "HC1n25r2236"
+PS C:\> Submit-AzsScaleUnitNodeShutdown -ResourceGroup "System.local" -Location "local" -ScaleUnitNode "HC1n25r2236"
 ```
 
-End maintenance mode on a scale unit node.
+Shudown a scale unit node.
 
 ## PARAMETERS
 
 ### -AsJob
-Runs as job.
+{{Fill AsJob Description}}
 
 ```yaml
 Type: SwitchParameter
@@ -58,7 +58,9 @@ Accept wildcard characters: False
 ```
 
 ### -InputObject
-Scale unit node object.```yaml
+Scale unit node object.
+
+```yaml
 Type: ScaleUnitNode
 Parameter Sets: InputObject_ScaleUnitNodes
 Aliases:
@@ -75,7 +77,7 @@ Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: ScaleUnitNodes_StopMaintenanceMode
+Parameter Sets: ScaleUnitNodes_Shutdown
 Aliases:
 
 Required: True
@@ -86,9 +88,11 @@ Accept wildcard characters: False
 ```
 
 ### -ResourceGroupName
-Name of the resource group.```yaml
+Name of the resource group.
+
+```yaml
 Type: String
-Parameter Sets: ScaleUnitNodes_StopMaintenanceMode
+Parameter Sets: ScaleUnitNodes_Shutdown
 Aliases:
 
 Required: True
@@ -99,7 +103,9 @@ Accept wildcard characters: False
 ```
 
 ### -ResourceId
-Scale unit node resource ID.```yaml
+Scale unit node resource ID.
+
+```yaml
 Type: String
 Parameter Sets: ResourceId_ScaleUnitNodes
 Aliases:
@@ -116,7 +122,7 @@ Name of the scale unit node.
 
 ```yaml
 Type: String
-Parameter Sets: ScaleUnitNodes_StopMaintenanceMode
+Parameter Sets: ScaleUnitNodes_Shutdown
 Aliases:
 
 Required: True
@@ -132,8 +138,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
-
-### Microsoft.AzureStack.Management.Fabric.Admin.Models.OperationStatus
 
 ## NOTES
 

@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -14,13 +14,23 @@ Get edge gateway pools.
 
 ### EdgeGatewayPools_List (Default)
 ```
-Get-AzsEdgeGatewayPool [-Filter <String>] [-Skip <Int32>] -Location <String> [-Top <Int32>]
- [<CommonParameters>]
+Get-AzsEdgeGatewayPool [-Filter <String>] [-Skip <Int32>] -ResourceGroupName <String> -Location <String>
+ [-Top <Int32>] [<CommonParameters>]
 ```
 
 ### EdgeGatewayPools_Get
 ```
-Get-AzsEdgeGatewayPool -EdgeGatewayPool <String> -Location <String> [<CommonParameters>]
+Get-AzsEdgeGatewayPool -Name <String> -ResourceGroupName <String> -Location <String> [<CommonParameters>]
+```
+
+### ResourceId_EdgeGatewayPools_Get
+```
+Get-AzsEdgeGatewayPool -ResourceId <String> [<CommonParameters>]
+```
+
+### InputObject_EdgeGatewayPools_Get
+```
+Get-AzsEdgeGatewayPool -InputObject <EdgeGatewayPool> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +40,7 @@ Get edge gateway pools.
 
 ### Example 1
 ```
-PS C:\> Get-AzsEdgeGatewayPool -Location "local"
+PS C:\> Get-AzsEdgeGatewayPool -ResourceGroup "System.local" -Location "local"
 
 GatewayCapacityKiloBitsPerSecond Type                                                    GreVipSubnet PublicIpAddress                      EdgeGateways
 -------------------------------- ----                                                    ------------ ---------------                      ------------
@@ -42,7 +52,7 @@ Get a list of all Edge Gateway pools.
 
 ### Example 2
 ```
-PS C:\> Get-AzsEdgeGatewayPool -Location "local" -EdgeGatewayPool "AzS-Gwy01"
+PS C:\> Get-AzsEdgeGatewayPool -ResourceGroup "System.local" -Location "local" -EdgeGatewayPool "AzS-Gwy01"
 
 GatewayCapacityKiloBitsPerSecond Type                                                    GreVipSubnet PublicIpAddress                      EdgeGateways
 -------------------------------- ----                                                    ------------ ---------------                      ------------
@@ -53,28 +63,13 @@ Get a specific edge gateway pool.
 
 ## PARAMETERS
 
-### -EdgeGatewayPool
-Name of the edge gateway pool.
-
-```yaml
-Type: String
-Parameter Sets: EdgeGatewayPools_Get
-Aliases: 
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Filter
 OData filter parameter.
 
 ```yaml
 Type: String
 Parameter Sets: EdgeGatewayPools_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -83,18 +78,70 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.EdgeGatewayPool.```yaml
+Type: EdgeGatewayPool
+Parameter Sets: InputObject_EdgeGatewayPools_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -Location
 Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: EdgeGatewayPools_List, EdgeGatewayPools_Get
+Aliases:
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Name
+Name of the edge gateway pool.```yaml
+Type: String
+Parameter Sets: EdgeGatewayPools_Get
+Aliases: EdgeGatewayPool
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: EdgeGatewayPools_List, EdgeGatewayPools_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_EdgeGatewayPools_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -104,7 +151,7 @@ Skip the first N items as specified by the parameter value.
 ```yaml
 Type: Int32
 Parameter Sets: EdgeGatewayPools_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -120,7 +167,7 @@ Applies after the -Skip parameter.
 ```yaml
 Type: Int32
 Parameter Sets: EdgeGatewayPools_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

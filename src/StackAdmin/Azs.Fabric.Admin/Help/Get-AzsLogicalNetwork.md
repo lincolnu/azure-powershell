@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -14,12 +14,23 @@ Get logical networks from a given location.
 
 ### LogicalNetworks_List (Default)
 ```
-Get-AzsLogicalNetwork [-Filter <String>] [-Skip <Int32>] -Location <String> [-Top <Int32>] [<CommonParameters>]
+Get-AzsLogicalNetwork [-Filter <String>] [-Skip <Int32>] -ResourceGroupName <String> -Location <String>
+ [-Top <Int32>] [<CommonParameters>]
+```
+
+### ResourceId_LogicalNetworks_Get
+```
+Get-AzsLogicalNetwork -ResourceId <String> [<CommonParameters>]
 ```
 
 ### LogicalNetworks_Get
 ```
-Get-AzsLogicalNetwork -LogicalNetwork <String> -Location <String> [<CommonParameters>]
+Get-AzsLogicalNetwork -ResourceGroupName <String> -Name <String> -Location <String> [<CommonParameters>]
+```
+
+### InputObject_LogicalNetworks_Get
+```
+Get-AzsLogicalNetwork -InputObject <LogicalNetwork> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +40,7 @@ Get logical networks from a given location.
 
 ### Example 1
 ```
-PS C:\> Get-AzsLogicalNetwork -Location "local"
+PS C:\> Get-AzsLogicalNetwork -ResourceGroup "System.local" -Location "local"
 
 NetworkVirtualizationEnabled Type                                                   Metadata Name                                 Location
 ---------------------------- ----                                                   -------- ----                                 --------
@@ -45,7 +56,7 @@ Get all logical networks at a location.
 
 ### Example 2
 ```
-PS C:\> Get-AzsLogicalNetwork -Location "local" -LogicalNetwork "bb6c6f28-bad9-441b-8e62-57d2be255904"
+PS C:\> Get-AzsLogicalNetwork -ResourceGroup "System.local" -Location "local" -LogicalNetwork "bb6c6f28-bad9-441b-8e62-57d2be255904"
 
 True                         Microsoft.Fabric.Admin/fabricLocations/logicalNetworks          bb6c6f28-bad9-441b-8e62-57d2be255904 local
 ```
@@ -60,7 +71,7 @@ OData filter parameter.
 ```yaml
 Type: String
 Parameter Sets: LogicalNetworks_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -69,13 +80,26 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.LogicalNetwork.```yaml
+Type: LogicalNetwork
+Parameter Sets: InputObject_LogicalNetworks_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -Location
 Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: LogicalNetworks_List, LogicalNetworks_Get
+Aliases:
 
 Required: True
 Position: Named
@@ -84,18 +108,42 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -LogicalNetwork
-Name of the logical network.
-
-```yaml
+### -Name
+Name of the logical network.```yaml
 Type: String
 Parameter Sets: LogicalNetworks_Get
-Aliases: 
+Aliases: LogicalNetwork
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: LogicalNetworks_List, LogicalNetworks_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_LogicalNetworks_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -105,7 +153,7 @@ Skip the first N items as specified by the parameter value.
 ```yaml
 Type: Int32
 Parameter Sets: LogicalNetworks_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -121,7 +169,7 @@ Applies after the -Skip parameter.
 ```yaml
 Type: Int32
 Parameter Sets: LogicalNetworks_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

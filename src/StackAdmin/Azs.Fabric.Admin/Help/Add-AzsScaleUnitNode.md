@@ -5,45 +5,44 @@ online version:
 schema: 2.0.0
 ---
 
-# Enable-AzsScaleUnitNode
+# Add-AzsScaleUnitNode
 
 ## SYNOPSIS
-Stop maintenance mode for a scale unit node.
 
 ## SYNTAX
 
-### ScaleUnitNodes_StopMaintenanceMode (Default)
+### ScaleUnits_ScaleOut (Default)
 ```
-Enable-AzsScaleUnitNode -ScaleUnitNode <String> -ResourceGroupName <String> -Location <String> [-AsJob]
- [<CommonParameters>]
-```
-
-### InputObject_ScaleUnitNodes
-```
-Enable-AzsScaleUnitNode -InputObject <ScaleUnitNode> [-AsJob] [<CommonParameters>]
+Add-AzsScaleUnitNode [-AwaitStorageConvergence] [-NodeList <ScaleOutScaleUnitParameters[]>]
+ -ResourceGroupName <String> -ScaleUnit <String> -Location <String> [-AsJob] [<CommonParameters>]
 ```
 
-### ResourceId_ScaleUnitNodes
+### InputObject_ScaleUnits
 ```
-Enable-AzsScaleUnitNode -ResourceId <String> [-AsJob] [<CommonParameters>]
+Add-AzsScaleUnitNode -InputObject <ScaleUnit> [-AsJob] [<CommonParameters>]
+```
+
+### ResourceId_ScaleUnits
+```
+Add-AzsScaleUnitNode -ResourceId <String> [-AsJob] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Stop maintenance mode for a scale unit node.
+Add a new scale unit.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> Enable-AzsScaleUnitNode -ResourceGroup "System.local" -Location "local" -ScaleUnitNode "HC1n25r2236"
+PS C:\> Add-AzsScaleUnitNode -ResourceGroup "System.local" -Location "local" - ScaleUnit "Azs-ERC03" -NodeList $nodeList
 ```
 
-End maintenance mode on a scale unit node.
+Add a new scale unit node.
 
 ## PARAMETERS
 
 ### -AsJob
-Runs as job.
+{{Fill AsJob Description}}
 
 ```yaml
 Type: SwitchParameter
@@ -57,10 +56,27 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -AwaitStorageConvergence
+Flag indicates if the operation should wait for storage to converge before returning.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: ScaleUnits_ScaleOut
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -InputObject
-Scale unit node object.```yaml
-Type: ScaleUnitNode
-Parameter Sets: InputObject_ScaleUnitNodes
+Scale unit node object.
+
+```yaml
+Type: ScaleUnit
+Parameter Sets: InputObject_ScaleUnits
 Aliases:
 
 Required: True
@@ -75,7 +91,7 @@ Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: ScaleUnitNodes_StopMaintenanceMode
+Parameter Sets: ScaleUnits_ScaleOut
 Aliases:
 
 Required: True
@@ -85,10 +101,27 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -NodeList
+List of nodes in the scale unit.
+
+```yaml
+Type: ScaleOutScaleUnitParameters[]
+Parameter Sets: ScaleUnits_ScaleOut
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -ResourceGroupName
-Name of the resource group.```yaml
+Name of the resource group.
+
+```yaml
 Type: String
-Parameter Sets: ScaleUnitNodes_StopMaintenanceMode
+Parameter Sets: ScaleUnits_ScaleOut
 Aliases:
 
 Required: True
@@ -99,9 +132,11 @@ Accept wildcard characters: False
 ```
 
 ### -ResourceId
-Scale unit node resource ID.```yaml
+Scale unit node resource ID.
+
+```yaml
 Type: String
-Parameter Sets: ResourceId_ScaleUnitNodes
+Parameter Sets: ResourceId_ScaleUnits
 Aliases:
 
 Required: True
@@ -111,12 +146,12 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -ScaleUnitNode
-Name of the scale unit node.
+### -ScaleUnit
+Name of the scale units.
 
 ```yaml
 Type: String
-Parameter Sets: ScaleUnitNodes_StopMaintenanceMode
+Parameter Sets: ScaleUnits_ScaleOut
 Aliases:
 
 Required: True
@@ -132,8 +167,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
-
-### Microsoft.AzureStack.Management.Fabric.Admin.Models.OperationStatus
 
 ## NOTES
 

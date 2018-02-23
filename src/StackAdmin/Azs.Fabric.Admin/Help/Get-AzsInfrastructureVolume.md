@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -12,16 +12,26 @@ Get volumes at a location.
 
 ## SYNTAX
 
-### InfrastructureVolumes_List (Default)
+### Volumes_List (Default)
 ```
-Get-AzsInfrastructureVolume [-Filter <String>] -StorageSubSystem <String> [-Skip <Int32>] -Location <String>
- [-Top <Int32>] -StoragePool <String> [<CommonParameters>]
+Get-AzsInfrastructureVolume [-Filter <String>] -StorageSubSystem <String> [-Skip <Int32>]
+ -ResourceGroupName <String> -Location <String> [-Top <Int32>] -StoragePool <String> [<CommonParameters>]
 ```
 
-### InfrastructureVolumes_Get
+### ResourceId_Volumes_Get
 ```
-Get-AzsInfrastructureVolume -StorageSubSystem <String> -Volume <String> -Location <String>
- -StoragePool <String> [<CommonParameters>]
+Get-AzsInfrastructureVolume -ResourceId <String> [<CommonParameters>]
+```
+
+### Volumes_Get
+```
+Get-AzsInfrastructureVolume -StorageSubSystem <String> -ResourceGroupName <String> -Name <String>
+ -Location <String> -StoragePool <String> [<CommonParameters>]
+```
+
+### InputObject_Volumes_Get
+```
+Get-AzsInfrastructureVolume -InputObject <Volume> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,7 +41,7 @@ Get volumes at a location.
 
 ### Example 1
 ```
-PS C:\> Get-AzsInfrastructureVolume -Location local -StoragePool SU1_Pool -StorageSubSystem S-Cluster.azurestack.local
+PS C:\> Get-AzsInfrastructureVolume -ResourceGroup "System.local" -Location local -StoragePool SU1_Pool -StorageSubSystem S-Cluster.azurestack.local
 
 Type                                                                          FileSystem RemainingSizeGB Name     SizeGB
 ----                                                                          ---------- --------------- ----     ------
@@ -43,7 +53,7 @@ Get a list of all volumes from a location.
 
 ### Example 2
 ```
-PS C:\> Get-AzsInfrastructureVolume -Location local -StoragePool SU1_Pool -StorageSubSystem S-Cluster.azurestack.local -Volume a42d219b
+PS C:\> Get-AzsInfrastructureVolume -ResourceGroup "System.local" -Location local -StoragePool SU1_Pool -StorageSubSystem S-Cluster.azurestack.local -Volume a42d219b
 
 Type                                                                          FileSystem RemainingSizeGB Name     SizeGB
 ----                                                                          ---------- --------------- ----     ------
@@ -59,8 +69,8 @@ OData filter parameter.
 
 ```yaml
 Type: String
-Parameter Sets: InfrastructureVolumes_List
-Aliases: 
+Parameter Sets: Volumes_List
+Aliases:
 
 Required: False
 Position: Named
@@ -69,13 +79,26 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.Volume.```yaml
+Type: Volume
+Parameter Sets: InputObject_Volumes_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -Location
 Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: Volumes_List, Volumes_Get
+Aliases:
 
 Required: True
 Position: Named
@@ -84,13 +107,52 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Name
+Name of the storage volume.```yaml
+Type: String
+Parameter Sets: Volumes_Get
+Aliases: Volume
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: Volumes_List, Volumes_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_Volumes_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -Skip
 Skip the first N items as specified by the parameter value.
 
 ```yaml
 Type: Int32
-Parameter Sets: InfrastructureVolumes_List
-Aliases: 
+Parameter Sets: Volumes_List
+Aliases:
 
 Required: False
 Position: Named
@@ -104,8 +166,8 @@ Storage pool name.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: Volumes_List, Volumes_Get
+Aliases:
 
 Required: True
 Position: Named
@@ -119,8 +181,8 @@ Name of the storage system.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: Volumes_List, Volumes_Get
+Aliases:
 
 Required: True
 Position: Named
@@ -135,27 +197,12 @@ Applies after the -Skip parameter.
 
 ```yaml
 Type: Int32
-Parameter Sets: InfrastructureVolumes_List
-Aliases: 
+Parameter Sets: Volumes_List
+Aliases:
 
 Required: False
 Position: Named
 Default value: -1
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Volume
-Name of the volume.
-
-```yaml
-Type: String
-Parameter Sets: InfrastructureVolumes_Get
-Aliases: 
-
-Required: True
-Position: Named
-Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

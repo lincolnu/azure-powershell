@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -14,12 +14,23 @@ Get storage subsystems given a location.
 
 ### StorageSystems_List (Default)
 ```
-Get-AzsStorageSystem [-Filter <String>] [-Skip <Int32>] -Location <String> [-Top <Int32>] [<CommonParameters>]
+Get-AzsStorageSystem [-Filter <String>] [-Skip <Int32>] -ResourceGroupName <String> -Location <String>
+ [-Top <Int32>] [<CommonParameters>]
 ```
 
 ### StorageSystems_Get
 ```
-Get-AzsStorageSystem -StorageSubSystem <String> -Location <String> [<CommonParameters>]
+Get-AzsStorageSystem -Name <String> -ResourceGroupName <String> -Location <String> [<CommonParameters>]
+```
+
+### ResourceId_StorageSystems_Get
+```
+Get-AzsStorageSystem -ResourceId <String> [<CommonParameters>]
+```
+
+### InputObject_StorageSystems_Get
+```
+Get-AzsStorageSystem -InputObject <StorageSystem> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +40,7 @@ Get storage subsystems given a location.
 
 ### Example 1
 ```
-PS C:\> Get-AzsStorageSystem -Location local -StorageSubSystem S-Cluster.azurestack.local
+PS C:\> Get-AzsStorageSystem -ResourceGroup "System.local" -Location local -StorageSubSystem S-Cluster.azurestack.local
 
 Type                                                     TotalCapacityGB Name                       Location
 ----                                                     --------------- ----                       --------
@@ -41,7 +52,7 @@ Get all storage subsystems from a location.
 
 ### Example 2
 ```
-PS C:\> Get-AzsStorageSystem -Location local -StorageSubSystem S-Cluster.azurestack.local -StorageSubSystem "S-Cluster.azurestack.local"
+PS C:\> Get-AzsStorageSystem -ResourceGroup "System.local" -Location local -StorageSubSystem S-Cluster.azurestack.local -StorageSubSystem "S-Cluster.azurestack.local"
 
 Type                                                     TotalCapacityGB Name                       Location
 ----                                                     --------------- ----                       --------
@@ -58,7 +69,7 @@ OData filter parameter.
 ```yaml
 Type: String
 Parameter Sets: StorageSystems_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -67,18 +78,70 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.StorageSystem.```yaml
+Type: StorageSystem
+Parameter Sets: InputObject_StorageSystems_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -Location
 Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: StorageSystems_List, StorageSystems_Get
+Aliases:
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Name
+Name of the storage system.```yaml
+Type: String
+Parameter Sets: StorageSystems_Get
+Aliases: StorageSubSystem
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: StorageSystems_List, StorageSystems_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_StorageSystems_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -88,26 +151,11 @@ Skip the first N items as specified by the parameter value.
 ```yaml
 Type: Int32
 Parameter Sets: StorageSystems_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
 Default value: -1
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -StorageSubSystem
-Name of the storage system.
-
-```yaml
-Type: String
-Parameter Sets: StorageSystems_Get
-Aliases: 
-
-Required: True
-Position: Named
-Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -119,7 +167,7 @@ Applies after the -Skip parameter.
 ```yaml
 Type: Int32
 Parameter Sets: StorageSystems_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

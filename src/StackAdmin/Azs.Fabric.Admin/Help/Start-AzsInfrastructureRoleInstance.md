@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -12,9 +12,20 @@ Power on an infrastructure role instance. On failure an exception is thrown.
 
 ## SYNTAX
 
+### InfraRoleInstances_PowerOn (Default)
 ```
-Start-AzsInfrastructureRoleInstance -InfrastructureRoleInstance <String> -Location <String> [-AsJob]
+Start-AzsInfrastructureRoleInstance -Name <String> -ResourceGroupName <String> -Location <String> [-AsJob]
  [<CommonParameters>]
+```
+
+### InputObject_InfraRoleInstances_Start
+```
+Start-AzsInfrastructureRoleInstance -InputObject <InfraRoleInstance> [-AsJob] [<CommonParameters>]
+```
+
+### ResourceId_InfraRoleInstances_Start
+```
+Start-AzsInfrastructureRoleInstance -ResourceId <String> [-AsJob] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -24,7 +35,7 @@ Power on an infrastructure role instance. On failure an exception is thrown.
 
 ### Example 1
 ```
-PS C:\> Start-AzsInfrastructureRoleInstance -Location "local" -InfrastructureRoleInstance "AzS-ACS01"
+PS C:\> Start-AzsInfrastructureRoleInstance -ResourceGroup "System.local" -Location "local" -InfrastructureRoleInstance "AzS-ACS01"
 
 ProvisioningState
 -----------------
@@ -41,7 +52,7 @@ Runs as job.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -50,18 +61,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -InfrastructureRoleInstance
-Name of an infra role instance.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases: 
+### -InputObject
+Infrastructure role instance object.```yaml
+Type: InfraRoleInstance
+Parameter Sets: InputObject_InfraRoleInstances_Start
+Aliases:
 
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -70,13 +79,54 @@ Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: InfraRoleInstances_PowerOn
+Aliases:
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Name
+{{Fill Name Description}}
+
+```yaml
+Type: String
+Parameter Sets: InfraRoleInstances_PowerOn
+Aliases: InfraRoleInstance
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: InfraRoleInstances_PowerOn
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+Infrastructure role instance resource ID.```yaml
+Type: String
+Parameter Sets: ResourceId_InfraRoleInstances_Start
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

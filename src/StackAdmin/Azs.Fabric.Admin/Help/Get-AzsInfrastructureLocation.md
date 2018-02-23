@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -14,13 +14,23 @@ Get a list of all fabric locations.
 
 ### FabricLocations_List (Default)
 ```
-Get-AzsInfrastructureLocation [-Filter <String>] [-Skip <Int32>] -Location <String> [-Top <Int32>]
+Get-AzsInfrastructureLocation [-Filter <String>] [-Skip <Int32>] -ResourceGroupName <String> [-Top <Int32>]
  [<CommonParameters>]
 ```
 
 ### FabricLocations_Get
 ```
-Get-AzsInfrastructureLocation -FabricLocation <String> -Location <String> [<CommonParameters>]
+Get-AzsInfrastructureLocation -Name <String> -ResourceGroupName <String> [<CommonParameters>]
+```
+
+### ResourceId_FabricLocations_Get
+```
+Get-AzsInfrastructureLocation -ResourceId <String> [<CommonParameters>]
+```
+
+### InputObject_FabricLocations_Get
+```
+Get-AzsInfrastructureLocation -InputObject <FabricLocation> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,8 +40,7 @@ Get a list of all fabric locations.
 
 ### Example 1
 ```
-PS C:\> 
-Get-AzsInfrastructureLocation -Location "local"
+PS C:\> Get-AzsInfrastructureLocation  -ResourceGroup "System.local" -Location "local"
 
 Name  Type                                   Location
 ----  ----                                   --------
@@ -42,28 +51,13 @@ Return a list of all fabric locations.
 
 ## PARAMETERS
 
-### -FabricLocation
-Fabric Location.
-
-```yaml
-Type: String
-Parameter Sets: FabricLocations_Get
-Aliases: 
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Filter
 OData filter parameter.
 
 ```yaml
 Type: String
 Parameter Sets: FabricLocations_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -72,18 +66,55 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Location
-Location of the resource.
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.FabricLocation.```yaml
+Type: FabricLocation
+Parameter Sets: InputObject_FabricLocations_Get
+Aliases:
 
-```yaml
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Name
+Fabric location.```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: FabricLocations_Get
+Aliases: Location
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: FabricLocations_List, FabricLocations_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_FabricLocations_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -93,7 +124,7 @@ Skip the first N items as specified by the parameter value.
 ```yaml
 Type: Int32
 Parameter Sets: FabricLocations_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -109,7 +140,7 @@ Applies after the -Skip parameter.
 ```yaml
 Type: Int32
 Parameter Sets: FabricLocations_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

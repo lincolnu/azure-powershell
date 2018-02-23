@@ -142,18 +142,12 @@ InModuleScope Azs.Fabric.Admin {
 			$global:TestName = 'TestCreateIpPool'
 
 			$Name = "okaytodelete"
-			$IpPool = $Name
-			$Type = "Microsoft.Fabric.Admin/fabricLocations/ipPools"
-			$Id = "Microsoft.Fabric.Admin/fabricLocations/" + $Location + "/ipPools/" + $ipPoolName
-			$Tags = @{}
 			$StartIpAddress = "192.168.99.1"
 			$EndIpAddress = "192.168.99.254"
 			$AddressPrefix = "192.168.99.0/24"
 
-			# Just try to delete
-			Delete-AzsIpPool -ResourceGroup $ResourceGroup -Location $Location -IpPool $ipPoolName
 
-			$params = @($Location, $Name, $IpPool, $Type, $Id, $Tags, $StartIpAddress, $EndIpAddress, $AddressPrefix)
+			$params = @($Location, $ResourceGroup, $Name, $StartIpAddress, $EndIpAddress, $AddressPrefix)
 			$ipPool = New-AzsIpPool @params
 
 			$ipPool | Should not be $null

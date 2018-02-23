@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -12,15 +12,26 @@ Get a list of infrastructure role instances.
 
 ## SYNTAX
 
-### InfrastructureRoleInstances_List (Default)
+### InfraRoleInstances_List (Default)
 ```
-Get-AzsInfrastructureRoleInstance [-Filter <String>] [-Skip <Int32>] -Location <String> [-Top <Int32>]
+Get-AzsInfrastructureRoleInstance [-Filter <String>] [-Skip <Int32>] -ResourceGroupName <String>
+ -Location <String> [-Top <Int32>] [<CommonParameters>]
+```
+
+### InfraRoleInstances_Get
+```
+Get-AzsInfrastructureRoleInstance -ResourceGroupName <String> -Name <String> -Location <String>
  [<CommonParameters>]
 ```
 
-### InfrastructureRoleInstances_Get
+### ResourceId_InfraRoleInstances_Get
 ```
-Get-AzsInfrastructureRoleInstance -InfrastructureRoleInstance <String> -Location <String> [<CommonParameters>]
+Get-AzsInfrastructureRoleInstance -ResourceId <String> [<CommonParameters>]
+```
+
+### InputObject_InfraRoleInstances_Get
+```
+Get-AzsInfrastructureRoleInstance -InputObject <InfraRoleInstance> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +41,7 @@ Get a list of infrastructure role instances.
 
 ### Example 1
 ```
-PS C:\> Get-AzsInfrastructureRoleInstance -Location "local"
+PS C:\> Get-AzsInfrastructureRoleInstance -ResourceGroup "System.local" -Location "local"
 
 Type                                                      State   Name         ScaleUnit
 ----                                                      -----   ----         ---------
@@ -51,7 +62,7 @@ Return a list of all infrastructure roles instances.
 
 ### Example 2
 ```
-PS C:\> Get-AzsInfrastructureRoleInstance -Location "local" -Name "AzS-ACS01"
+PS C:\> Get-AzsInfrastructureRoleInstance -ResourceGroup "System.local" -Location "local" -Name "AzS-ACS01"
 
 Microsoft.Fabric.Admin/fabricLocations/InfrastructureRoleInstances Running AzS-ACS01    /subscriptions/1c0daa04-01ae-4df9-a5d8-491b755f5288/resourceGroups/system.local/providers/Microsoft.Fabric....
 ```
@@ -65,8 +76,8 @@ OData filter parameter.
 
 ```yaml
 Type: String
-Parameter Sets: InfrastructureRoleInstances_List
-Aliases: 
+Parameter Sets: InfraRoleInstances_List
+Aliases:
 
 Required: False
 Position: Named
@@ -75,18 +86,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -InfrastructureRoleInstance
-Name of an infra role instance.
-
-```yaml
-Type: String
-Parameter Sets: InfrastructureRoleInstances_Get
-Aliases: 
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.InfraRoleInstance.```yaml
+Type: InfraRoleInstance
+Parameter Sets: InputObject_InfraRoleInstances_Get
+Aliases:
 
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -95,8 +104,8 @@ Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: InfraRoleInstances_List, InfraRoleInstances_Get
+Aliases:
 
 Required: True
 Position: Named
@@ -105,13 +114,52 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Name
+Name of an infrastructure role instance.```yaml
+Type: String
+Parameter Sets: InfraRoleInstances_Get
+Aliases: InfraRoleInstance
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: InfraRoleInstances_List, InfraRoleInstances_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_InfraRoleInstances_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -Skip
 Skip the first N items as specified by the parameter value.
 
 ```yaml
 Type: Int32
-Parameter Sets: InfrastructureRoleInstances_List
-Aliases: 
+Parameter Sets: InfraRoleInstances_List
+Aliases:
 
 Required: False
 Position: Named
@@ -126,8 +174,8 @@ Applies after the -Skip parameter.
 
 ```yaml
 Type: Int32
-Parameter Sets: InfrastructureRoleInstances_List
-Aliases: 
+Parameter Sets: InfraRoleInstances_List
+Aliases:
 
 Required: False
 Position: Named

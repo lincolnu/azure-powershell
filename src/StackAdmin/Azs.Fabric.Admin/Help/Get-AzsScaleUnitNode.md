@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -14,12 +14,23 @@ Get scale unit nodes at a certain location.
 
 ### ScaleUnitNodes_List (Default)
 ```
-Get-AzsScaleUnitNode [-Filter <String>] [-Skip <Int32>] -Location <String> [-Top <Int32>] [<CommonParameters>]
+Get-AzsScaleUnitNode [-Filter <String>] [-Skip <Int32>] -ResourceGroupName <String> -Location <String>
+ [-Top <Int32>] [<CommonParameters>]
 ```
 
 ### ScaleUnitNodes_Get
 ```
-Get-AzsScaleUnitNode -ScaleUnitNode <String> -Location <String> [<CommonParameters>]
+Get-AzsScaleUnitNode -ResourceGroupName <String> -Name <String> -Location <String> [<CommonParameters>]
+```
+
+### ResourceId_ScaleUnitNodes_Get
+```
+Get-AzsScaleUnitNode -ResourceId <String> [<CommonParameters>]
+```
+
+### InputObject_ScaleUnitNodes_Get
+```
+Get-AzsScaleUnitNode -InputObject <ScaleUnitNode> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +40,7 @@ Get scale unit nodes at a certain location.
 
 ### Example 1
 ```
-PS C:\> Get-AzsScaleUnitNode -Location "local"
+PS C:\> Get-AzsScaleUnitNode -ResourceGroup "System.local" -Location "local"
 
 BiosVersion Type                                                  Name        ScaleUnitName CanPowerOff
 ----------- ----                                                  ----        ------------- -----------
@@ -44,7 +55,7 @@ Get all scale unit nodes at a location.
 
 ### Example 2
 ```
-PS C:\> Get-AzsScaleUnitNode -Location "local" -ScaleUnitNode "HC1n25r2231"
+PS C:\> Get-AzsScaleUnitNode -ResourceGroup "System.local" -Location "local" -ScaleUnitNode "HC1n25r2231"
 
 BiosVersion Type                                                  Name        ScaleUnitName CanPowerOff
 ----------- ----                                                  ----        ------------- -----------
@@ -61,7 +72,7 @@ OData filter parameter.
 ```yaml
 Type: String
 Parameter Sets: ScaleUnitNodes_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -70,13 +81,26 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleUnitNode.```yaml
+Type: ScaleUnitNode
+Parameter Sets: InputObject_ScaleUnitNodes_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -Location
 Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: ScaleUnitNodes_List, ScaleUnitNodes_Get
+Aliases:
 
 Required: True
 Position: Named
@@ -85,18 +109,42 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ScaleUnitNode
-Name of the scale unit node.
-
-```yaml
+### -Name
+Name of the scale unit node.```yaml
 Type: String
 Parameter Sets: ScaleUnitNodes_Get
-Aliases: 
+Aliases: ScaleUnitNode
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: ScaleUnitNodes_List, ScaleUnitNodes_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_ScaleUnitNodes_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -106,7 +154,7 @@ Skip the first N items as specified by the parameter value.
 ```yaml
 Type: Int32
 Parameter Sets: ScaleUnitNodes_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -122,7 +170,7 @@ Applies after the -Skip parameter.
 ```yaml
 Type: Int32
 Parameter Sets: ScaleUnitNodes_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

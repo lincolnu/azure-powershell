@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -14,13 +14,24 @@ Get logical subnets under a logical network at a specific location.
 
 ### LogicalSubnets_List (Default)
 ```
-Get-AzsLogicalSubnet [-Filter <String>] [-Skip <Int32>] -LogicalNetwork <String> -Location <String>
- [-Top <Int32>] [<CommonParameters>]
+Get-AzsLogicalSubnet [-Filter <String>] [-Skip <Int32>] -ResourceGroupName <String> -LogicalNetwork <String>
+ -Location <String> [-Top <Int32>] [<CommonParameters>]
+```
+
+### ResourceId_LogicalSubnets_Get
+```
+Get-AzsLogicalSubnet -ResourceId <String> [<CommonParameters>]
 ```
 
 ### LogicalSubnets_Get
 ```
-Get-AzsLogicalSubnet -LogicalNetwork <String> -Location <String> -LogicalSubnet <String> [<CommonParameters>]
+Get-AzsLogicalSubnet -ResourceGroupName <String> -LogicalNetwork <String> -Location <String> -Name <String>
+ [<CommonParameters>]
+```
+
+### InputObject_LogicalSubnets_Get
+```
+Get-AzsLogicalSubnet -InputObject <LogicalSubnet> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +41,7 @@ Get logical subnets under a logical network at a specific location.
 
 ### Example 1
 ```
-PS C:\> Get-AzsLogicalSubnet -Location "local" -LogicalNetwork "00000000-2222-1111-9999-000000000001"
+PS C:\> Get-AzsLogicalSubnet -ResourceGroup "System.local" -Location "local" -LogicalNetwork "00000000-2222-1111-9999-000000000001"
 
 Type                                                                  Metadata Name                                 Location IsPublic
 ----                                                                  -------- ----                                 -------- --------
@@ -41,7 +52,7 @@ Get a list of all logical subnets for a given logical network and location.
 
 ### Example 2
 ```
-PS C:\> Get-AzsLogicalSubnet -Location "local" -LogicalNetwork "00000000-2222-1111-9999-000000000001" -LogicalSubnet "d8cfef2d-c0c8-4cdb-b0a8-fb1bdf3f2ad7"
+PS C:\> Get-AzsLogicalSubnet -ResourceGroup "System.local" -Location "local" -LogicalNetwork "00000000-2222-1111-9999-000000000001" -LogicalSubnet "d8cfef2d-c0c8-4cdb-b0a8-fb1bdf3f2ad7"
 
 Type                                                                  Metadata Name                                 Location IsPublic
 ----                                                                  -------- ----                                 -------- --------
@@ -58,7 +69,7 @@ OData filter parameter.
 ```yaml
 Type: String
 Parameter Sets: LogicalSubnets_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -67,13 +78,26 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.LogicalSubnet.```yaml
+Type: LogicalSubnet
+Parameter Sets: InputObject_LogicalSubnets_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -Location
 Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: LogicalSubnets_List, LogicalSubnets_Get
+Aliases:
 
 Required: True
 Position: Named
@@ -87,8 +111,8 @@ Name of the logical network.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: LogicalSubnets_List, LogicalSubnets_Get
+Aliases:
 
 Required: True
 Position: Named
@@ -97,18 +121,42 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -LogicalSubnet
-Name of the logical subnet.
-
-```yaml
+### -Name
+Name of the logical subnet.```yaml
 Type: String
 Parameter Sets: LogicalSubnets_Get
-Aliases: 
+Aliases: LogicalSubnet
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: LogicalSubnets_List, LogicalSubnets_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_LogicalSubnets_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -118,7 +166,7 @@ Skip the first N items as specified by the parameter value.
 ```yaml
 Type: Int32
 Parameter Sets: LogicalSubnets_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -134,7 +182,7 @@ Applies after the -Skip parameter.
 ```yaml
 Type: Int32
 Parameter Sets: LogicalSubnets_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

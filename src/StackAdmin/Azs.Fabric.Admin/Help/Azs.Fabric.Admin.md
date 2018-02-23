@@ -11,6 +11,9 @@ Locale: en-US
 Allows AzureStack administrators view and manage their infrastructure.
 
 ## Azs.Fabric.Admin Cmdlets
+### [Add-AzsScaleUnitNode](Add-AzsScaleUnitNode.md)
+{{Manually Enter Add-AzsScaleUnitNode Description Here}}
+
 ### [Disable-AzsInfrastructureRoleInstance](Disable-AzsInfrastructureRoleInstance.md)
 Shut down an infrastructure role instance.  On failure an exception is thrown.
 
@@ -19,9 +22,6 @@ Start maintenance mode for a scale unit node.  This begins the process of moving
 
 ### [Enable-AzsScaleUnitNode](Enable-AzsScaleUnitNode.md)
 Stop maintenance mode for a scale unit node.
-
-### [Get-AzsComputeInfrastructureOperation](Get-AzsComputeInfrastructureOperation.md)
-Get the status of a compute fabric operation.
 
 ### [Get-AzsEdgeGateway](Get-AzsEdgeGateway.md)
 Get edge gateways.
@@ -56,9 +56,6 @@ Get logical subnets under a logical network at a specific location.
 ### [Get-AzsMacAddressPool](Get-AzsMacAddressPool.md)
 Get MAC address pools at a certain location.
 
-### [Get-AzsNetworkInfrastructureOperation](Get-AzsNetworkInfrastructureOperation.md)
-Get the status of a network fabric operation.
-
 ### [Get-AzsScaleUnit](Get-AzsScaleUnit.md)
 Get scale units.
 
@@ -75,13 +72,23 @@ Get storage pools at a location.
 Get storage subsystems given a location.
 
 ### [New-AzsIpPool](New-AzsIpPool.md)
-Create an infrastructure ip pool.
+Create an IP pool.
+Once created an IP pool cannot be deleted.
 
-### [New-AzsIpPoolObject](New-AzsIpPoolObject.md)
-This resource defines the range of IP addresses from which addresses are  allocated for nodes within a subnet.
+### [New-ScaleOutScaleUnitParametersObject](New-ScaleOutScaleUnitParametersObject.md)
+Input data that allows for adding a scale unit node.
+
+### [Repair-AzsScaleUnitNode](Repair-AzsScaleUnitNode.md)
+{{Manually Enter Repair-AzsScaleUnitNode Description Here}}
+
+### [Restart-AzsInfrastructureRole](Restart-AzsInfrastructureRole.md)
+{{Manually Enter Restart-AzsInfrastructureRole Description Here}}
 
 ### [Restart-AzsInfrastructureRoleInstance](Restart-AzsInfrastructureRoleInstance.md)
 Reboot an infrastructure role instance.  On failure an exception is thrown.
+
+### [Set-AzsIpPool](Set-AzsIpPool.md)
+{{Manually Enter Set-AzsIpPool Description Here}}
 
 ### [Start-AzsInfrastructureRoleInstance](Start-AzsInfrastructureRoleInstance.md)
 Power on an infrastructure role instance. On failure an exception is thrown.
@@ -94,4 +101,7 @@ Power off an infrastructure role instance. On failure an exception is thrown.
 
 ### [Stop-AzsScaleUnitNode](Stop-AzsScaleUnitNode.md)
 Power off a scale unit node.  This will turn off your physical machine and should be used with extreme caution.
+
+### [Submit-AzsScaleUnitNodeShutdown](Submit-AzsScaleUnitNodeShutdown.md)
+{{Manually Enter Submit-AzsScaleUnitNodeShutdown Description Here}}
 

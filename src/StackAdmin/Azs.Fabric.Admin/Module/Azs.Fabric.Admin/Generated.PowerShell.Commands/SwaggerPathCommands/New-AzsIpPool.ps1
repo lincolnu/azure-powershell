@@ -13,23 +13,11 @@ Licensed under the MIT License. See License.txt in the project root for license 
 .PARAMETER EndIpAddress
     The ending IP address.
 
-.PARAMETER NumberOfIpAddresses
-    The total number of IP addresses.
-
-.PARAMETER ResourceId
-    The resource id.
-
-.PARAMETER InputObject
-    The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.IpPool.
-
 .PARAMETER AddressPrefix
     The address prefix.
 
 .PARAMETER StartIpAddress
     The starting IP address.
-
-.PARAMETER NumberOfIpAddressesInTransition
-    The current number of IP addresses in transition.
 
 .PARAMETER Name
     IP pool name.
@@ -43,8 +31,11 @@ Licensed under the MIT License. See License.txt in the project root for license 
 .PARAMETER Location
     The region where the resource is located.
 
-.PARAMETER NumberOfAllocatedIpAddresses
-    The number of currently allocated IP addresses.
+.PARAMETER InputObject
+    The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.IpPool.
+
+.PARAMETER ResourceId
+    The resource id.
 
 #>
 function New-AzsIpPool
@@ -57,20 +48,12 @@ function New-AzsIpPool
         $EndIpAddress,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'IpPools_Create')]
-        [int64]
-        $NumberOfIpAddresses,
-
-        [Parameter(Mandatory = $false, ParameterSetName = 'IpPools_Create')]
         [string]
         $AddressPrefix,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'IpPools_Create')]
         [string]
         $StartIpAddress,
-
-        [Parameter(Mandatory = $false, ParameterSetName = 'IpPools_Create')]
-        [int64]
-        $NumberOfIpAddressesInTransition,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'IpPools_Create')]
         [System.Collections.Generic.Dictionary[[string], [string]]]
@@ -80,16 +63,12 @@ function New-AzsIpPool
         [string]
         $Location,
 
-        [Parameter(Mandatory = $false, ParameterSetName = 'IpPools_Create')]
-        [int64]
-        $NumberOfAllocatedIpAddresses,
-
         [Parameter(Mandatory = $true, ParameterSetName = 'IpPools_Create')]
         [System.String]
         $ResourceGroupName,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'IpPools_Create')]
-        [Aliais('IpPool')]
+        [Alias('IpPool')]
         [string]
         $Name,
 

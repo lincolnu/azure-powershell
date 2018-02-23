@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -14,12 +14,23 @@ Get infrastructure ip pools.
 
 ### IpPools_List (Default)
 ```
-Get-AzsIpPool [-Filter <String>] [-Skip <Int32>] -Location <String> [-Top <Int32>] [<CommonParameters>]
+Get-AzsIpPool [-Filter <String>] -ResourceGroupName <String> -Location <String> [-Top <Int32>] [-Skip <Int32>]
+ [<CommonParameters>]
 ```
 
 ### IpPools_Get
 ```
-Get-AzsIpPool -IpPool <String> -Location <String> [<CommonParameters>]
+Get-AzsIpPool -Name <String> -ResourceGroupName <String> -Location <String> [<CommonParameters>]
+```
+
+### ResourceId_IpPools_Get
+```
+Get-AzsIpPool -ResourceId <String> [<CommonParameters>]
+```
+
+### InputObject_IpPools_Get
+```
+Get-AzsIpPool -InputObject <IpPool> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +40,7 @@ Get infrastructure ip pools.
 
 ### Example 1
 ```
-PS C:\> Get-AzsIpPool -Location "redmond"
+PS C:\> Get-AzsIpPool -ResourceGroup "System.local" -Location "redmond"
 
 NumberOfIpAddressesInTransition StartIpAddress  Type                                           AddressPrefix NumberOfIpAddresses
 ------------------------------- --------------  ----                                           ------------- -------------------
@@ -45,7 +56,7 @@ Get a list of all infrastructure ip pools.
 
 ### Example 2
 ```
-PS C:\> Get-AzsIpPool -Location "redmond" -IpPool "08786a0f-ad8c-43aa-a154-06083abfc1ac"
+PS C:\> Get-AzsIpPool -ResourceGroup "System.local" -Location "redmond" -IpPool "08786a0f-ad8c-43aa-a154-06083abfc1ac"
 
 NumberOfIpAddressesInTransition StartIpAddress Type                                           AddressPrefix NumberOfIpAddresses
 ------------------------------- -------------- ----                                           ------------- -------------------
@@ -62,7 +73,7 @@ OData filter parameter.
 ```yaml
 Type: String
 Parameter Sets: IpPools_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -71,18 +82,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -IpPool
-Ip pool name.
-
-```yaml
-Type: String
-Parameter Sets: IpPools_Get
-Aliases: 
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.IpPool.```yaml
+Type: IpPool
+Parameter Sets: InputObject_IpPools_Get
+Aliases:
 
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -91,13 +100,52 @@ Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: IpPools_List, IpPools_Get
+Aliases:
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Name
+IP pool name.```yaml
+Type: String
+Parameter Sets: IpPools_Get
+Aliases: IpPool
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: IpPools_List, IpPools_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_IpPools_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -107,7 +155,7 @@ Skip the first N items as specified by the parameter value.
 ```yaml
 Type: Int32
 Parameter Sets: IpPools_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -123,7 +171,7 @@ Applies after the -Skip parameter.
 ```yaml
 Type: Int32
 Parameter Sets: IpPools_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

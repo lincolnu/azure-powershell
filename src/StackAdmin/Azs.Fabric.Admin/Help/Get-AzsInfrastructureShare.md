@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -12,14 +12,25 @@ Get file shares.
 
 ## SYNTAX
 
-### InfrastructureShares_List (Default)
+### FileShares_List (Default)
 ```
-Get-AzsInfrastructureShare [-Filter <String>] -Location <String> [<CommonParameters>]
+Get-AzsInfrastructureShare [-Filter <String>] -ResourceGroupName <String> -Location <String>
+ [<CommonParameters>]
 ```
 
-### InfrastructureShares_Get
+### FileShares_Get
 ```
-Get-AzsInfrastructureShare -Share <String> -Location <String> [<CommonParameters>]
+Get-AzsInfrastructureShare -ResourceGroupName <String> -Name <String> -Location <String> [<CommonParameters>]
+```
+
+### ResourceId_FileShares_Get
+```
+Get-AzsInfrastructureShare -ResourceId <String> [<CommonParameters>]
+```
+
+### InputObject_FileShares_Get
+```
+Get-AzsInfrastructureShare -InputObject <FileShare> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +40,7 @@ Get file shares.
 
 ### Example 1
 ```
-PS C:\> Get-AzsInfrastructureShare -Location local
+PS C:\> Get-AzsInfrastructureShare -ResourceGroup "System.local" -Location local
 
 Type                                              UncPath                                               Name                 Location AssociatedVolume
 ----                                              -------                                               ----                 -------- ----------------
@@ -45,7 +56,7 @@ Returns a list of all file shares.
 
 ### Example 2
 ```
-PS C:\> Get-AzsInfrastructureShare -Location local -Share Microsoft.AzureStack.Management.Fabric.Admin.Models.FileShare.Name
+PS C:\> Get-AzsInfrastructureShare -ResourceGroup "System.local" -Location local -Share Microsoft.AzureStack.Management.Fabric.Admin.Models.FileShare.Name
 
 Type                                              UncPath                                               Name                 Location AssociatedVolume
 ----                                              -------                                               ----                 -------- ----------------
@@ -61,8 +72,8 @@ OData filter parameter.
 
 ```yaml
 Type: String
-Parameter Sets: InfrastructureShares_List
-Aliases: 
+Parameter Sets: FileShares_List
+Aliases:
 
 Required: False
 Position: Named
@@ -71,13 +82,26 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.FileShare.```yaml
+Type: FileShare
+Parameter Sets: InputObject_FileShares_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -Location
 Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: FileShares_List, FileShares_Get
+Aliases:
 
 Required: True
 Position: Named
@@ -86,18 +110,42 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Share
-Infrastructure share name.
-
-```yaml
+### -Name
+Fabric file share name.```yaml
 Type: String
-Parameter Sets: InfrastructureShares_Get
-Aliases: 
+Parameter Sets: FileShares_Get
+Aliases: FileShare
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: FileShares_List, FileShares_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_FileShares_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

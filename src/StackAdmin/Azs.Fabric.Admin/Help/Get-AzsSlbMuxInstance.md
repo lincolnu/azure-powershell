@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -14,12 +14,23 @@ Get software load balanacer multiplexer instances at a certain location.
 
 ### SlbMuxInstances_List (Default)
 ```
-Get-AzsSlbMuxInstance [-Filter <String>] [-Skip <Int32>] -Location <String> [-Top <Int32>] [<CommonParameters>]
+Get-AzsSlbMuxInstance [-Filter <String>] [-Skip <Int32>] -ResourceGroupName <String> -Location <String>
+ [-Top <Int32>] [<CommonParameters>]
 ```
 
 ### SlbMuxInstances_Get
 ```
-Get-AzsSlbMuxInstance -SlbMuxInstance <String> -Location <String> [<CommonParameters>]
+Get-AzsSlbMuxInstance -ResourceGroupName <String> -Name <String> -Location <String> [<CommonParameters>]
+```
+
+### ResourceId_SlbMuxInstances_Get
+```
+Get-AzsSlbMuxInstance -ResourceId <String> [<CommonParameters>]
+```
+
+### InputObject_SlbMuxInstances_Get
+```
+Get-AzsSlbMuxInstance -InputObject <SlbMuxInstance> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +40,7 @@ Get software load balanacer multiplexer instances at a certain location.
 
 ### Example 1
 ```
-PS C:\> Get-AzsSlbMuxInstance -Location "local"
+PS C:\> Get-AzsSlbMuxInstance -ResourceGroup "System.local" -Location "local"
 
 BgpPeers                 ConfigurationState Type                                                   VirtualServer Name
 --------                 ------------------ ----                                                   ------------- ----
@@ -41,7 +52,7 @@ Get all software load balancer multiplexer instance at a location.
 
 ### Example 2
 ```
-PS C:\> Get-AzsSlbMuxInstance -Location "local" -SlbMuxInstance "AzS-SLB01"
+PS C:\> Get-AzsSlbMuxInstance -ResourceGroup "System.local" -Location "local" -SlbMuxInstance "AzS-SLB01"
 
 BgpPeers                 ConfigurationState Type                                                   VirtualServer Name
 --------                 ------------------ ----                                                   ------------- ----
@@ -58,7 +69,7 @@ OData filter parameter.
 ```yaml
 Type: String
 Parameter Sets: SlbMuxInstances_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -67,18 +78,70 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.SlbMuxInstance.```yaml
+Type: SlbMuxInstance
+Parameter Sets: InputObject_SlbMuxInstances_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -Location
 Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: SlbMuxInstances_List, SlbMuxInstances_Get
+Aliases:
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Name
+Name of a SLB MUX instance.```yaml
+Type: String
+Parameter Sets: SlbMuxInstances_Get
+Aliases: SlbMuxInstance
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: SlbMuxInstances_List, SlbMuxInstances_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_SlbMuxInstances_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -88,26 +151,11 @@ Skip the first N items as specified by the parameter value.
 ```yaml
 Type: Int32
 Parameter Sets: SlbMuxInstances_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
 Default value: -1
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -SlbMuxInstance
-Name of a SLB Mux instance.
-
-```yaml
-Type: String
-Parameter Sets: SlbMuxInstances_Get
-Aliases: 
-
-Required: True
-Position: Named
-Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -119,7 +167,7 @@ Applies after the -Skip parameter.
 ```yaml
 Type: Int32
 Parameter Sets: SlbMuxInstances_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

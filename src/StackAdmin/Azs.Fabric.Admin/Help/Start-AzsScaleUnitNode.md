@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -13,7 +13,8 @@ Power on a scale unit node.
 ## SYNTAX
 
 ```
-Start-AzsScaleUnitNode -ScaleUnitNode <String> -Location <String> [-AsJob] [<CommonParameters>]
+Start-AzsScaleUnitNode -ScaleUnitNode <String> -ResourceGroupName <String> -Location <String> [-AsJob]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +24,7 @@ Power on a scale unit node.
 
 ### Example 1
 ```
-PS C:\> Start-AzsScaleUnitNode -Location "local" -InfrastructureRoleInstance "AzS-ACS01"
+PS C:\> Start-AzsScaleUnitNode -ResourceGroup "System.local" -Location "local" -InfrastructureRoleInstance "AzS-ACS01"
 
 ProvisioningState
 -----------------
@@ -40,7 +41,7 @@ Runs as job.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -55,7 +56,20 @@ Location of the resource.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
 Required: True
 Position: Named
@@ -70,7 +84,7 @@ Name of the scale unit node.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named

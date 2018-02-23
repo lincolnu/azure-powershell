@@ -1,7 +1,7 @@
 ---
 external help file: Azs.Fabric.Admin-help.xml
 Module Name: Azs.Fabric.Admin
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -14,12 +14,23 @@ Get scale units.
 
 ### ScaleUnits_List (Default)
 ```
-Get-AzsScaleUnit [-Filter <String>] [-Skip <Int32>] -Location <String> [-Top <Int32>] [<CommonParameters>]
+Get-AzsScaleUnit [-Filter <String>] [-Skip <Int32>] -ResourceGroupName <String> -Location <String>
+ [-Top <Int32>] [<CommonParameters>]
+```
+
+### ResourceId_ScaleUnits_Get
+```
+Get-AzsScaleUnit -ResourceId <String> [<CommonParameters>]
 ```
 
 ### ScaleUnits_Get
 ```
-Get-AzsScaleUnit -ScaleUnit <String> -Location <String> [<CommonParameters>]
+Get-AzsScaleUnit -ResourceGroupName <String> -Name <String> -Location <String> [<CommonParameters>]
+```
+
+### InputObject_ScaleUnits_Get
+```
+Get-AzsScaleUnit -InputObject <ScaleUnit> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +40,7 @@ Get scale units.
 
 ### Example 1
 ```
-PS C:\> Get-AzsScaleUnit -Location "local"
+PS C:\> Get-AzsScaleUnit -ResourceGroup "System.local" -Location "local"
 
 ScaleUnitType  Type                                              State   Name      Nodes
 -------------  ----                                              -----   ----      -----
@@ -42,7 +53,7 @@ Return a list of information about scale units.
 
 ### Example 2
 ```
-PS C:\> Get-AzsScaleUnit -Location "local" -ScaleUnit "S-Cluster"
+PS C:\> Get-AzsScaleUnit -ResourceGroup "System.local" -Location "local" -ScaleUnit "S-Cluster"
 
 ScaleUnitType  Type                                              State   Name      Nodes
 -------------  ----                                              -----   ----      -----
@@ -59,7 +70,7 @@ OData filter parameter.
 ```yaml
 Type: String
 Parameter Sets: ScaleUnits_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -68,13 +79,26 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -InputObject
+The input object of type Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleUnit.```yaml
+Type: ScaleUnit
+Parameter Sets: InputObject_ScaleUnits_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -Location
 Location of the resource.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
+Parameter Sets: ScaleUnits_List, ScaleUnits_Get
+Aliases:
 
 Required: True
 Position: Named
@@ -83,18 +107,42 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ScaleUnit
-Name of the scale units.
-
-```yaml
+### -Name
+Name of the scale units.```yaml
 Type: String
 Parameter Sets: ScaleUnits_Get
-Aliases: 
+Aliases: ScaleUnit
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of the resource group.```yaml
+Type: String
+Parameter Sets: ScaleUnits_List, ScaleUnits_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The resource id.```yaml
+Type: String
+Parameter Sets: ResourceId_ScaleUnits_Get
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -104,7 +152,7 @@ Skip the first N items as specified by the parameter value.
 ```yaml
 Type: Int32
 Parameter Sets: ScaleUnits_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -120,7 +168,7 @@ Applies after the -Skip parameter.
 ```yaml
 Type: Int32
 Parameter Sets: ScaleUnits_List
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

@@ -2,7 +2,7 @@
 $rpName = "fabric"
 $name = "Fabric"
 $location = Get-Location
-$psswagger = "C:\work\PSSwagger"
+$psswagger = "D:\ghrepos\PSSwagger"
 $module = "TestModule"
 $namespace = "Microsoft.AzureStack.Management.$Name.Admin"
 $assembly = "$namespace.dll"
@@ -16,8 +16,8 @@ $client = "$namespace.$($name)AdminClient"
     -ModuleDirectory $module `
     -AzureStack `
     -PSSwaggerLocation $psswagger `
-    -GithubAccount deathly809 `
-    -GithubBranch azs.$rpname.admin `
+    -GithubAccount lincolnu `
+    -GithubBranch origin/users/lincolnu/addnodeandscaleunit `
     -PredefinedAssemblies $assembly `
     -Name $name `
     -ClientTypeName $client `

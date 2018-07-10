@@ -3820,6 +3820,73 @@
         ]
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/System.{location}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/scaleUnits/{scaleUnit}/CreateFromJson": {
+      "post": {
+        "x-ms-examples": {
+          "Scale out a scale unit": {
+            "parameters": {
+              "api-version": "2016-05-01",
+              "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
+              "location": "local",
+              "scaleUnit": "S-Cluster",
+              "nodeList": {
+                "nodes": [
+                  {
+                    "bmcIPv4Address": "10.10.1.1",
+                    "computerName": "NODE01"
+                  }
+                ]
+              }
+            },
+            "responses": {
+              "200": {
+                "body": {}
+              }
+            }
+          }
+        },
+        "tags": [
+          "ScaleUnits"
+        ],
+        "description": "Create a scale unit.",
+        "operationId": "ScaleUnits_Create",
+        "parameters": [
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/LocationParameter"
+          },
+          {
+            "$ref": "#/parameters/ScaleUnitParameter"
+          },
+          {
+            "$ref": "#/parameters/CreateFromJsonParametersInBody"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "202": {
+            "description": "ACCEPTED"
+          },
+          "500": {
+            "description": "FAILURE"
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/scaleUnitNodes/{scaleUnitNode}/Shutdown": {
       "post": {
         "x-ms-examples": {
@@ -4532,7 +4599,7 @@
       }
     },
     "Display": {
-      "description": "Contains the localized display information for this particular operation / action..",
+      "description": "Contains the localized display information for this particular operation / action.",
       "properties": {
         "provider": {
           "description": "The localized friendly form of the resource provider name – it is expected to also include the publisher/company responsible. It should use Title Casing and begin with \"Microsoft\" for 1st party services. e.g. \"Microsoft Monitoring Insights\" or \"Microsoft Compute.\".",
@@ -5459,6 +5526,78 @@
         }
       }
     },
+    "CreateFromJsonParameters": {
+      "description": "Parameters that fully define a new cluster to be created.",
+      "type": "object",
+      "properties": {
+        "TORSwitchBGPASN": {
+          "description": "TOR switch ASN.",
+          "type": "string"
+        },
+        "SoftwareBGPASN": {
+          "description": "Software ASN.",
+          "type": "string"
+        },
+        "TORSwitchBGPPeerIP": {
+          "description": "TOR switch IP.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "InfrastructureNetwork": {
+          "$ref": "#/definitions/CreateScaleUnitFromJsonNetworkDefinition"
+        },
+        "StorageNetwork": {
+          "$ref": "#/definitions/CreateScaleUnitFromJsonNetworkDefinition"
+        },
+        "physicalNodes": {
+          "description": "The list of nodes.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CreateScaleUnitFromJsonNodeParameters"
+          }
+        },
+        "NetQosPriority": {
+          "description": "QoS policy.",
+          "type": "integer"
+        }
+      }
+    },
+    "CreateScaleUnitFromJsonNodeParameters": {
+      "description": "Input data that allows for adding a scale unit node.",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Computer name of the physical machine.",
+          "type": "string"
+        },
+        "BMCIPAddress": {
+          "description": "Bmc address of the physical machine.",
+          "type": "string"
+        }
+      }
+    },
+    "CreateScaleUnitFromJsonNetworkDefinition": {
+      "description": "Input data that allows for adding a scale unit node.",
+      "type": "object",
+      "properties": {
+        "Subnet": {
+          "description": "Top level storage IP subnet.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "VlanId": {
+          "description": "Top level storage IP subnet Vlan Id.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "BareMetalNodeDescription": {
       "description": "Description of a bare metal node used for ScaleOut operation on a cluster.",
       "type": "object",
@@ -5833,6 +5972,16 @@
       "required": true,
       "schema": {
         "$ref": "#/definitions/ScaleOutScaleUnitParametersList"
+      },
+      "x-ms-parameter-location": "method"
+    },
+    "CreateFromJsonParametersInBody": {
+      "name": "inputJson",
+      "description": "The json content expected to describe a new cluster.",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/CreateFromJsonParameters"
       },
       "x-ms-parameter-location": "method"
     },

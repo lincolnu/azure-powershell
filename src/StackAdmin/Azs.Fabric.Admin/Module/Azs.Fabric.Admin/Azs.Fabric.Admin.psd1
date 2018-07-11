@@ -17,7 +17,7 @@ Licensed under the MIT License. See License.txt in the project root for license 
     RootModule        = 'Azs.Fabric.Admin.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '0.1.1'
+    ModuleVersion     = '0.2.0'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -88,11 +88,7 @@ Licensed under the MIT License. See License.txt in the project root for license 
     'Start-AzsScaleUnitNode', 'Get-AzsInfrastructureRoleInstance',
     'Repair-AzsScaleUnitNode', 'Stop-AzsInfrastructureRoleInstance',
     'Stop-AzsScaleUnitNode', 'Add-AzsScaleUnitNode',
-    'New-AzsBareMetalNodeDescriptionObject',
-    'New-AzsCreateFromJsonParametersObject'
-    'New-AzsCreateScaleUnitFromJsonNetworkDefinitionObject',
-    'New-AzsCreateScaleUnitFromJsonNodeParametersObject',
-    'New-AzsScaleUnit',
+    'New-AzsScaleUnit'
 
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

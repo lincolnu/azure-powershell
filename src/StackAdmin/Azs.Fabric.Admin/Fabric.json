@@ -3861,7 +3861,7 @@
             "$ref": "#/parameters/ScaleUnitParameter"
           },
           {
-            "$ref": "#/parameters/CreateFromJsonParametersInBody"
+            "$ref": "#/parameters/CreateScaleUnitParametersInBody"
           },
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -3873,9 +3873,6 @@
           },
           "202": {
             "description": "ACCEPTED"
-          },
-          "500": {
-            "description": "FAILURE"
           }
         },
         "x-ms-long-running-operation": true,
@@ -5526,7 +5523,7 @@
         }
       }
     },
-    "CreateFromJsonParameters": {
+    "CreateScaleUnitParameters": {
       "description": "Parameters that fully define a new cluster to be created.",
       "type": "object",
       "properties": {
@@ -5546,16 +5543,16 @@
           }
         },
         "InfrastructureNetwork": {
-          "$ref": "#/definitions/CreateScaleUnitFromJsonNetworkDefinition"
+          "$ref": "#/definitions/ScaleUnitNetworkDefinition"
         },
         "StorageNetwork": {
-          "$ref": "#/definitions/CreateScaleUnitFromJsonNetworkDefinition"
+          "$ref": "#/definitions/ScaleUnitNetworkDefinition"
         },
         "physicalNodes": {
           "description": "The list of nodes.",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/CreateScaleUnitFromJsonNodeParameters"
+            "$ref": "#/definitions/ScaleUnitNodeParameters"
           }
         },
         "NetQosPriority": {
@@ -5564,7 +5561,7 @@
         }
       }
     },
-    "CreateScaleUnitFromJsonNodeParameters": {
+    "ScaleUnitNodeParameters": {
       "description": "Input data that allows for adding a scale unit node.",
       "type": "object",
       "properties": {
@@ -5578,7 +5575,7 @@
         }
       }
     },
-    "CreateScaleUnitFromJsonNetworkDefinition": {
+    "ScaleUnitNetworkDefinition": {
       "description": "Input data that allows for adding a scale unit node.",
       "type": "object",
       "properties": {
@@ -5975,13 +5972,13 @@
       },
       "x-ms-parameter-location": "method"
     },
-    "CreateFromJsonParametersInBody": {
-      "name": "inputJson",
+    "CreateScaleUnitParametersInBody": {
+      "name": "inputScaleUnitData",
       "description": "The json content expected to describe a new cluster.",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/CreateFromJsonParameters"
+        "$ref": "#/definitions/CreateScaleUnitParameters"
       },
       "x-ms-parameter-location": "method"
     },

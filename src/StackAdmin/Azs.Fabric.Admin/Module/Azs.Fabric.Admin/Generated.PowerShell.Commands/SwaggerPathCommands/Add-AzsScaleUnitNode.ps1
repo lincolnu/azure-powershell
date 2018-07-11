@@ -37,7 +37,8 @@ function Add-AzsScaleUnitNode {
         [Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleOutScaleUnitParameters[]]
         $NodeList,
     
-        [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnits_ScaleOut')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'ScaleUnits_ScaleOut')]
+        [ValidateLength(1, 90)]
         [System.String]
         $ResourceGroupName,
     
@@ -45,7 +46,7 @@ function Add-AzsScaleUnitNode {
         [System.String]
         $ScaleUnit,
     
-        [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnits_ScaleOut')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'ScaleUnits_ScaleOut')]
         [System.String]
         $Location,
 
@@ -66,8 +67,6 @@ function Add-AzsScaleUnitNode {
     }
 
     Process {
-    
-        $ErrorActionPreference = 'Stop'
 
         $NewServiceClient_params = @{
             FullClientTypeName = 'Microsoft.AzureStack.Management.Fabric.Admin.FabricAdminClient'
@@ -83,7 +82,6 @@ function Add-AzsScaleUnitNode {
 
         $FabricAdminClient = New-ServiceClient @NewServiceClient_params
 
-        
         $flattenedParameters = @('NodeList', 'AwaitStorageConvergence')
         $utilityCmdParams = @{}
         $flattenedParameters | ForEach-Object {
@@ -93,7 +91,12 @@ function Add-AzsScaleUnitNode {
         }
         $NodeList = New-ScaleOutScaleUnitParametersListObject @utilityCmdParams
 
-
+        if ([System.String]::IsNullOrEmpty($Location)) {
+            $Location = (Get-AzureRMLocation).Location
+        }
+        if ([System.String]::IsNullOrEmpty($ResourceGroupName)) {
+            $ResourceGroupName = "System.$Location"
+        }
 
         if ('ScaleUnits_ScaleOut' -eq $PsCmdlet.ParameterSetName) {
             Write-Verbose -Message 'Performing operation ScaleOutWithHttpMessagesAsync on $FabricAdminClient.'

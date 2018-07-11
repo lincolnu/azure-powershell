@@ -10,25 +10,25 @@ Licensed under the MIT License. See License.txt in the project root for license 
 .DESCRIPTION
     Input data that allows for adding a scale unit node.
 
-.PARAMETER VlanId
-    Top level storage IP subnet Vlan Id.
+.PARAMETER Name
+    Computer name of the physical machine.
 
-.PARAMETER Subnet
-    Top level storage IP subnet.
+.PARAMETER BMCIPAddress
+    Bmc address of the physical machine.
 
 #>
-function New-CreateScaleUnitFromJsonNetworkDefinitionObject {
+function New-ScaleUnitNodeParametersObject {
     param(    
         [Parameter(Mandatory = $false)]
-        [string[]]
-        $VlanId,
+        [string]
+        $Name,
     
         [Parameter(Mandatory = $false)]
-        [string[]]
-        $Subnet
+        [string]
+        $BMCIPAddress
     )
     
-    $Object = New-Object -TypeName Microsoft.AzureStack.Management.Fabric.Admin.Models.CreateScaleUnitFromJsonNetworkDefinition -ArgumentList @($subnet, $vlanId)
+    $Object = New-Object -TypeName Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleUnitNodeParameters -ArgumentList @($name, $bMCIPAddress)
 
     if (Get-Member -InputObject $Object -Name Validate -MemberType Method) {
         $Object.Validate()

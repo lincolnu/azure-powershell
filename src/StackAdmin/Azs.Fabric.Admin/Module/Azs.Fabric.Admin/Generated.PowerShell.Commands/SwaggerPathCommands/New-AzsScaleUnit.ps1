@@ -13,25 +13,84 @@ Licensed under the MIT License. See License.txt in the project root for license 
 .PARAMETER ScaleUnit
     Name of the scale units.
 
-.PARAMETER InputJson
-    The json content expected to describe a new cluster.
-
 .PARAMETER Location
     Location of the resource.
 
+.PARAMETER InputScaleUnitData
+    The json content expected to describe a new cluster.
+
+.PARAMETER PhysicalNodes
+    The list of nodes.
+
+.PARAMETER NetQosPriority
+    QoS policy.
+
+.PARAMETER TORSwitchBGPASN
+    TOR switch ASN.
+
+.PARAMETER TORSwitchBGPPeerIP
+    TOR switch IP.
+
+.PARAMETER InfrastructureNetworkVlanId
+    Top level infrastructure IP subnet Vlan Id.
+
+.PARAMETER InfrastructureNetworkSubnet
+    Top level infrastructure IP subnet.
+
+.PARAMETER SoftwareBGPASN
+    Software ASN.
+
+.PARAMETER StorageNetworkVlanId
+    Top level storage IP subnet Vlan Id.
+
+.PARAMETER StorageNetworkSubnet
+    Top level storage IP subnet.
+
 #>
-function New-ScaleUnit {
+function New-AzsScaleUnit {
     [CmdletBinding(DefaultParameterSetName = 'ScaleUnits_Create')]
-    param(    
+    param(
         [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnits_Create')]
         [System.String]
         $ScaleUnit,
-    
-        [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnits_Create')]
-        [Microsoft.AzureStack.Management.Fabric.Admin.Models.CreateFromJsonParameters]
-        $InputJson,
-    
-        [Parameter(Mandatory = $true, ParameterSetName = 'ScaleUnits_Create')]
+
+        [Parameter(Mandatory = $false)]
+        [Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleUnitNodeParameters[]]
+        $PhysicalNodes,
+
+        [Parameter(Mandatory = $false)]
+        [System.Nullable`1[long]]
+        $NetQosPriority,
+
+        [Parameter(Mandatory = $false)]
+        [string]
+        $TORSwitchBGPASN,
+
+        [Parameter(Mandatory = $false)]
+        [string[]]
+        $TORSwitchBGPPeerIP,
+
+        [Parameter(Mandatory = $false)]
+        [string[]]
+        $InfrastructureNetworkVlanId,
+
+        [Parameter(Mandatory = $false)]
+        [string[]]
+        $InfrastructureNetworkSubnet
+
+        [Parameter(Mandatory = $false)]
+        [string]
+        $SoftwareBGPASN,
+
+        [Parameter(Mandatory = $false)]
+        [string[]]
+        $StorageNetworkVlanId,
+
+        [Parameter(Mandatory = $false)]
+        [string[]]
+        $StorageNetworkSubnet
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'ScaleUnits_Create')]
         [System.String]
         $Location,
 
@@ -52,8 +111,11 @@ function New-ScaleUnit {
     }
 
     Process {
-    
-        $ErrorActionPreference = 'Stop'
+
+        $InfrastructureNetwork = New-ScaleUnitNetworkDefinitionObject -VlanId $InfrastructureNetworkVlanId -Subnet $InfrastructureNetworkSubnet
+        $StorageNetwork = New-ScaleUnitNetworkDefinitionObject -VlanId $StorageNetworkVlanId -Subnet $StorageNetworkSubnet
+
+        $InputScaleUnitData = New-CreateScaleUnitParametersObject -PhysicalNodes $PhysicalNodes -NetQosPriority $NetQosPriority -TORSwitchBGPASN $TORSwitchBGPASN -TORSwitchBGPPeerIP $TORSwitchBGPPeerIP -InfrastructureNetwork $InfrastructureNetwork -StorageNetwork $StorageNetwork 
 
         $NewServiceClient_params = @{
             FullClientTypeName = 'Microsoft.AzureStack.Management.Fabric.Admin.FabricAdminClient'
@@ -69,10 +131,13 @@ function New-ScaleUnit {
 
         $FabricAdminClient = New-ServiceClient @NewServiceClient_params
 
+        if ([System.String]::IsNullOrEmpty($Location)) {
+            $Location = (Get-AzureRMLocation).Location
+        }
 
         if ('ScaleUnits_Create' -eq $PsCmdlet.ParameterSetName) {
             Write-Verbose -Message 'Performing operation CreateWithHttpMessagesAsync on $FabricAdminClient.'
-            $TaskResult = $FabricAdminClient.ScaleUnits.CreateWithHttpMessagesAsync($Location, $ScaleUnit, $InputJson)
+            $TaskResult = $FabricAdminClient.ScaleUnits.CreateWithHttpMessagesAsync($Location, $ScaleUnit, $InputScaleUnitData)
         }
         else {
             Write-Verbose -Message 'Failed to map parameter set to operation method.'
@@ -83,7 +148,7 @@ function New-ScaleUnit {
 
         $PSSwaggerJobScriptBlock = {
             [CmdletBinding()]
-            param(    
+            param(
                 [Parameter(Mandatory = $true)]
                 [System.Threading.Tasks.Task]
                 $TaskResult,

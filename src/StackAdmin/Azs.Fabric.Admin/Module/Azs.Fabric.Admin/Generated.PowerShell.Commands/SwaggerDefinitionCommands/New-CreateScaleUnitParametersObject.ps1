@@ -32,10 +32,10 @@ Licensed under the MIT License. See License.txt in the project root for license 
     
 
 #>
-function New-CreateFromJsonParametersObject {
+function New-CreateScaleUnitParametersObject {
     param(    
         [Parameter(Mandatory = $false)]
-        [Microsoft.AzureStack.Management.Fabric.Admin.Models.CreateScaleUnitFromJsonNodeParameters[]]
+        [Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleUnitNodeParameters[]]
         $PhysicalNodes,
     
         [Parameter(Mandatory = $false)]
@@ -51,7 +51,7 @@ function New-CreateFromJsonParametersObject {
         $TORSwitchBGPPeerIP,
     
         [Parameter(Mandatory = $false)]
-        [Microsoft.AzureStack.Management.Fabric.Admin.Models.CreateScaleUnitFromJsonNetworkDefinition]
+        [Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleUnitNetworkDefinition]
         $InfrastructureNetwork,
     
         [Parameter(Mandatory = $false)]
@@ -59,11 +59,11 @@ function New-CreateFromJsonParametersObject {
         $SoftwareBGPASN,
     
         [Parameter(Mandatory = $false)]
-        [Microsoft.AzureStack.Management.Fabric.Admin.Models.CreateScaleUnitFromJsonNetworkDefinition]
+        [Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleUnitNetworkDefinition]
         $StorageNetwork
     )
     
-    $Object = New-Object -TypeName Microsoft.AzureStack.Management.Fabric.Admin.Models.CreateFromJsonParameters -ArgumentList @($tORSwitchBGPASN, $softwareBGPASN, $tORSwitchBGPPeerIP, $infrastructureNetwork, $storageNetwork, $physicalNodes, $netQosPriority)
+    $Object = New-Object -TypeName Microsoft.AzureStack.Management.Fabric.Admin.Models.CreateScaleUnitParameters -ArgumentList @($tORSwitchBGPASN, $softwareBGPASN, $tORSwitchBGPPeerIP, $infrastructureNetwork, $storageNetwork, $physicalNodes, $netQosPriority)
 
     if (Get-Member -InputObject $Object -Name Validate -MemberType Method) {
         $Object.Validate()

@@ -54,41 +54,41 @@ function New-AzsScaleUnit {
         [System.String]
         $ScaleUnit,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [Microsoft.AzureStack.Management.Fabric.Admin.Models.ScaleUnitNodeParameters[]]
         $PhysicalNodes,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [System.Nullable`1[long]]
         $NetQosPriority,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [string]
         $TORSwitchBGPASN,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [string[]]
         $TORSwitchBGPPeerIP,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [string[]]
         $InfrastructureNetworkVlanId,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [string[]]
-        $InfrastructureNetworkSubnet
+        $InfrastructureNetworkSubnet,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [string]
         $SoftwareBGPASN,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [string[]]
         $StorageNetworkVlanId,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [string[]]
-        $StorageNetworkSubnet
+        $StorageNetworkSubnet,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'ScaleUnits_Create')]
         [System.String]

@@ -17,7 +17,7 @@ Licensed under the MIT License. See License.txt in the project root for license 
     Bmc address of the physical machine.
 
 #>
-function New-ScaleUnitNodeParametersObject {
+function New-AzsScaleUnitNodeParametersObject {
     param(    
         [Parameter(Mandatory = $false)]
         [string]

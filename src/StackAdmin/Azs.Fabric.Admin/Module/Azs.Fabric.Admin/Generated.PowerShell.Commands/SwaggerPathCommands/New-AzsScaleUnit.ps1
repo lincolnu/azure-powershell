@@ -115,7 +115,7 @@ function New-AzsScaleUnit {
         $InfrastructureNetwork = New-ScaleUnitNetworkDefinitionObject -VlanId $InfrastructureNetworkVlanId -Subnet $InfrastructureNetworkSubnet
         $StorageNetwork = New-ScaleUnitNetworkDefinitionObject -VlanId $StorageNetworkVlanId -Subnet $StorageNetworkSubnet
 
-        $InputScaleUnitData = New-CreateScaleUnitParametersObject -PhysicalNodes $PhysicalNodes -NetQosPriority $NetQosPriority -TORSwitchBGPASN $TORSwitchBGPASN -TORSwitchBGPPeerIP $TORSwitchBGPPeerIP -InfrastructureNetwork $InfrastructureNetwork -StorageNetwork $StorageNetwork 
+        $InputScaleUnitData = New-CreateScaleUnitParametersObject -PhysicalNodes $PhysicalNodes -NetQosPriority $NetQosPriority -SoftwareBGPASN $SoftwareBGPASN -TORSwitchBGPASN $TORSwitchBGPASN -TORSwitchBGPPeerIP $TORSwitchBGPPeerIP -InfrastructureNetwork $InfrastructureNetwork -StorageNetwork $StorageNetwork 
 
         $NewServiceClient_params = @{
             FullClientTypeName = 'Microsoft.AzureStack.Management.Fabric.Admin.FabricAdminClient'

@@ -4546,6 +4546,62 @@
           "application/json"
         ]
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/System.{location}/providers/Microsoft.Fabric.Admin/fabricLocations/{location}/alerts/{alertId}/remediate": {
+      "post": {
+        "x-ms-examples": {
+          "Remediate an alert": {
+            "parameters": {
+              "api-version": "2016-05-01",
+              "subscriptionId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23",
+              "resourceGroupName": "System.local",
+              "location": "local",
+              "alertId": "20ff7fc3-e762-44dd-bd96-b71116dcdc23"
+            },
+            "responses": {
+              "200": {},
+              "202": {}
+            }
+          }
+        },
+        "tags": [
+          "Alerts"
+        ],
+        "description": "Remediate an alert.",
+        "operationId": "Alerts_Fix",
+        "parameters": [
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/LocationParameter"
+          },
+          {
+            "$ref": "#/parameters/AlertIdParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "202": {
+            "description": "ACCEPTED"
+          },
+          "500": {
+            "description": "FAILED"
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
     }
   },
   "definitions": {
@@ -6003,6 +6059,14 @@
     "SLBMuxInstanceParameter": {
       "name": "slbMuxInstance",
       "description": "Name of a SLB MUX instance.",
+      "in": "path",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method"
+    },
+    "AlertIdParameter": {
+      "name": "alertId",
+      "description": "Id of the alert.",
       "in": "path",
       "required": true,
       "type": "string",

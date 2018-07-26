@@ -86,7 +86,8 @@ Licensed under the MIT License. See License.txt in the project root for license 
     'Get-AzsEdgeGateway', 'Get-AzsInfrastructureLocation',
     'Get-AzsStoragePool', 'Suspend-AzsInfrastructureRoleInstance',
     'Start-AzsScaleUnitNode', 'Get-AzsInfrastructureRoleInstance',
-    'Repair-AzsScaleUnitNode', 'Stop-AzsInfrastructureRoleInstance',
+    'Repair-AzsScaleUnitNode', 'Fix-Alert',
+    'Stop-AzsInfrastructureRoleInstance',
     'Stop-AzsScaleUnitNode', 'Add-AzsScaleUnitNode',
     'New-AzsScaleUnit', 'New-AzsScaleUnitNodeParametersObject'
 

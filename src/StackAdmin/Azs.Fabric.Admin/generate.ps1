@@ -17,7 +17,7 @@ $client = "$namespace.$($name)AdminClient"
     -AzureStack `
     -PSSwaggerLocation $psswagger `
     -GithubAccount lincolnu `
-    -GithubBranch origin/users/lincolnu/addnodeandscaleunit `
+    -GithubBranch users/lincolnu/addnodeandscaleunit `
     -PredefinedAssemblies $assembly `
     -Name $name `
     -ClientTypeName $client `

@@ -89,7 +89,7 @@ function Add-AzsScaleUnitNode {
                 $utilityCmdParams[$_] = $PSBoundParameters[$_]
             }
         }
-        $NodeList = New-ScaleOutScaleUnitParametersListObject @utilityCmdParams
+        $NodeListObject = New-ScaleOutScaleUnitParametersListObject @utilityCmdParams
 
         if ([System.String]::IsNullOrEmpty($Location)) {
             $Location = (Get-AzureRMLocation).Location
@@ -100,7 +100,7 @@ function Add-AzsScaleUnitNode {
 
         if ('ScaleUnits_ScaleOut' -eq $PsCmdlet.ParameterSetName) {
             Write-Verbose -Message 'Performing operation ScaleOutWithHttpMessagesAsync on $FabricAdminClient.'
-            $TaskResult = $FabricAdminClient.ScaleUnits.ScaleOutWithHttpMessagesAsync($ResourceGroupName, $Location, $ScaleUnit, $NodeList)
+            $TaskResult = $FabricAdminClient.ScaleUnits.ScaleOutWithHttpMessagesAsync($ResourceGroupName, $Location, $ScaleUnit, $NodeListObject)
         }
         else {
             Write-Verbose -Message 'Failed to map parameter set to operation method.'
